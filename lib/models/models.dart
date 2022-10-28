@@ -1,0 +1,9 @@
+export 'package:trabajo_flutter/models/activate.dart';
+export 'package:trabajo_flutter/models/companies.dart';
+export 'package:trabajo_flutter/models/deactivate.dart';
+export 'package:trabajo_flutter/models/deleted.dart';
+export 'package:trabajo_flutter/models/login.dart';
+export 'package:trabajo_flutter/models/register.dart';
+export 'package:trabajo_flutter/models/updated.dart';
+export 'package:trabajo_flutter/models/user.dart';
+export 'package:trabajo_flutter/models/users.dart';
