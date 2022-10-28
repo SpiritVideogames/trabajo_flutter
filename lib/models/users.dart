@@ -1,4 +1,4 @@
-// To parse this JSON data, do
+// To parse this JSON datum2, do
 //
 //     final users = usersFromMap(jsonString);
 
@@ -7,19 +7,19 @@ import 'dart:convert';
 class Users {
   Users({
     required this.success,
-    required this.data,
+    required this.datum2,
     required this.message,
   });
 
   bool success;
-  List<Datum2> data;
+  List<Datum2> datum2;
   String message;
 
   factory Users.fromJson(String str) => Users.fromMap(json.decode(str));
 
   factory Users.fromMap(Map<String, dynamic> json) => Users(
         success: json["success"],
-        data: List<Datum2>.from(json["data"].map((x) => Datum2.fromMap(x))),
+        datum2: List<Datum2>.from(json["datum2"].map((x) => Datum2.fromMap(x))),
         message: json["message"],
       );
 }

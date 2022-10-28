@@ -1,4 +1,4 @@
-// To parse required this JSON data, do
+// To parse required this JSON datum, do
 //
 //     final companies = companiesFromMap(jsonString);
 
@@ -7,19 +7,19 @@ import 'dart:convert';
 class Companies {
   Companies({
     required this.success,
-    required this.data,
+    required this.datum,
     required this.message,
   });
 
   bool success;
-  List<Datum> data;
+  List<Datum> datum;
   String message;
 
   factory Companies.fromJson(String str) => Companies.fromMap(json.decode(str));
 
   factory Companies.fromMap(Map<String, dynamic> json) => Companies(
         success: json["success"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromMap(x))),
+        datum: List<Datum>.from(json["datum"].map((x) => Datum.fromMap(x))),
         message: json["message"],
       );
 }
