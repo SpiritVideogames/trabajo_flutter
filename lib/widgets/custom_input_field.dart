@@ -10,6 +10,7 @@ class CustomInputField extends StatelessWidget {
     return SizedBox(
       width: 250,
       child: TextFormField(
+        controller: TextEditingController(),
         textAlign: TextAlign.start,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),

@@ -8,6 +8,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
+    String email;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
@@ -25,7 +26,7 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 100),
-                CustomInputField(key, 'Username'),
+                CustomInputField(key, 'Email'),
                 const SizedBox(height: 20),
                 CustomInputField(key, 'Password'),
                 const SizedBox(height: 20),
@@ -34,13 +35,13 @@ class LoginScreen extends StatelessWidget {
                     FocusScope.of(context).requestFocus(FocusNode());
 
                     if (!myFormKey.currentState!.validate()) {
-                      print('Incorrect Field');
+                      const Text('Incorrect Field');
                       return;
                     }
-
+                    email = TextEditingController().text;
+                    Text(email);
                     //Navigator(),
                   },
-                  style: const ButtonStyle(),
                   child: const Text('Submit'),
                 ),
               ],
