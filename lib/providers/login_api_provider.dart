@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:trabajo_flutter/models/models.dart';
 
 class LoginApiProvider extends ChangeNotifier {
-  final String _baseUrl = 'http://semillero.allsites.es/public/api';
+  final String _baseUrl = 'semillero.allsites.es';
 
   postRegister(String firstname, String secondname, String email,
       String password, String c_password, int id_company) async {
@@ -26,8 +26,8 @@ class LoginApiProvider extends ChangeNotifier {
   }
 
   postLogin(String email, String password) async {
-    final url =
-        Uri.https(_baseUrl, '/login', {'email': email, 'password': password});
+    final url = Uri.http(
+        _baseUrl, '/public/api/login', {'email': email, 'password': password});
 
     final response = await http.get(url);
     final login = Login.fromJson(response.body);

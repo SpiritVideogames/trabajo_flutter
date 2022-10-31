@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../providers/login_api_provider.dart';
 import '../widgets/custom_input_field.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -8,8 +9,10 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
-    String email;
+    String email = 'raul@gmail.com';
+    String password = '123456';
     return Scaffold(
+      backgroundColor: Colors.orange[200],
       appBar: AppBar(
         title: const Text('Login'),
         elevation: 0,
@@ -26,23 +29,32 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 100),
-                CustomInputField(key, 'Email'),
+                CustomInputField(key, 'User Email', 'Email', 'Insert Email'),
                 const SizedBox(height: 20),
-                CustomInputField(key, 'Password'),
+                CustomInputField(
+                    key, 'User Password', 'Password', 'Insert Password'),
                 const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    FocusScope.of(context).requestFocus(FocusNode());
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(width: 50),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.orange[200]),
+                        fixedSize:
+                            MaterialStateProperty.all(const Size(80, 30)),
+                      ),
+                      onPressed: () {
+                        FocusScope.of(context).requestFocus(FocusNode());
 
-                    if (!myFormKey.currentState!.validate()) {
-                      const Text('Incorrect Field');
-                      return;
-                    }
-                    email = TextEditingController().text;
-                    Text(email);
-                    //Navigator(),
-                  },
-                  child: const Text('Submit'),
+                        LoginApiProvider().postLogin(email, password);
+
+                        //Navigator(),
+                      },
+                      child: const Text('Login'),
+                    ),
+                  ],
                 ),
               ],
             )),
