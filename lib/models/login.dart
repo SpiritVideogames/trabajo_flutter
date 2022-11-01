@@ -19,7 +19,7 @@ class Login {
 
   factory Login.fromMap(Map<String, dynamic> json) => Login(
         success: json["success"],
-        data3: Data3.fromMap(json["data3"]),
+        data3: Data3.fromMap(json["data"]),
         message: json["message"],
       );
 }
