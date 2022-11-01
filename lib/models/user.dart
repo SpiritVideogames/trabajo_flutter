@@ -19,7 +19,7 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> json) => User(
         success: json["success"],
-        data6: Data6.fromMap(json["data6"]),
+        data6: Data6.fromMap(json["data"]),
         message: json["message"],
       );
 }
@@ -51,7 +51,7 @@ class Data6 {
   int deleted;
   int iscontact;
   String company;
-  String createdAt;
+  String? createdAt;
 
   factory Data6.fromJson(String str) => Data6.fromMap(json.decode(str));
 

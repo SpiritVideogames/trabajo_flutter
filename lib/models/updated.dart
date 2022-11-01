@@ -19,7 +19,7 @@ class Updated {
 
   factory Updated.fromMap(Map<String, dynamic> json) => Updated(
         success: json["success"],
-        data5: Data5.fromMap(json["data5"]),
+        data5: Data5.fromMap(json["data"]),
         message: json["message"],
       );
 }

@@ -8,18 +8,40 @@ import 'package:trabajo_flutter/models/models.dart';
 class LoginApiProvider extends ChangeNotifier {
   final String _baseUrl = 'semillero.allsites.es';
 
+  late String loginToken;
+
+  Future<String> _getJsonData(String endpoint,
+      [Map<String, dynamic>? map]) async {
+    final url = Uri.http(_baseUrl, endpoint, map);
+
+    // Await the http get response, then decode the json-formatted response.
+    final response = await http.get(url);
+    return response.body;
+  }
+
+  Future<String> _postJsonData(String endpoint,
+      [Map<String, dynamic>? map]) async {
+    final url = Uri.http(_baseUrl, endpoint, map);
+
+    // Await the http get response, then decode the json-formatted response.
+    final response = await http
+        .post(url, headers: {HttpHeaders.acceptHeader: 'application/json'});
+    return response.body;
+  }
+
   postRegister(String firstname, String secondname, String email,
-      String password, String c_password, int id_company) async {
-    final url = Uri.https(_baseUrl, '/register', {
+      String password, String c_password, String company_id) async {
+    final url = Uri.http(_baseUrl, '/public/api/register', {
       'firstname': firstname,
       'secondname': secondname,
       'email': email,
       'password': password,
       'c_password': c_password,
-      'id_company': id_company
+      'company_id': company_id
     });
 
-    final response = await http.get(url);
+    final response = await http
+        .post(url, headers: {HttpHeaders.acceptHeader: 'application/json'});
     final register = Register.fromJson(response.body);
 
     return register.data4.token;
@@ -29,18 +51,21 @@ class LoginApiProvider extends ChangeNotifier {
     final url = Uri.http(
         _baseUrl, '/public/api/login', {'email': email, 'password': password});
 
-    final response = await http.get(url);
+    final response = await http
+        .post(url, headers: {HttpHeaders.acceptHeader: 'application/json'});
+
+    print(response.body);
     final login = Login.fromJson(response.body);
 
-    return login.data3;
+    loginToken = login.data3.token;
+    return loginToken;
   }
 
-  postActivate(String user_id, Data3 data3) async {
-    String token = data3.token;
+  postActivate(String user_id, String token) async {
+    final url =
+        Uri.http(_baseUrl, '/public/api/activate', {'user_id': user_id});
 
-    final url = Uri.https(_baseUrl, '/activate', {'user_id': user_id});
-
-    final response = await http.get(url, headers: {
+    final response = await http.post(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     });
@@ -49,12 +74,11 @@ class LoginApiProvider extends ChangeNotifier {
     return activate.data;
   }
 
-  postDeactivate(String user_id, Data3 data3) async {
-    String token = data3.token;
+  postDeactivate(String user_id, String token) async {
+    final url =
+        Uri.http(_baseUrl, '/public/api/deactivate', {'user_id': user_id});
 
-    final url = Uri.https(_baseUrl, '/deactivate', {'user_id': user_id});
-
-    final response = await http.get(url, headers: {
+    final response = await http.post(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     });
@@ -63,10 +87,8 @@ class LoginApiProvider extends ChangeNotifier {
     return deactivate.data2;
   }
 
-  getUsers(Data3 data3) async {
-    String token = data3.token;
-
-    final url = Uri.https(_baseUrl, '/users');
+  getUsers(String token) async {
+    final url = Uri.http(_baseUrl, '/public/api/users');
 
     final response = await http.get(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',
@@ -77,10 +99,8 @@ class LoginApiProvider extends ChangeNotifier {
     return users.datum2;
   }
 
-  getCompanies(String user_id, Data3 data3) async {
-    String token = data3.token;
-
-    final url = Uri.https(_baseUrl, '/companies');
+  getCompanies() async {
+    final url = Uri.http(_baseUrl, '/public/api/companies');
 
     final response = await http.get(url);
     final companies = Companies.fromJson(response.body);
@@ -88,10 +108,9 @@ class LoginApiProvider extends ChangeNotifier {
     return companies.datum;
   }
 
-  getUser(String user_id, Data3 data3) async {
-    String token = data3.token;
-
-    final url = Uri.https(_baseUrl, '/user/$user_id', {'user_id': user_id});
+  getUser(String user_id, String token) async {
+    final url =
+        Uri.http(_baseUrl, '/public/api/user/$user_id', {'user_id': user_id});
 
     final response = await http.get(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',
@@ -102,12 +121,11 @@ class LoginApiProvider extends ChangeNotifier {
     return user.data6;
   }
 
-  postDeleted(String user_id, Data3 data3) async {
-    String token = data3.token;
+  postDeleted(String user_id, String token) async {
+    final url = Uri.http(
+        _baseUrl, '/public/api/user/deleted/$user_id', {'user_id': user_id});
 
-    final url = Uri.https(_baseUrl, '/deleted/$user_id', {'user_id': user_id});
-
-    final response = await http.get(url, headers: {
+    final response = await http.post(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     });
@@ -117,17 +135,20 @@ class LoginApiProvider extends ChangeNotifier {
   }
 
   postUpdated(String user_id, String firstname, String secondname, String email,
-      String password, int id_company) async {
-    final url = Uri.https(_baseUrl, '/updated', {
+      String password, String company_id, String token) async {
+    final url = Uri.http(_baseUrl, '/public/api/user/updated/$user_id', {
       'user_id': user_id,
       'firstname': firstname,
       'secondname': secondname,
       'email': email,
       'password': password,
-      'id_company': id_company
+      'company_id': company_id
     });
 
-    final response = await http.get(url);
+    final response = await http.post(url, headers: {
+      HttpHeaders.acceptHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token'
+    });
     final updated = Updated.fromJson(response.body);
 
     return updated.data5;

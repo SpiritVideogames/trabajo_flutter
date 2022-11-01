@@ -20,7 +20,7 @@ class Deactivate {
 
   factory Deactivate.fromMap(Map<String, dynamic> json) => Deactivate(
         success: json["success"],
-        data2: Data2.fromMap(json["data2"]),
+        data2: Data2.fromMap(json["data"]),
         message: json["message"],
       );
 }

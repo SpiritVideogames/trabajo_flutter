@@ -19,7 +19,7 @@ class Register {
 
   factory Register.fromMap(Map<String, dynamic> json) => Register(
         success: json["success"],
-        data4: Data4.fromMap(json["data4"]),
+        data4: Data4.fromMap(json["data"]),
         message: json["message"],
       );
 }

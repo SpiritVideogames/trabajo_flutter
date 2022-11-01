@@ -19,7 +19,7 @@ class Companies {
 
   factory Companies.fromMap(Map<String, dynamic> json) => Companies(
         success: json["success"],
-        datum: List<Datum>.from(json["datum"].map((x) => Datum.fromMap(x))),
+        datum: List<Datum>.from(json["data"].map((x) => Datum.fromMap(x))),
         message: json["message"],
       );
 }
