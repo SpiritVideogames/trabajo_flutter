@@ -12,7 +12,7 @@ class LoginScreen extends StatelessWidget {
     String email = 'raul@gmail.com';
     String password = '123456';
     return Scaffold(
-      backgroundColor: Colors.orange[200],
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Login'),
         elevation: 0,
@@ -41,7 +41,7 @@ class LoginScreen extends StatelessWidget {
                     ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(Colors.orange[200]),
+                            MaterialStateProperty.all(Colors.orange),
                         fixedSize:
                             MaterialStateProperty.all(const Size(80, 30)),
                       ),
