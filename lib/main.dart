@@ -17,10 +17,11 @@ class MyApp extends StatelessWidget {
       routes: AppRoutes.getAppRoutes(),
       theme: ThemeData.light().copyWith(
           //Color primario
-          primaryColor: Colors.orange[100],
+          scaffoldBackgroundColor: Colors.grey[300],
 
           //appbar thme
-          appBarTheme: const AppBarTheme(color: Colors.orange, elevation: 0)),
+          appBarTheme:
+              AppBarTheme(color: Colors.cyanAccent[200], elevation: 0)),
     );
   }
 }
