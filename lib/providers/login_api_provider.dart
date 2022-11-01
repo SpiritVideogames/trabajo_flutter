@@ -10,25 +10,6 @@ class LoginApiProvider extends ChangeNotifier {
 
   late String loginToken;
 
-  Future<String> _getJsonData(String endpoint,
-      [Map<String, dynamic>? map]) async {
-    final url = Uri.http(_baseUrl, endpoint, map);
-
-    // Await the http get response, then decode the json-formatted response.
-    final response = await http.get(url);
-    return response.body;
-  }
-
-  Future<String> _postJsonData(String endpoint,
-      [Map<String, dynamic>? map]) async {
-    final url = Uri.http(_baseUrl, endpoint, map);
-
-    // Await the http get response, then decode the json-formatted response.
-    final response = await http
-        .post(url, headers: {HttpHeaders.acceptHeader: 'application/json'});
-    return response.body;
-  }
-
   postRegister(String firstname, String secondname, String email,
       String password, String c_password, String company_id) async {
     final url = Uri.http(_baseUrl, '/public/api/register', {
@@ -54,7 +35,6 @@ class LoginApiProvider extends ChangeNotifier {
     final response = await http
         .post(url, headers: {HttpHeaders.acceptHeader: 'application/json'});
 
-    print(response.body);
     final login = Login.fromJson(response.body);
 
     loginToken = login.data3.token;
