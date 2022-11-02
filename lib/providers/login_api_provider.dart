@@ -38,11 +38,22 @@ class LoginApiProvider extends ChangeNotifier {
 
     //final login = Login.fromJson(response.body);
     final Map<String, dynamic> login = json.decode(response.body);
+    print(login.containsValue(true));
 
-    if (login.containsKey('idToken')) {
+    if (login.containsValue(true)) {
       return null;
     } else {
-      return login['error'];
+      Map<String, String> error = {};
+      login.forEach((key, value) {
+        error.putIfAbsent(key, () => value.toString());
+      });
+
+      List errorStr = [];
+      error.forEach((key, value) {
+        errorStr.add(value);
+      });
+
+      return errorStr[0];
     }
   }
 
