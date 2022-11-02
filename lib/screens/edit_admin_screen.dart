@@ -5,10 +5,18 @@ class EditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-       
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Users'),
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.account_circle),
+            onPressed: () {},
+          ),
+        ],
       ),
+      body: Center(),
     );
   }
 }
