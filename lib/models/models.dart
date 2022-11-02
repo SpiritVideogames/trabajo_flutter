@@ -1,10 +1,10 @@
-export 'package:trabajo_flutter/models/menu_option.dart';
 export 'package:trabajo_flutter/models/activate.dart';
-export 'package:trabajo_flutter/models/companies.dart';
-export 'package:trabajo_flutter/models/deactivate.dart';
-export 'package:trabajo_flutter/models/deleted.dart';
+export 'package:trabajo_flutter/models/applied.dart';
+export 'package:trabajo_flutter/models/confirm.dart';
 export 'package:trabajo_flutter/models/login.dart';
+export 'package:trabajo_flutter/models/menu_option.dart';
+export 'package:trabajo_flutter/models/offersApplied.dart';
+export 'package:trabajo_flutter/models/offersNotApplied.dart';
 export 'package:trabajo_flutter/models/register.dart';
-export 'package:trabajo_flutter/models/updated.dart';
-export 'package:trabajo_flutter/models/user.dart';
+export 'package:trabajo_flutter/models/unapplied.dart';
 export 'package:trabajo_flutter/models/users.dart';

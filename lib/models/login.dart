@@ -1,4 +1,4 @@
-// To parse this JSON data3, do
+// To parse required this JSON data, do
 //
 //     final login = loginFromMap(jsonString);
 
@@ -7,42 +7,42 @@ import 'dart:convert';
 class Login {
   Login({
     required this.success,
-    required this.data3,
+    required this.data,
     required this.message,
   });
 
   bool success;
-  Data3 data3;
+  Data4 data;
   String message;
 
   factory Login.fromJson(String str) => Login.fromMap(json.decode(str));
 
   factory Login.fromMap(Map<String, dynamic> json) => Login(
         success: json["success"],
-        data3: Data3.fromMap(json["data"]),
+        data: Data4.fromMap(json["data"]),
         message: json["message"],
       );
 }
 
-class Data3 {
-  Data3({
+class Data4 {
+  Data4({
     required this.token,
     required this.id,
+    required this.numOfferApplied,
     required this.type,
-    required this.actived,
   });
 
   String token;
   int id;
+  int numOfferApplied;
   String type;
-  int actived;
 
-  factory Data3.fromJson(String str) => Data3.fromMap(json.decode(str));
+  factory Data4.fromJson(String str) => Data4.fromMap(json.decode(str));
 
-  factory Data3.fromMap(Map<String, dynamic> json) => Data3(
+  factory Data4.fromMap(Map<String, dynamic> json) => Data4(
         token: json["token"],
         id: json["id"],
+        numOfferApplied: json["num_offer_applied"],
         type: json["type"],
-        actived: json["actived"],
       );
 }
