@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -35,10 +36,13 @@ class LoginApiProvider extends ChangeNotifier {
     final response = await http
         .post(url, headers: {HttpHeaders.acceptHeader: 'application/json'});
 
-    final login = Login.fromJson(response.body);
-
-    loginToken = login.data3.token;
-    return loginToken;
+    //final login = Login.fromJson(response.body);
+    final Map<String, dynamic> login = json.decode(response.body);
+    if (login.containsKey('idToken')) {
+      return null;
+    } else {
+      return login['error'];
+    }
   }
 
   postActivate(String user_id, String token) async {

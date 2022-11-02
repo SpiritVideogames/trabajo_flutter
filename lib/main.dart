@@ -5,7 +5,7 @@ import 'router/app_routes.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.grey[300],
 
           //appbar thme
-          appBarTheme:
-              AppBarTheme(color: Colors.cyanAccent[200], elevation: 0)),
+          appBarTheme: const AppBarTheme(
+              color: Color.fromRGBO(0, 153, 153, 1), elevation: 0)),
     );
   }
 }

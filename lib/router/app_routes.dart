@@ -13,6 +13,11 @@ class AppRoutes {
         screen: const LoginScreen(),
         icon: Icons.account_balance_outlined),
     MenuOption(
+        route: 'index',
+        name: 'Index Screen',
+        screen: const IndexScreen(),
+        icon: Icons.account_balance_outlined),
+    MenuOption(
         route: 'edit',
         name: 'Edit Screen',
         screen: const EditScreen(),

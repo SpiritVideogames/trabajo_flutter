@@ -6,8 +6,8 @@ import '../providers/login_form_provider.dart';
 import '../widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class EditScreen extends StatelessWidget {
+  const EditScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,8 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
               children: [
                 const SizedBox(height: 10),
-                Text('Login', style: Theme.of(context).textTheme.headline4),
+                Text('EDITING USER',
+                    style: Theme.of(context).textTheme.headline4),
                 const SizedBox(height: 10),
                 ChangeNotifierProvider(
                   create: (_) => LoginFormProvider(),
@@ -92,6 +93,7 @@ class _LoginForm extends StatelessWidget {
                     } else {
                       AlertDialog(title: Text(errorMessage));
                     }
+                    //Navigator.pushNamed(context, 'edit');
                   }
                 },
                 child: const Center(child: Text('Login')),
