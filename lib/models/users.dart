@@ -1,4 +1,4 @@
-// To parse this JSON datum2, do
+// To parse required this JSON data, do
 //
 //     final users = usersFromMap(jsonString);
 
@@ -7,66 +7,57 @@ import 'dart:convert';
 class Users {
   Users({
     required this.success,
-    required this.datum2,
+    required this.data,
     required this.message,
   });
 
   bool success;
-  List<Datum2> datum2;
+  List<Datum3> data;
   String message;
 
   factory Users.fromJson(String str) => Users.fromMap(json.decode(str));
 
   factory Users.fromMap(Map<String, dynamic> json) => Users(
         success: json["success"],
-        datum2: List<Datum2>.from(json["data"].map((x) => Datum2.fromMap(x))),
+        data: List<Datum3>.from(json["data"].map((x) => Datum3.fromMap(x))),
         message: json["message"],
       );
 }
 
-class Datum2 {
-  Datum2({
+class Datum3 {
+  Datum3({
     required this.id,
-    required this.firstname,
-    required this.secondname,
-    required this.companyId,
+    required this.name,
+    required this.surname,
+    required this.cicleId,
     required this.actived,
     required this.email,
     required this.type,
-    required this.emailConfirmed,
-    required this.deleted,
-    required this.iscontact,
-    required this.company,
+    required this.numOfferApplied,
     required this.createdAt,
   });
 
   int id;
-  String firstname;
-  String secondname;
-  int companyId;
+  String name;
+  String surname;
+  int cicleId;
   int actived;
   String email;
   String type;
-  int emailConfirmed;
-  int deleted;
-  int iscontact;
-  String company;
-  String? createdAt;
+  int numOfferApplied;
+  String createdAt;
 
-  factory Datum2.fromJson(String str) => Datum2.fromMap(json.decode(str));
+  factory Datum3.fromJson(String str) => Datum3.fromMap(json.decode(str));
 
-  factory Datum2.fromMap(Map<String, dynamic> json) => Datum2(
+  factory Datum3.fromMap(Map<String, dynamic> json) => Datum3(
         id: json["id"],
-        firstname: json["firstname"],
-        secondname: json["secondname"],
-        companyId: json["company_id"],
+        name: json["name"],
+        surname: json["surname"],
+        cicleId: json["cicle_id"],
         actived: json["actived"],
         email: json["email"],
         type: json["type"],
-        emailConfirmed: json["email_confirmed"],
-        deleted: json["deleted"],
-        iscontact: json["iscontact"],
-        company: json["company"],
+        numOfferApplied: json["num_offer_applied"],
         createdAt: json["created_at"],
       );
 }
