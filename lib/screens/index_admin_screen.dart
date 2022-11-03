@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+
+import '../widgets/widgets.dart';
 
 class IndexScreen extends StatelessWidget {
   const IndexScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _key = GlobalKey<ExpandableFabState>();
     List<MySlidable> list = [];
     list.add(const MySlidable(
       tit: 'Slide1',
@@ -24,13 +28,9 @@ class IndexScreen extends StatelessWidget {
           title: const Text('Users'),
           elevation: 0,
           automaticallyImplyLeading: false,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.account_circle),
-              onPressed: () {},
-            ),
-          ],
         ),
+        floatingActionButton: const ExampleExpandableFab(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         body: Container(
           color: Colors.cyanAccent[50],
           child: ListView.separated(
