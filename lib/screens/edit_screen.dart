@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:trabajo_flutter/providers/edit_form_provider.dart';
 
-import '../models/models.dart';
-import '../providers/login_api_provider.dart';
 import '../providers/login_form_provider.dart';
 import '../widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -26,8 +25,8 @@ class EditScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline4),
                 const SizedBox(height: 10),
                 ChangeNotifierProvider(
-                  create: (_) => LoginFormProvider(),
-                  child: _LoginForm(),
+                  create: (_) => EditFormProvider(),
+                  child: _EditForm(),
                 )
               ],
             )),
@@ -36,12 +35,12 @@ class EditScreen extends StatelessWidget {
   }
 }
 
-class _LoginForm extends StatelessWidget {
+class _EditForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final loginForm = Provider.of<LoginFormProvider>(context);
+    final editForm = Provider.of<EditFormProvider>(context);
     return Form(
-        key: loginForm.formKey,
+        key: editForm.formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(
           children: [
@@ -54,7 +53,7 @@ class _LoginForm extends StatelessWidget {
                   prefixIcon: Icon(Icons.alternate_email_rounded),
                   border: OutlineInputBorder(),
                 ),
-                onChanged: (value) => loginForm.email = value,
+                onChanged: (value) => editForm.email = value,
                 validator: (value) {
                   String pattern =
                       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -65,13 +64,22 @@ class _LoginForm extends StatelessWidget {
             const SizedBox(height: 20),
             TextFormField(
               autocorrect: false,
-              obscureText: true,
               decoration: const InputDecoration(
-                  hintText: 'User password',
-                  labelText: 'Password',
+                  hintText: 'User name',
+                  labelText: 'Name',
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.lock_outline_rounded)),
-              onChanged: (value) => loginForm.password = value,
+                  prefixIcon: Icon(Icons.account_box_rounded)),
+              onChanged: (value) => editForm.name = value,
+            ),
+            const SizedBox(height: 20),
+            TextFormField(
+              autocorrect: false,
+              decoration: const InputDecoration(
+                  hintText: 'User surname',
+                  labelText: 'Surname',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.account_box_rounded)),
+              onChanged: (value) => editForm.surname = value,
             ),
             const SizedBox(height: 20),
             SizedBox(
@@ -84,19 +92,11 @@ class _LoginForm extends StatelessWidget {
                 ),
                 onPressed: () async {
                   FocusScope.of(context).requestFocus(FocusNode());
-                  if (loginForm.isValidForm()) {
-                    final String? errorMessage = await LoginApiProvider()
-                        .postLogin(loginForm.email, loginForm.password);
-                    if (errorMessage == null) {
-                      // ignore: use_build_context_synchronously
-                      Navigator.pushNamed(context, 'index');
-                    } else {
-                      AlertDialog(title: Text(errorMessage));
-                    }
+                  if (editForm.isValidForm()) {
                     //Navigator.pushNamed(context, 'edit');
                   }
                 },
-                child: const Center(child: Text('Login')),
+                child: const Center(child: Text('Save')),
               ),
             ),
           ],

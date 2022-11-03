@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
+import 'package:trabajo_flutter/providers/login_api_provider.dart';
+import 'package:trabajo_flutter/screens/screens.dart';
 
+import '../models/users_test.dart';
+import '../services/users_services.dart';
 import '../widgets/widgets.dart';
 
 class IndexScreen extends StatelessWidget {
@@ -10,7 +15,8 @@ class IndexScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _key = GlobalKey<ExpandableFabState>();
-    List<MySlidable> list = [];
+
+/*
     list.add(const MySlidable(
       tit: 'Slide1',
     ));
@@ -23,6 +29,22 @@ class IndexScreen extends StatelessWidget {
     list.add(const MySlidable(
       tit: 'Slide4',
     ));
+*/
+    final usersService = Provider.of<UsersServices>(context);
+
+    late List<MySlidable> list = [];
+
+    List<UsersTest> users = usersService.users;
+
+    final n = users.length;
+
+    for (int i = 0; i < n; i++) {
+      list.add(MySlidable(
+        tit: users[i].name,
+      ));
+    }
+
+    if (usersService.isLoading) return LoadingScreen();
     return Scaffold(
         appBar: AppBar(
           title: const Text('Users'),

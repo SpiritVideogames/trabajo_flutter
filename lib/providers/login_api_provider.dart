@@ -41,7 +41,25 @@ class LoginApiProvider extends ChangeNotifier {
     print(login.containsValue(true));
 
     if (login.containsValue(true)) {
-      return null;
+      login.forEach((key, value) {
+        if (key == 'actived') {
+          if (value == 1) {
+            return null;
+          } else {
+            Map<String, String> error = {};
+            login.forEach((key, value) {
+              error.putIfAbsent(key, () => value.toString());
+            });
+
+            List errorStr = [];
+            error.forEach((key, value) {
+              errorStr.add(value);
+            });
+
+            return errorStr[0];
+          }
+        }
+      });
     } else {
       Map<String, String> error = {};
       login.forEach((key, value) {
@@ -77,9 +95,9 @@ class LoginApiProvider extends ChangeNotifier {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     });
-    final users = Users.fromJson(response.body);
-
-    return users.data;
+    //final users = Users.fromJson(response.body);
+    final Map<String, String> listUsers = json.decode(response.body);
+    return listUsers;
   }
 
   postApplied(String user_id, String offer_id, String token) async {
