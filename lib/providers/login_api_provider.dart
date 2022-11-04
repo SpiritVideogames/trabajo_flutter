@@ -41,7 +41,6 @@ class LoginApiProvider extends ChangeNotifier {
     //final login = Login.fromJson(response.body);
     final Map<String, dynamic> login = json.decode(response.body);
     print(login.containsValue(true));
-
     if (login.containsValue(true)) {
       await storage.write(key: 'token', value: login['idToken']);
       login.forEach((key, value) {
@@ -81,6 +80,10 @@ class LoginApiProvider extends ChangeNotifier {
   Future logout() async {
     await storage.delete(key: 'token');
     return;
+  }
+
+  Future<String> readToken() async {
+    return await storage.read(key: 'token') ?? '';
   }
 
   postActivate(String user_id, String token) async {
