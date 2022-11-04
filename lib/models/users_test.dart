@@ -42,8 +42,8 @@ class UsersTest {
       );
 }
 
-class Datum3 {
-  Datum3({
+class Datum4 {
+  Datum4({
     required this.id,
     required this.name,
     required this.surname,
@@ -65,9 +65,9 @@ class Datum3 {
   int numOfferApplied;
   String createdAt;
 
-  factory Datum3.fromJson(String str) => Datum3.fromMap(json.decode(str));
+  factory Datum4.fromJson(String str) => Datum4.fromMap(json.decode(str));
 
-  factory Datum3.fromMap(Map<String, dynamic> json) => Datum3(
+  factory Datum4.fromMap(Map<String, dynamic> json) => Datum4(
         id: json["id"],
         name: json["name"],
         surname: json["surname"],
