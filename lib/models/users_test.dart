@@ -17,7 +17,7 @@ class UsersTest {
     required this.createdAt,
   });
 
-  String? id;
+  int id;
   String name;
   String surname;
   int cicleId;
