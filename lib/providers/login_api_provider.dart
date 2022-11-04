@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:trabajo_flutter/models/models.dart';
@@ -9,6 +10,7 @@ import 'package:trabajo_flutter/models/models.dart';
 class LoginApiProvider extends ChangeNotifier {
   final String _baseUrl = 'salesin.allsites.es';
 
+  final storage = FlutterSecureStorage();
   late String loginToken;
 
   postRegister(String name, String surname, String email, String password,
@@ -41,6 +43,7 @@ class LoginApiProvider extends ChangeNotifier {
     print(login.containsValue(true));
 
     if (login.containsValue(true)) {
+      await storage.write(key: 'token', value: login['idToken']);
       login.forEach((key, value) {
         if (key == 'actived') {
           if (value == 1) {
@@ -73,6 +76,11 @@ class LoginApiProvider extends ChangeNotifier {
 
       return errorStr[0];
     }
+  }
+
+  Future logout() async {
+    await storage.delete(key: 'token');
+    return;
   }
 
   postActivate(String user_id, String token) async {
