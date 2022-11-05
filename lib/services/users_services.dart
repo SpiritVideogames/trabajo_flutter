@@ -3,13 +3,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:trabajo_flutter/providers/login_api_provider.dart';
 
 import '../models/models.dart';
 import 'package:http/http.dart' as http;
 
 class UsersServices extends ChangeNotifier {
   final String _baseUrl = 'salesin.allsites.es';
-  final storage = FlutterSecureStorage();
   final List<Datum3> users = [];
   bool isLoading = true;
 
@@ -18,7 +18,7 @@ class UsersServices extends ChangeNotifier {
   }
 
   Future loadUsers() async {
-    final token = storage.read(key: 'token');
+    String? token = await LoginApiProvider().readToken();
 
     isLoading = true;
     notifyListeners();
