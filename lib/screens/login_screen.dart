@@ -85,9 +85,11 @@ class _LoginForm extends StatelessWidget {
                   if (loginForm.isValidForm()) {
                     final String? errorMessage = await LoginApiProvider()
                         .postLogin(loginForm.email, loginForm.password);
+                    String? token = await LoginApiProvider().readToken();
+                    print(token);
                     if (errorMessage == null) {
                       // ignore: use_build_context_synchronously
-                      Navigator.pushNamed(context, 'index');
+                      Navigator.pushNamed(context, 'index', arguments: {token});
                     } else {
                       AlertDialog(title: Text(errorMessage));
                     }

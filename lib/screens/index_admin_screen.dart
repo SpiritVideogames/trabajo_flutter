@@ -9,26 +9,13 @@ import '../services/users_services.dart';
 import '../widgets/widgets.dart';
 
 class IndexScreen extends StatelessWidget {
-  const IndexScreen({Key? key}) : super(key: key);
+  final String? token;
+  const IndexScreen({Key? key, this.token}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _key = GlobalKey<ExpandableFabState>();
 
-/*
-    list.add(const MySlidable(
-      tit: 'Slide1',
-    ));
-    list.add(const MySlidable(
-      tit: 'Slide2',
-    ));
-    list.add(const MySlidable(
-      tit: 'Slide3',
-    ));
-    list.add(const MySlidable(
-      tit: 'Slide4',
-    ));
-*/
     final usersService = Provider.of<UsersServices>(context);
 
     late List<MySlidable> list = [];
