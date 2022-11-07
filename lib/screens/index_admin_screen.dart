@@ -26,9 +26,11 @@ class IndexScreen extends StatelessWidget {
     final n = users.length;
 
     for (int i = 0; i < n; i++) {
-      list.add(MySlidable(
-        tit: users[i].name + ' ' + users[i].surname,
-      ));
+      if (users[i].deleted == 0) {
+        list.add(MySlidable(
+          tit: users[i].name + ' ' + users[i].surname,
+        ));
+      }
     }
 
     if (usersService.isLoading) return LoadingScreen();

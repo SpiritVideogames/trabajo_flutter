@@ -86,12 +86,14 @@ class _LoginForm extends StatelessWidget {
                   if (loginForm.isValidForm()) {
                     final String? errorMessage = await loginService.postLogin(
                         loginForm.email, loginForm.password);
-                    if (errorMessage == null) {
+                    print(errorMessage);
+                    if (errorMessage == 'a') {
                       // ignore: use_build_context_synchronously
+                      print(errorMessage);
                       Navigator.pushNamed(context, 'index');
-                    } else {
-                      AlertDialog(title: Text(errorMessage));
-                    }
+                    } else if (errorMessage == 'u') {
+                      //TODO:  Navigator para la pantalla de usuario
+                    } else {}
                   }
                 },
                 child: const Center(child: Text('Login')),

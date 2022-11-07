@@ -1,3 +1,5 @@
+// ignore_for_file: void_checks
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -10,41 +12,41 @@ import 'package:http/http.dart' as http;
 class LoginServices extends ChangeNotifier {
   final String _baseUrl = 'salesin.allsites.es';
 
-  final List<Data4> login = [];
+  final List<Data5> login = [];
   final storage = FlutterSecureStorage();
   bool isLoading = true;
 
   LoginServices() {}
 
-  postLogin(String email, String password) async {
+  Future<String?> postLogin(String email, String password) async {
     final url = Uri.http(
         _baseUrl, '/public/api/login', {'email': email, 'password': password});
 
     final response = await http
         .post(url, headers: {HttpHeaders.acceptHeader: 'application/json'});
 
+    var type;
     //final login = Login.fromJson(response.body);
     final Map<String, dynamic> login = json.decode(response.body);
     if (login.containsValue(true)) {
-      login.forEach((key, value) {
+      login.forEach((key, value) async {
         if (key == 'data') {
           storage.write(key: 'token', value: value['token']);
-          return null;
+
+          type = value['type'];
+          print(type);
+          return type;
         }
       });
     } else {
-      Map<String, String> error = {};
+      String? error = '';
       login.forEach((key, value) {
-        error.putIfAbsent(key, () => value.toString());
+        error = value.toString();
       });
 
-      List errorStr = [];
-      error.forEach((key, value) {
-        errorStr.add(value);
-      });
-
-      return errorStr[0];
+      return error;
     }
+    return type;
   }
 
   Future logout() async {

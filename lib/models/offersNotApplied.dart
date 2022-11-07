@@ -39,13 +39,13 @@ class Datum3 {
   });
 
   int id;
-  String headline;
-  String description;
-  int cicleId;
-  String cicleName;
-  String dateMax;
-  int numCandidates;
-  int deleted;
+  String? headline;
+  String? description;
+  int? cicleId;
+  String? cicleName;
+  String? dateMax;
+  int? numCandidates;
+  int? deleted;
 
   factory Datum3.fromJson(String str) => Datum3.fromMap(json.decode(str));
 
