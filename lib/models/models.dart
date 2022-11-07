@@ -1,7 +1,10 @@
 export 'package:trabajo_flutter/models/activate.dart';
 export 'package:trabajo_flutter/models/applied.dart';
+export 'package:trabajo_flutter/models/cicles.dart';
 export 'package:trabajo_flutter/models/confirm.dart';
+export 'package:trabajo_flutter/models/deactivate.dart';
 export 'package:trabajo_flutter/models/login.dart';
+export 'package:trabajo_flutter/models/logout.dart';
 export 'package:trabajo_flutter/models/menu_option.dart';
 export 'package:trabajo_flutter/models/offersApplied.dart';
 export 'package:trabajo_flutter/models/offersNotApplied.dart';

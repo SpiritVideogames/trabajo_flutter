@@ -12,20 +12,20 @@ class Login {
   });
 
   bool success;
-  Data4 data;
+  Data5 data;
   String message;
 
   factory Login.fromJson(String str) => Login.fromMap(json.decode(str));
 
   factory Login.fromMap(Map<String, dynamic> json) => Login(
         success: json["success"],
-        data: Data4.fromMap(json["data"]),
+        data: Data5.fromMap(json["data"]),
         message: json["message"],
       );
 }
 
-class Data4 {
-  Data4({
+class Data5 {
+  Data5({
     required this.token,
     required this.id,
     required this.numOfferApplied,
@@ -37,9 +37,9 @@ class Data4 {
   int numOfferApplied;
   String type;
 
-  factory Data4.fromJson(String str) => Data4.fromMap(json.decode(str));
+  factory Data5.fromJson(String str) => Data5.fromMap(json.decode(str));
 
-  factory Data4.fromMap(Map<String, dynamic> json) => Data4(
+  factory Data5.fromMap(Map<String, dynamic> json) => Data5(
         token: json["token"],
         id: json["id"],
         numOfferApplied: json["num_offer_applied"],
