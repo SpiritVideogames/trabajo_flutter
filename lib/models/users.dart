@@ -12,20 +12,20 @@ class Users {
   });
 
   bool success;
-  List<Datum3> data;
+  List<Datum4> data;
   String message;
 
   factory Users.fromJson(String str) => Users.fromMap(json.decode(str));
 
   factory Users.fromMap(Map<String, dynamic> json) => Users(
         success: json["success"],
-        data: List<Datum3>.from(json["data"].map((x) => Datum3.fromMap(x))),
+        data: List<Datum4>.from(json["data"].map((x) => Datum4.fromMap(x))),
         message: json["message"],
       );
 }
 
-class Datum3 {
-  Datum3({
+class Datum4 {
+  Datum4({
     required this.id,
     required this.name,
     required this.surname,
@@ -34,6 +34,7 @@ class Datum3 {
     required this.email,
     required this.type,
     required this.numOfferApplied,
+    required this.deleted,
     required this.createdAt,
   });
 
@@ -45,11 +46,12 @@ class Datum3 {
   String email;
   String type;
   int numOfferApplied;
+  int deleted;
   String createdAt;
 
-  factory Datum3.fromJson(String str) => Datum3.fromMap(json.decode(str));
+  factory Datum4.fromJson(String str) => Datum4.fromMap(json.decode(str));
 
-  factory Datum3.fromMap(Map<String, dynamic> json) => Datum3(
+  factory Datum4.fromMap(Map<String, dynamic> json) => Datum4(
         id: json["id"],
         name: json["name"],
         surname: json["surname"],
@@ -58,6 +60,7 @@ class Datum3 {
         email: json["email"],
         type: json["type"],
         numOfferApplied: json["num_offer_applied"],
+        deleted: json["deleted"],
         createdAt: json["created_at"],
       );
 }

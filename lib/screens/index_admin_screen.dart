@@ -20,7 +20,7 @@ class IndexScreen extends StatelessWidget {
 
     late List<MySlidable> list = [];
 
-    List<Datum3> users = usersService.users.cast<Datum3>();
+    List<Datum4> users = usersService.users.cast<Datum4>();
 
     final n = users.length;
 

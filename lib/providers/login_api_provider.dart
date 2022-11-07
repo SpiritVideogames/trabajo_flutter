@@ -96,6 +96,27 @@ class LoginApiProvider extends ChangeNotifier {
     return listUsers;
   }
 
+  getCicles() async {
+    final url = Uri.http(_baseUrl, '/public/api/cicles');
+
+    final response = await http.get(url, headers: {
+      HttpHeaders.acceptHeader: 'application/json',
+    });
+    final cicles = Cicles.fromJson(response.body);
+    return cicles;
+  }
+
+  getLogout(String token) async {
+    final url = Uri.http(_baseUrl, '/public/api/logout');
+
+    final response = await http.get(url, headers: {
+      HttpHeaders.acceptHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token'
+    });
+    final logout = Logout.fromJson(response.body);
+    return logout;
+  }
+
   postApplied(String user_id, String offer_id, String token) async {
     final url = Uri.http(_baseUrl, '/public/api/applied',
         {'user_id': user_id, 'offer_id': offer_id});
