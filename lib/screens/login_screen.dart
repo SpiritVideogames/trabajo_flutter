@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../providers/login_api_provider.dart';
 import '../providers/login_form_provider.dart';
+import '../services/login_services.dart';
 import '../widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -37,6 +37,7 @@ class LoginScreen extends StatelessWidget {
 class _LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final loginService = Provider.of<LoginServices>(context);
     final loginForm = Provider.of<LoginFormProvider>(context);
     return Form(
         key: loginForm.formKey,
@@ -83,8 +84,8 @@ class _LoginForm extends StatelessWidget {
                 onPressed: () async {
                   FocusScope.of(context).requestFocus(FocusNode());
                   if (loginForm.isValidForm()) {
-                    final String? errorMessage = await LoginApiProvider()
-                        .postLogin(loginForm.email, loginForm.password);
+                    final String? errorMessage = await loginService.postLogin(
+                        loginForm.email, loginForm.password);
                     if (errorMessage == null) {
                       // ignore: use_build_context_synchronously
                       Navigator.pushNamed(context, 'index');
