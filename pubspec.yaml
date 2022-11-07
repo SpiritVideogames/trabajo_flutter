@@ -41,6 +41,7 @@ dependencies:
   flutter_slidable: ^1.2.0
   flutter_expandable_fab: ^1.6.0
   flutter_secure_storage: ^6.0.0
+  rflutter_alert: ^2.0.4
   
 
 dev_dependencies:

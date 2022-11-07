@@ -27,9 +27,19 @@ class IndexScreen extends StatelessWidget {
 
     for (int i = 0; i < n; i++) {
       if (users[i].deleted == 0) {
-        list.add(MySlidable(
-          tit: users[i].name + ' ' + users[i].surname,
-        ));
+        if (users[i].actived == 1) {
+          list.add(MySlidable(
+            tit: users[i].name + ' ' + users[i].surname,
+            actived: 'Deactivate',
+            bg: Colors.red,
+          ));
+        } else {
+          list.add(MySlidable(
+            tit: users[i].name + ' ' + users[i].surname,
+            actived: 'Active',
+            bg: Color(0xFF7BC043),
+          ));
+        }
       }
     }
 
@@ -55,9 +65,13 @@ class IndexScreen extends StatelessWidget {
 
 class MySlidable extends StatelessWidget {
   final String tit;
+  final Color bg;
+  final String actived;
   const MySlidable({
     Key? key,
     required this.tit,
+    required this.actived,
+    required this.bg,
   }) : super(key: key);
 
   @override
@@ -99,24 +113,20 @@ class MySlidable extends StatelessWidget {
         ),
 
         // The end action pane is the one at the right or the bottom side.
-        endActionPane: const ActionPane(
+        endActionPane: ActionPane(
           motion: ScrollMotion(),
           children: [
             SlidableAction(
               // An action can be bigger than the others.
 
-              onPressed: null,
-              backgroundColor: Color(0xFF7BC043),
+              onPressed: (BuildContext context) {
+                if (actived == 'Active') {
+                } else {}
+              },
+              backgroundColor: bg,
               foregroundColor: Colors.white,
               icon: Icons.done_outline_rounded,
-              label: 'Active',
-            ),
-            SlidableAction(
-              onPressed: null,
-              backgroundColor: Color(0xFFFE4A49),
-              foregroundColor: Colors.white,
-              icon: Icons.no_accounts_rounded,
-              label: 'Disactive',
+              label: actived,
             ),
           ],
         ),

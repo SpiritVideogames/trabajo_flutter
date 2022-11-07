@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../providers/login_form_provider.dart';
 import '../services/login_services.dart';
@@ -29,6 +30,21 @@ class LoginScreen extends StatelessWidget {
                 )
               ],
             )),
+            const SizedBox(
+              height: 50,
+            ),
+            TextButton(
+                onPressed: () {
+                  //Navigator to Register
+                },
+                child: const Text(
+                  'Create new account',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54,
+                  ),
+                ))
           ],
         ))));
   }
@@ -89,11 +105,30 @@ class _LoginForm extends StatelessWidget {
                     print(errorMessage);
                     if (errorMessage == 'a') {
                       // ignore: use_build_context_synchronously
-                      print(errorMessage);
                       Navigator.pushNamed(context, 'index');
                     } else if (errorMessage == 'u') {
+                      print(errorMessage);
                       //TODO:  Navigator para la pantalla de usuario
-                    } else {}
+                    } else {
+                      print(errorMessage);
+                      Alert(
+                        context: context,
+                        type: AlertType.error,
+                        title: 'ERROR',
+                        desc: errorMessage,
+                        buttons: [
+                          DialogButton(
+                            onPressed: () => Navigator.pop(context),
+                            width: 120,
+                            child: const Text(
+                              "CLOSE",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                          )
+                        ],
+                      ).show();
+                    }
                   }
                 },
                 child: const Center(child: Text('Login')),

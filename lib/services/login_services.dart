@@ -18,7 +18,7 @@ class LoginServices extends ChangeNotifier {
 
   LoginServices() {}
 
-  Future<String?> postLogin(String email, String password) async {
+  postLogin(String email, String password) async {
     final url = Uri.http(
         _baseUrl, '/public/api/login', {'email': email, 'password': password});
 
@@ -26,27 +26,33 @@ class LoginServices extends ChangeNotifier {
         .post(url, headers: {HttpHeaders.acceptHeader: 'application/json'});
 
     var type;
+    var error;
+    var resp;
     //final login = Login.fromJson(response.body);
     final Map<String, dynamic> login = json.decode(response.body);
     if (login.containsValue(true)) {
-      login.forEach((key, value) async {
+      login.forEach((key, value) {
         if (key == 'data') {
           storage.write(key: 'token', value: value['token']);
-
           type = value['type'];
-          print(type);
-          return type;
+          if (value['actived'] == 1) {
+            // print(type);
+            resp = type;
+          } else {
+            error = 'This account is not actived';
+
+            resp = error;
+          }
         }
       });
     } else {
       String? error = '';
-      login.forEach((key, value) {
-        error = value.toString();
-      });
 
-      return error;
+      error = 'Error to login. Check email or password';
+
+      resp = error;
     }
-    return type;
+    return resp;
   }
 
   Future logout() async {
