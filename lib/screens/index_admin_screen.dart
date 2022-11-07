@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:trabajo_flutter/screens/screens.dart';
 
 import '../models/models.dart';
-import '../services/users_services.dart';
+
+import '../services/services.dart';
 import '../widgets/widgets.dart';
 
 class IndexScreen extends StatelessWidget {
@@ -26,7 +27,7 @@ class IndexScreen extends StatelessWidget {
 
     for (int i = 0; i < n; i++) {
       list.add(MySlidable(
-        tit: users[i].name,
+        tit: users[i].name + ' ' + users[i].surname,
       ));
     }
 
@@ -71,6 +72,7 @@ class MySlidable extends StatelessWidget {
 
           // A pane can dismiss the Slidable.
           dismissible: DismissiblePane(onDismissed: () {}),
+          dragDismissible: false,
 
           // All actions are defined in the children parameter.
           children: [

@@ -5,6 +5,8 @@ import 'dart:math' as math;
 
 import 'package:trabajo_flutter/providers/login_api_provider.dart';
 
+import '../services/login_services.dart';
+
 @immutable
 class ExampleExpandableFab extends StatelessWidget {
   static const _actionTitles = ['Logout'];
@@ -30,7 +32,7 @@ class ExampleExpandableFab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loginProvider = Provider.of<LoginApiProvider>(context, listen: false);
+    final loginProvider = Provider.of<LoginServices>(context, listen: false);
     return ExpandableFab(
       distance: 70.0,
       children: [

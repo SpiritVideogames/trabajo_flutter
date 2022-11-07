@@ -2,13 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:trabajo_flutter/providers/login_api_provider.dart';
 
 import '../models/models.dart';
 import 'package:http/http.dart' as http;
 
-import '../providers/login_api_provider.dart';
+import 'login_services.dart';
 
 class UsersServices extends ChangeNotifier {
   final String _baseUrl = 'salesin.allsites.es';
@@ -20,7 +18,7 @@ class UsersServices extends ChangeNotifier {
   }
 
   Future loadUsers() async {
-    String? token = await LoginApiProvider().readToken();
+    String? token = await LoginServices().readToken();
 
     isLoading = true;
     notifyListeners();

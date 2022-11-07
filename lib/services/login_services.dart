@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../models/models.dart';
 import 'package:http/http.dart' as http;
@@ -10,33 +11,48 @@ class LoginServices extends ChangeNotifier {
   final String _baseUrl = 'salesin.allsites.es';
 
   final List<Data4> login = [];
+  final storage = FlutterSecureStorage();
   bool isLoading = true;
 
-  LoginServices(String email, String password) {
-    loadLogin(email, password);
-  }
+  LoginServices() {}
 
-  Future loadLogin(String email, String password) async {
-    isLoading = true;
-    notifyListeners();
+  postLogin(String email, String password) async {
     final url = Uri.http(
         _baseUrl, '/public/api/login', {'email': email, 'password': password});
-    final resp = await http.post(url, headers: {
-      HttpHeaders.acceptHeader: 'application/json',
-    });
 
-    final Map<String, dynamic> loginMap = json.decode(resp.body);
+    final response = await http
+        .post(url, headers: {HttpHeaders.acceptHeader: 'application/json'});
 
-    loginMap.forEach((key, value) {
-      if (key == "data") {
-        final tempLogin = Data4.fromMap(value);
+    //final login = Login.fromJson(response.body);
+    final Map<String, dynamic> login = json.decode(response.body);
+    if (login.containsValue(true)) {
+      login.forEach((key, value) {
+        if (key == 'data') {
+          storage.write(key: 'token', value: value['token']);
+          return null;
+        }
+      });
+    } else {
+      Map<String, String> error = {};
+      login.forEach((key, value) {
+        error.putIfAbsent(key, () => value.toString());
+      });
 
-        login.add(tempLogin);
-      }
-    });
+      List errorStr = [];
+      error.forEach((key, value) {
+        errorStr.add(value);
+      });
 
-    isLoading = false;
-    notifyListeners();
-    return login;
+      return errorStr[0];
+    }
+  }
+
+  Future logout() async {
+    await storage.delete(key: 'token');
+    return;
+  }
+
+  Future<String> readToken() async {
+    return await storage.read(key: 'token') ?? '';
   }
 }
