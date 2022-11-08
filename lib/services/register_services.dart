@@ -7,22 +7,28 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../models/models.dart';
 import 'package:http/http.dart' as http;
 
-class LoginServices extends ChangeNotifier {
+class RegisterServices extends ChangeNotifier {
   final String _baseUrl = 'salesin.allsites.es';
 
-  final List<Data5> login = [];
+  final List<Data7> login = [];
   final storage = FlutterSecureStorage();
 
-  LoginServices() {}
+  RegisterServices() {}
 
-  postLogin(String email, String password) async {
-    final url = Uri.http(
-        _baseUrl, '/public/api/login', {'email': email, 'password': password});
+  postRegister(String name, String surname, String email, String password,
+      String c_password, String cicle_id) async {
+    final url = Uri.http(_baseUrl, '/public/api/register', {
+      'name': name,
+      'surname': surname,
+      'email': email,
+      'password': password,
+      'c_password': c_password,
+      'cicle_id': cicle_id
+    });
 
     final response = await http
         .post(url, headers: {HttpHeaders.acceptHeader: 'application/json'});
 
-    var type;
     var error;
     var resp;
     final Map<String, dynamic> login = json.decode(response.body);
@@ -30,20 +36,12 @@ class LoginServices extends ChangeNotifier {
       login.forEach((key, value) {
         if (key == 'data') {
           storage.write(key: 'token', value: value['token']);
-          type = value['type'];
-          if (value['actived'] == 1) {
-            resp = type;
-          } else {
-            error = 'This account is not actived';
-
-            resp = error;
-          }
         }
       });
     } else {
       String? error = '';
 
-      error = 'Error to login. Check email or password';
+      error = 'Error to register. The email is already taken';
 
       resp = error;
     }
