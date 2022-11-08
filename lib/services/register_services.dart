@@ -3,14 +3,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-import '../models/models.dart';
 import 'package:http/http.dart' as http;
 
 class RegisterServices extends ChangeNotifier {
   final String _baseUrl = 'salesin.allsites.es';
 
-  final List<Data7> login = [];
   final storage = FlutterSecureStorage();
 
   RegisterServices() {}
@@ -31,9 +28,9 @@ class RegisterServices extends ChangeNotifier {
 
     var error;
     var resp;
-    final Map<String, dynamic> login = json.decode(response.body);
-    if (login.containsValue(true)) {
-      login.forEach((key, value) {
+    final Map<String, dynamic> register = json.decode(response.body);
+    if (register.containsValue(true)) {
+      register.forEach((key, value) {
         if (key == 'data') {
           storage.write(key: 'token', value: value['token']);
         }

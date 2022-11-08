@@ -12,20 +12,20 @@ class Register {
   });
 
   bool success;
-  Data7 data;
+  Data8 data;
   String message;
 
   factory Register.fromJson(String str) => Register.fromMap(json.decode(str));
 
   factory Register.fromMap(Map<String, dynamic> json) => Register(
         success: json["success"],
-        data: Data7.fromMap(json["data"]),
+        data: Data8.fromMap(json["data"]),
         message: json["message"],
       );
 }
 
-class Data7 {
-  Data7({
+class Data8 {
+  Data8({
     required this.token,
     required this.name,
   });
@@ -33,9 +33,9 @@ class Data7 {
   String token;
   String name;
 
-  factory Data7.fromJson(String str) => Data7.fromMap(json.decode(str));
+  factory Data8.fromJson(String str) => Data8.fromMap(json.decode(str));
 
-  factory Data7.fromMap(Map<String, dynamic> json) => Data7(
+  factory Data8.fromMap(Map<String, dynamic> json) => Data8(
         token: json["token"],
         name: json["name"],
       );

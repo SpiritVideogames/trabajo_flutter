@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trabajo_flutter/providers/login_api_provider.dart';
-import 'package:trabajo_flutter/services/users_services.dart';
+import 'package:trabajo_flutter/services/services.dart';
 
 import 'router/app_routes.dart';
-import 'services/login_services.dart';
 
 void main() => runApp(const AppState());
 
@@ -17,6 +16,9 @@ class AppState extends StatelessWidget {
       ChangeNotifierProvider(create: (_) => UsersServices()),
       ChangeNotifierProvider(create: (_) => LoginServices()),
       ChangeNotifierProvider(create: (_) => LoginApiProvider()),
+      ChangeNotifierProvider(create: (_) => DeleteServices()),
+      ChangeNotifierProvider(create: (_) => DeactivateServices()),
+      ChangeNotifierProvider(create: (_) => ActivateServices()),
     ], child: const MyApp());
   }
 }

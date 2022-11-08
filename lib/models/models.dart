@@ -3,6 +3,7 @@ export 'package:trabajo_flutter/models/applied.dart';
 export 'package:trabajo_flutter/models/cicles.dart';
 export 'package:trabajo_flutter/models/confirm.dart';
 export 'package:trabajo_flutter/models/deactivate.dart';
+export 'package:trabajo_flutter/models/delete.dart';
 export 'package:trabajo_flutter/models/login.dart';
 export 'package:trabajo_flutter/models/logout.dart';
 export 'package:trabajo_flutter/models/menu_option.dart';

@@ -3,14 +3,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-import '../models/models.dart';
 import 'package:http/http.dart' as http;
 
 class LoginServices extends ChangeNotifier {
   final String _baseUrl = 'salesin.allsites.es';
 
-  final List<Data5> login = [];
   final storage = FlutterSecureStorage();
 
   LoginServices() {}
