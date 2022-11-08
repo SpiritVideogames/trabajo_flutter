@@ -1,6 +1,7 @@
 // ignore_for_file: void_checks
 
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ class LoginServices extends ChangeNotifier {
       login.forEach((key, value) {
         if (key == 'data') {
           storage.write(key: 'token', value: value['token']);
+          storage.write(key: 'id', value: value['id'].toString());
           type = value['type'];
           if (value['actived'] == 1) {
             // print(type);
@@ -62,5 +64,10 @@ class LoginServices extends ChangeNotifier {
 
   Future<String> readToken() async {
     return await storage.read(key: 'token') ?? '';
+  }
+
+  Future<int> readId() async {
+    String? i = await storage.read(key: 'id');
+    return int.parse(i!);
   }
 }

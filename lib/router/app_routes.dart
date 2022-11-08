@@ -22,6 +22,11 @@ class AppRoutes {
         name: 'Edit Screen',
         screen: const EditScreen(),
         icon: Icons.account_balance_outlined),
+    MenuOption(
+        route: 'user',
+        name: 'User Screen',
+        screen: const UserScreen(),
+        icon: Icons.account_balance_outlined),
   ];
 
   static Map<String, Widget Function(BuildContext)> getAppRoutes() {
