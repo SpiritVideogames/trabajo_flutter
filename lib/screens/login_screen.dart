@@ -102,7 +102,6 @@ class _LoginForm extends StatelessWidget {
                   if (loginForm.isValidForm()) {
                     final String? errorMessage = await loginService.postLogin(
                         loginForm.email, loginForm.password);
-                    print(errorMessage);
                     if (errorMessage == 'a') {
                       // ignore: use_build_context_synchronously
                       Navigator.pushNamed(context, 'index');
@@ -110,7 +109,6 @@ class _LoginForm extends StatelessWidget {
                       print(errorMessage);
                       Navigator.pushNamed(context, 'user');
                     } else {
-                      print(errorMessage);
                       Alert(
                         context: context,
                         type: AlertType.error,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
+import 'package:trabajo_flutter/providers/login_api_provider.dart';
 import 'package:trabajo_flutter/screens/screens.dart';
 
 import '../models/models.dart';
@@ -17,9 +18,9 @@ class IndexScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _key = GlobalKey<ExpandableFabState>();
 
-    final usersService = Provider.of<UsersServices>(context);
-
     late List<MySlidable> list = [];
+
+    final usersService = Provider.of<UsersServices>(context);
 
     List<Datum4> users = usersService.users.cast<Datum4>();
 
@@ -32,12 +33,16 @@ class IndexScreen extends StatelessWidget {
             tit: users[i].name + ' ' + users[i].surname,
             actived: 'Deactivate',
             bg: Colors.red,
+            id: users[i].id.toString(),
+            index: i,
           ));
         } else {
           list.add(MySlidable(
             tit: users[i].name + ' ' + users[i].surname,
-            actived: 'Active',
+            actived: 'Activate',
             bg: Color(0xFF7BC043),
+            id: users[i].id.toString(),
+            index: i,
           ));
         }
       }
@@ -67,15 +72,22 @@ class MySlidable extends StatelessWidget {
   final String tit;
   final Color bg;
   final String actived;
+  final String id;
+  final int index;
   const MySlidable({
     Key? key,
     required this.tit,
     required this.actived,
     required this.bg,
+    required this.id,
+    required this.index,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final activateService = Provider.of<ActivateServices>(context);
+    final deactivateService = Provider.of<DeactivateServices>(context);
+    final deleteService = Provider.of<DeleteServices>(context);
     return Slidable(
 
         // Specify a key if the Slidable is dismissible.
@@ -93,8 +105,10 @@ class MySlidable extends StatelessWidget {
           // All actions are defined in the children parameter.
           children: [
             // A SlidableAction can have an icon and/or a label.
-            const SlidableAction(
-              onPressed: null,
+            SlidableAction(
+              onPressed: (BuildContext context) {
+                deleteService.postDelete(id);
+              },
               backgroundColor: Color(0xFFFE4A49),
               foregroundColor: Colors.white,
               icon: Icons.delete,
@@ -119,9 +133,12 @@ class MySlidable extends StatelessWidget {
             SlidableAction(
               // An action can be bigger than the others.
 
-              onPressed: (BuildContext context) {
-                if (actived == 'Active') {
-                } else {}
+              onPressed: (BuildContext context) async {
+                if (actived == 'Deactivate') {
+                  deactivateService.postDeactivate(id);
+                } else {
+                  activateService.postActivate(id);
+                }
               },
               backgroundColor: bg,
               foregroundColor: Colors.white,

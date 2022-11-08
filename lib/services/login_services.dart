@@ -1,21 +1,15 @@
-// ignore_for_file: void_checks
-
 import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-import '../models/models.dart';
 import 'package:http/http.dart' as http;
 
 class LoginServices extends ChangeNotifier {
   final String _baseUrl = 'salesin.allsites.es';
 
-  final List<Data5> login = [];
   final storage = FlutterSecureStorage();
-  bool isLoading = true;
 
   LoginServices() {}
 
@@ -29,7 +23,6 @@ class LoginServices extends ChangeNotifier {
     var type;
     var error;
     var resp;
-    //final login = Login.fromJson(response.body);
     final Map<String, dynamic> login = json.decode(response.body);
     if (login.containsValue(true)) {
       login.forEach((key, value) {
@@ -38,7 +31,6 @@ class LoginServices extends ChangeNotifier {
           storage.write(key: 'id', value: value['id'].toString());
           type = value['type'];
           if (value['actived'] == 1) {
-            // print(type);
             resp = type;
           } else {
             error = 'This account is not actived';
