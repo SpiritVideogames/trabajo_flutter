@@ -106,7 +106,8 @@ class _LoginForm extends StatelessWidget {
                       // ignore: use_build_context_synchronously
                       Navigator.pushNamed(context, 'index');
                     } else if (errorMessage == 'u') {
-                      //TODO:  Navigator para la pantalla de usuario
+                      print(errorMessage);
+                      Navigator.pushNamed(context, 'user');
                     } else {
                       Alert(
                         context: context,
