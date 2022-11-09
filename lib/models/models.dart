@@ -12,3 +12,4 @@ export 'package:trabajo_flutter/models/offersNotApplied.dart';
 export 'package:trabajo_flutter/models/register.dart';
 export 'package:trabajo_flutter/models/unapplied.dart';
 export 'package:trabajo_flutter/models/users.dart';
+export 'package:trabajo_flutter/models/user.dart';
