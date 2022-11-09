@@ -10,6 +10,8 @@ import '../models/models.dart';
 import '../services/services.dart';
 import '../widgets/widgets.dart';
 
+List<MySlidable> list = [];
+
 class IndexScreen extends StatelessWidget {
   final String? token;
   const IndexScreen({Key? key, this.token}) : super(key: key);
@@ -18,32 +20,35 @@ class IndexScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _key = GlobalKey<ExpandableFabState>();
 
-    late List<MySlidable> list = [];
-
     final usersService = Provider.of<UsersServices>(context);
 
     List<Datum4> users = usersService.users.cast<Datum4>();
 
     final n = users.length;
+    int cont = 0;
 
-    for (int i = 0; i < n; i++) {
-      if (users[i].deleted == 0) {
-        if (users[i].actived == 1) {
-          list.add(MySlidable(
-            tit: users[i].name + ' ' + users[i].surname,
-            actived: 'Deactivate',
-            bg: Colors.red,
-            id: users[i].id.toString(),
-            index: i,
-          ));
-        } else {
-          list.add(MySlidable(
-            tit: users[i].name + ' ' + users[i].surname,
-            actived: 'Activate',
-            bg: Color(0xFF7BC043),
-            id: users[i].id.toString(),
-            index: i,
-          ));
+    if (list.isEmpty) {
+      for (int i = 0; i < n; i++) {
+        if (users[i].deleted == 0) {
+          if (users[i].actived == 1) {
+            list.add(MySlidable(
+              tit: users[i].name + ' ' + users[i].surname,
+              actived: 'Deactivate',
+              bg: Colors.red,
+              id: users[i].id.toString(),
+              index: cont,
+            ));
+            cont += 1;
+          } else {
+            list.add(MySlidable(
+              tit: users[i].name + ' ' + users[i].surname,
+              actived: 'Activate',
+              bg: Color(0xFF7BC043),
+              id: users[i].id.toString(),
+              index: cont,
+            ));
+            cont += 1;
+          }
         }
       }
     }
@@ -108,6 +113,8 @@ class MySlidable extends StatelessWidget {
             SlidableAction(
               onPressed: (BuildContext context) {
                 deleteService.postDelete(id);
+                list.removeAt(index);
+                Navigator.popAndPushNamed(context, 'index');
               },
               backgroundColor: Color(0xFFFE4A49),
               foregroundColor: Colors.white,
@@ -136,8 +143,24 @@ class MySlidable extends StatelessWidget {
               onPressed: (BuildContext context) async {
                 if (actived == 'Deactivate') {
                   deactivateService.postDeactivate(id);
+                  list[index] = MySlidable(
+                    tit: tit,
+                    actived: 'Activate',
+                    bg: Color(0xFF7BC043),
+                    id: id,
+                    index: index,
+                  );
+                  Navigator.popAndPushNamed(context, 'index');
                 } else {
                   activateService.postActivate(id);
+                  list[index] = MySlidable(
+                    tit: tit,
+                    actived: 'Deactivate',
+                    bg: Colors.red,
+                    id: id,
+                    index: index,
+                  );
+                  Navigator.popAndPushNamed(context, 'index');
                 }
               },
               backgroundColor: bg,

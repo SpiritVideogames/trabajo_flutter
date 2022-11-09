@@ -4,3 +4,4 @@ export '../services/register_services.dart';
 export '../services/activate_services.dart';
 export '../services/deactivate_services.dart';
 export '../services/delete_services.dart';
+export '../services/logout_services.dart';
