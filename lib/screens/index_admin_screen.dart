@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:trabajo_flutter/screens/screens.dart';
 
 import '../models/models.dart';
@@ -110,10 +111,35 @@ class MySlidable extends StatelessWidget {
           children: [
             // A SlidableAction can have an icon and/or a label.
             SlidableAction(
-              onPressed: (BuildContext context) {
-                deleteService.postDelete(id);
-                list.removeAt(index);
-                Navigator.popAndPushNamed(context, 'index');
+              onPressed: (BuildContext _) {
+                Alert(
+                  context: context,
+                  type: AlertType.error,
+                  title: 'Are you sure?',
+                  desc: "Are you sure you want to delete this user?",
+                  buttons: [
+                    DialogButton(
+                      onPressed: () {
+                        deleteService.postDelete(id);
+                        list.removeAt(index);
+                        Navigator.popAndPushNamed(context, 'index');
+                      },
+                      width: 120,
+                      child: const Text(
+                        "DELETE",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ),
+                    DialogButton(
+                      onPressed: () => Navigator.pop(context),
+                      width: 120,
+                      child: const Text(
+                        "CLOSE",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    )
+                  ],
+                ).show();
               },
               backgroundColor: Color(0xFFFE4A49),
               foregroundColor: Colors.white,
