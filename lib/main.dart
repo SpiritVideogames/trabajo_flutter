@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:trabajo_flutter/providers/login_api_provider.dart';
 import 'package:trabajo_flutter/services/services.dart';
 
 import 'router/app_routes.dart';
@@ -13,12 +12,18 @@ class AppState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
-      ChangeNotifierProvider(create: (_) => UsersServices()),
-      ChangeNotifierProvider(create: (_) => LoginServices()),
-      ChangeNotifierProvider(create: (_) => LoginApiProvider()),
-      ChangeNotifierProvider(create: (_) => DeleteServices()),
-      ChangeNotifierProvider(create: (_) => DeactivateServices()),
       ChangeNotifierProvider(create: (_) => ActivateServices()),
+      ChangeNotifierProvider(create: (_) => AppliedServices()),
+      ChangeNotifierProvider(create: (_) => CiclesServices()),
+      ChangeNotifierProvider(create: (_) => ConfirmServices()),
+      ChangeNotifierProvider(create: (_) => DeactivateServices()),
+      ChangeNotifierProvider(create: (_) => DeleteServices()),
+      ChangeNotifierProvider(create: (_) => LoginServices()),
+      ChangeNotifierProvider(create: (_) => LogoutServices()),
+      ChangeNotifierProvider(create: (_) => OffersAppliedServices()),
+      ChangeNotifierProvider(create: (_) => OffersNotAppliedServices()),
+      ChangeNotifierProvider(create: (_) => UsersServices()),
+      ChangeNotifierProvider(create: (_) => UnappliedServices()),
     ], child: const MyApp());
   }
 }

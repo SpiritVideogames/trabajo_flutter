@@ -22,8 +22,7 @@ class UserScreen extends StatelessWidget {
                 child: Column(
               children: [
                 const SizedBox(height: 10),
-                Text('EDITING USER',
-                    style: Theme.of(context).textTheme.headline4),
+                Text('PROFILE', style: Theme.of(context).textTheme.headline4),
                 const SizedBox(height: 10),
                 ChangeNotifierProvider(
                   create: (_) => EditFormProvider(),
@@ -41,12 +40,11 @@ class _EditForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final editForm = Provider.of<EditFormProvider>(context);
     final userService = Provider.of<UsersServices>(context);
-    late List<Datum4> users = [];
-    users = userService.user.cast<Datum4>();
-    final n = users.length;
-    print("Tamaño");
-    print(n);
 
+    //print("Tamaño");
+    // print(n);
+    User? user = userService.loadUser() as User;
+    print(user.name);
     return Form(
         key: editForm.formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,

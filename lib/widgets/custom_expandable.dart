@@ -3,9 +3,7 @@ import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
-import 'package:trabajo_flutter/providers/login_api_provider.dart';
-
-import '../services/login_services.dart';
+import '../services/services.dart';
 
 @immutable
 class ExampleExpandableFab extends StatelessWidget {
@@ -33,13 +31,15 @@ class ExampleExpandableFab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<LoginServices>(context, listen: false);
+    final logoutService = Provider.of<LogoutServices>(context, listen: false);
     return ExpandableFab(
       distance: 70.0,
       children: [
         ActionButton(
-          onPressed: () {
+          onPressed: () async {
+            logoutService.getLogout();
             loginProvider.logout();
-            Navigator.pushReplacementNamed(context, 'login');
+            Navigator.popAndPushNamed(context, 'login');
           },
           icon: const Icon(Icons.logout_rounded),
         ),
