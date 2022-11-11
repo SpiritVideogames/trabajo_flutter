@@ -12,28 +12,29 @@ class Logout {
   });
 
   bool success;
-  Data7 data;
+  DataLogout data;
   String message;
 
   factory Logout.fromJson(String str) => Logout.fromMap(json.decode(str));
 
   factory Logout.fromMap(Map<String, dynamic> json) => Logout(
         success: json["success"],
-        data: Data7.fromMap(json["data"]),
+        data: DataLogout.fromMap(json["data"]),
         message: json["message"],
       );
 }
 
-class Data7 {
-  Data7({
+class DataLogout {
+  DataLogout({
     required this.id,
   });
 
   int id;
 
-  factory Data7.fromJson(String str) => Data7.fromMap(json.decode(str));
+  factory DataLogout.fromJson(String str) =>
+      DataLogout.fromMap(json.decode(str));
 
-  factory Data7.fromMap(Map<String, dynamic> json) => Data7(
+  factory DataLogout.fromMap(Map<String, dynamic> json) => DataLogout(
         id: json["id"],
       );
 }

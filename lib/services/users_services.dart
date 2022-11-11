@@ -11,8 +11,8 @@ import 'login_services.dart';
 
 class UsersServices extends ChangeNotifier {
   final String _baseUrl = 'salesin.allsites.es';
-  final List<Datum4> users = [];
-  late Datum5 selectedUser = Datum5();
+  final List<DataUsers> users = [];
+  late DataUser selectedUser = DataUser();
 
   bool isLoading = true;
 
@@ -37,7 +37,7 @@ class UsersServices extends ChangeNotifier {
       if (key == "data") {
         final List<dynamic> usersMap1 = value;
         for (int i = 0; i < usersMap1.length; i++) {
-          final tempUser = Datum4.fromMap(usersMap1[i]);
+          final tempUser = DataUsers.fromMap(usersMap1[i]);
 
           users.add(tempUser);
         }

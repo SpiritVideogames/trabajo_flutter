@@ -16,7 +16,7 @@ class User {
   });
 
   bool success;
-  Datum5 data;
+  DataUser data;
   String message;
 
   factory User.fromJson(String str) => User.fromMap(json.decode(str));
@@ -25,7 +25,7 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> json) => User(
         success: json["success"],
-        data: Datum5.fromMap(json["data"]),
+        data: DataUser.fromMap(json["data"]),
         message: json["message"],
       );
 
@@ -36,8 +36,8 @@ class User {
       };
 }
 
-class Datum5 {
-  Datum5({
+class DataUser {
+  DataUser({
     this.id,
     this.name,
     this.surname,
@@ -65,11 +65,11 @@ class Datum5 {
   String? createdAt;
   String? updatedAt;
 
-  factory Datum5.fromJson(String str) => Datum5.fromMap(json.decode(str));
+  factory DataUser.fromJson(String str) => DataUser.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Datum5.fromMap(Map<String, dynamic> json) => Datum5(
+  factory DataUser.fromMap(Map<String, dynamic> json) => DataUser(
         id: json["id"],
         name: json["name"],
         surname: json["surname"],

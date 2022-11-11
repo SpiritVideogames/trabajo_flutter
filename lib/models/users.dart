@@ -12,20 +12,21 @@ class Users {
   });
 
   bool success;
-  List<Datum4> data;
+  List<DataUsers> data;
   String message;
 
   factory Users.fromJson(String str) => Users.fromMap(json.decode(str));
 
   factory Users.fromMap(Map<String, dynamic> json) => Users(
         success: json["success"],
-        data: List<Datum4>.from(json["data"].map((x) => Datum4.fromMap(x))),
+        data:
+            List<DataUsers>.from(json["data"].map((x) => DataUsers.fromMap(x))),
         message: json["message"],
       );
 }
 
-class Datum4 {
-  Datum4({
+class DataUsers {
+  DataUsers({
     this.id,
     this.name,
     this.surname,
@@ -53,9 +54,9 @@ class Datum4 {
   String? updatedAt;
   String? emailVerifiedAt;
 
-  factory Datum4.fromJson(String str) => Datum4.fromMap(json.decode(str));
+  factory DataUsers.fromJson(String str) => DataUsers.fromMap(json.decode(str));
 
-  factory Datum4.fromMap(Map<String, dynamic> json) => Datum4(
+  factory DataUsers.fromMap(Map<String, dynamic> json) => DataUsers(
         id: json["id"],
         name: json["name"],
         surname: json["surname"],
@@ -70,7 +71,7 @@ class Datum4 {
         updatedAt: json["updated_at"],
       );
 
-  Datum4 copy() => Datum4(
+  DataUsers copy() => DataUsers(
         actived: this.actived,
         cicleId: this.cicleId,
         createdAt: this.createdAt,

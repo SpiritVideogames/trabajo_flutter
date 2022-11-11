@@ -33,7 +33,7 @@ class LoginServices extends ChangeNotifier {
           if (value['actived'] == 1) {
             resp = type;
           } else {
-            error = 'This account is not actived';
+            error = 'THIS ACCOUNT IS NOT ACTIVED';
 
             resp = error;
           }
@@ -42,7 +42,7 @@ class LoginServices extends ChangeNotifier {
     } else {
       String? error = '';
 
-      error = 'Error to login. Check email or password';
+      error = 'ERROR TO LOGIN. CHECK EMAIL OR PASSWORD';
 
       resp = error;
     }

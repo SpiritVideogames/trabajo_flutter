@@ -22,7 +22,7 @@ class IndexScreen extends StatelessWidget {
 
     final usersService = Provider.of<UsersServices>(context);
 
-    List<Datum4> users = usersService.users.cast<Datum4>();
+    List<DataUsers> users = usersService.users.cast<DataUsers>();
 
     final n = users.length;
     int cont = 0;

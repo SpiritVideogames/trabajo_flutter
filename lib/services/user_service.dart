@@ -12,7 +12,7 @@ import 'login_services.dart';
 class UserServices extends ChangeNotifier {
   final String _baseUrl = 'salesin.allsites.es';
 
-  late Datum5 selectedUser = Datum5();
+  late DataUser selectedUser = DataUser();
 
   bool isLoading = true;
 
@@ -36,7 +36,7 @@ class UserServices extends ChangeNotifier {
 
     usersMap.forEach((key, value) {
       if (key == "data") {
-        final tempUser = Datum5.fromMap(value);
+        final tempUser = DataUser.fromMap(value);
 
         selectedUser = tempUser;
       }

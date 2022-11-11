@@ -52,7 +52,7 @@ class _UserForm extends StatelessWidget {
 
     print('hola');
     print(usersServices.selectedUser.email);
-    Datum5 user = usersServices.selectedUser;
+    DataUser user = usersServices.selectedUser;
     // final user = userForm.user;
     //print("Tamaño");
     // print(n);
@@ -104,23 +104,6 @@ class _UserForm extends StatelessWidget {
               onChanged: (value) => user.surname = value,
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: 300,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.cyan),
-                  fixedSize: MaterialStateProperty.all(
-                      const Size(double.infinity, 30)),
-                ),
-                onPressed: () async {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                  if (userForm.isValidForm()) {
-                    //Navigator.pushNamed(context, 'edit');
-                  }
-                },
-                child: const Center(child: Text('Save')),
-              ),
-            ),
           ],
         ));
   }

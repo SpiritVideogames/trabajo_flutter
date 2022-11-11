@@ -70,11 +70,11 @@ class _LoginForm extends StatelessWidget {
                 autocorrect: false,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
-                  hintText: 'User email',
-                  labelText: 'Email',
-                  prefixIcon: Icon(Icons.alternate_email_rounded),
-                  border: OutlineInputBorder(),
-                ),
+                    hintText: 'User email',
+                    labelText: 'Email',
+                    prefixIcon: Icon(Icons.alternate_email_rounded),
+                    border: OutlineInputBorder(),
+                    iconColor: Color.fromRGBO(0, 153, 153, 1)),
                 onChanged: (value) => loginForm.email = value,
                 validator: (value) {
                   String pattern =
@@ -91,7 +91,8 @@ class _LoginForm extends StatelessWidget {
                   hintText: 'User password',
                   labelText: 'Password',
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.lock_outline_rounded)),
+                  prefixIcon: Icon(Icons.lock_outline_rounded),
+                  iconColor: Color.fromRGBO(0, 153, 153, 1)),
               onChanged: (value) => loginForm.password = value,
             ),
             const SizedBox(height: 20),
@@ -116,25 +117,51 @@ class _LoginForm extends StatelessWidget {
                       // ignore: use_build_context_synchronously
 
                       // ignore: use_build_context_synchronously
-                      Navigator.pushNamed(context, 'user');
+                      Navigator.pushNamed(context, 'back');
                     } else {
-                      Alert(
-                        context: context,
-                        type: AlertType.error,
-                        title: 'ERROR',
-                        desc: errorMessage,
-                        buttons: [
-                          DialogButton(
-                            onPressed: () => Navigator.pop(context),
-                            width: 120,
-                            child: const Text(
-                              "CLOSE",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                          )
-                        ],
-                      ).show();
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              height: 200,
+                              color: Colors.cyan[900],
+                              child: Center(
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      const SizedBox(height: 18),
+                                      Icon(Icons.error,
+                                          color: Colors.red[400], size: 50),
+                                      const SizedBox(height: 25),
+                                      Text(
+                                        errorMessage!,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            color:
+                                                Color.fromARGB(255, 10, 7, 7)),
+                                      ),
+                                      const SizedBox(height: 15),
+                                      ElevatedButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      Colors.white54)),
+                                          child: const Text('Close Alert',
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.black))),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          });
                     }
                   }
                 },

@@ -12,20 +12,20 @@ class Login {
   });
 
   bool success;
-  Data6 data;
+  DataLogin data;
   String message;
 
   factory Login.fromJson(String str) => Login.fromMap(json.decode(str));
 
   factory Login.fromMap(Map<String, dynamic> json) => Login(
         success: json["success"],
-        data: Data6.fromMap(json["data"]),
+        data: DataLogin.fromMap(json["data"]),
         message: json["message"],
       );
 }
 
-class Data6 {
-  Data6({
+class DataLogin {
+  DataLogin({
     required this.token,
     required this.id,
     required this.numOfferApplied,
@@ -37,9 +37,9 @@ class Data6 {
   int numOfferApplied;
   String type;
 
-  factory Data6.fromJson(String str) => Data6.fromMap(json.decode(str));
+  factory DataLogin.fromJson(String str) => DataLogin.fromMap(json.decode(str));
 
-  factory Data6.fromMap(Map<String, dynamic> json) => Data6(
+  factory DataLogin.fromMap(Map<String, dynamic> json) => DataLogin(
         token: json["token"],
         id: json["id"],
         numOfferApplied: json["num_offer_applied"],

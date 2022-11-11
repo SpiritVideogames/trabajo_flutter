@@ -12,7 +12,7 @@ class OffersApplied {
   });
 
   bool success;
-  List<Datum2> data;
+  List<DataOffersApplied> data;
   String message;
 
   factory OffersApplied.fromJson(String str) =>
@@ -20,13 +20,14 @@ class OffersApplied {
 
   factory OffersApplied.fromMap(Map<String, dynamic> json) => OffersApplied(
         success: json["success"],
-        data: List<Datum2>.from(json["data"].map((x) => Datum2.fromMap(x))),
+        data: List<DataOffersApplied>.from(
+            json["data"].map((x) => DataOffersApplied.fromMap(x))),
         message: json["message"],
       );
 }
 
-class Datum2 {
-  Datum2({
+class DataOffersApplied {
+  DataOffersApplied({
     required this.id,
     required this.headline,
     required this.description,
@@ -46,9 +47,11 @@ class Datum2 {
   int numCandidates;
   int deleted;
 
-  factory Datum2.fromJson(String str) => Datum2.fromMap(json.decode(str));
+  factory DataOffersApplied.fromJson(String str) =>
+      DataOffersApplied.fromMap(json.decode(str));
 
-  factory Datum2.fromMap(Map<String, dynamic> json) => Datum2(
+  factory DataOffersApplied.fromMap(Map<String, dynamic> json) =>
+      DataOffersApplied(
         id: json["id"],
         headline: json["headline"],
         description: json["description"],

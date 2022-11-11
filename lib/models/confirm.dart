@@ -12,28 +12,29 @@ class Confirm {
   });
 
   bool success;
-  Data3 data;
+  DataConfirm data;
   String message;
 
   factory Confirm.fromJson(String str) => Confirm.fromMap(json.decode(str));
 
   factory Confirm.fromMap(Map<String, dynamic> json) => Confirm(
         success: json["success"],
-        data: Data3.fromMap(json["data"]),
+        data: DataConfirm.fromMap(json["data"]),
         message: json["message"],
       );
 }
 
-class Data3 {
-  Data3({
+class DataConfirm {
+  DataConfirm({
     required this.id,
   });
 
   int id;
 
-  factory Data3.fromJson(String str) => Data3.fromMap(json.decode(str));
+  factory DataConfirm.fromJson(String str) =>
+      DataConfirm.fromMap(json.decode(str));
 
-  factory Data3.fromMap(Map<String, dynamic> json) => Data3(
+  factory DataConfirm.fromMap(Map<String, dynamic> json) => DataConfirm(
         id: json["id"],
       );
 }

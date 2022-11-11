@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/models.dart';
+import '../screens/back_screen.dart';
 import '../screens/screens.dart';
 
 class AppRoutes {
@@ -36,6 +37,11 @@ class AppRoutes {
         route: 'load',
         name: 'Loadig Screen',
         screen: const LoadingScreen(),
+        icon: Icons.account_balance_outlined),
+    MenuOption(
+        route: 'back',
+        name: 'Loadig Screen',
+        screen: WithPages(),
         icon: Icons.account_balance_outlined),
   ];
 

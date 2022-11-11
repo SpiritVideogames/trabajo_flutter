@@ -9,7 +9,7 @@ import '../models/models.dart';
 class CiclesServices extends ChangeNotifier {
   final String _baseUrl = 'salesin.allsites.es';
 
-  final List<Datum> cicles = [];
+  final List<DataCicles> cicles = [];
 
   CiclesServices() {}
 
@@ -28,7 +28,7 @@ class CiclesServices extends ChangeNotifier {
       if (key == "data") {
         final List<dynamic> ciclesMap1 = value;
         for (int i = 0; i < ciclesMap1.length; i++) {
-          final tempCicle = Datum.fromMap(ciclesMap1[i]);
+          final tempCicle = DataCicles.fromMap(ciclesMap1[i]);
 
           cicles.add(tempCicle);
         }

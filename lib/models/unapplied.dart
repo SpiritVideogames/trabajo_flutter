@@ -12,28 +12,29 @@ class Unapplied {
   });
 
   bool success;
-  Data9 data;
+  DataUnapplied data;
   String message;
 
   factory Unapplied.fromJson(String str) => Unapplied.fromMap(json.decode(str));
 
   factory Unapplied.fromMap(Map<String, dynamic> json) => Unapplied(
         success: json["success"],
-        data: Data9.fromMap(json["data"]),
+        data: DataUnapplied.fromMap(json["data"]),
         message: json["message"],
       );
 }
 
-class Data9 {
-  Data9({
+class DataUnapplied {
+  DataUnapplied({
     required this.offerId,
   });
 
   String offerId;
 
-  factory Data9.fromJson(String str) => Data9.fromMap(json.decode(str));
+  factory DataUnapplied.fromJson(String str) =>
+      DataUnapplied.fromMap(json.decode(str));
 
-  factory Data9.fromMap(Map<String, dynamic> json) => Data9(
+  factory DataUnapplied.fromMap(Map<String, dynamic> json) => DataUnapplied(
         offerId: json["offer_id"],
       );
 }
