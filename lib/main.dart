@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:trabajo_flutter/providers/login_api_provider.dart';
 import 'package:trabajo_flutter/services/services.dart';
 
+import 'models/models.dart';
+import 'providers/user_form_provider.dart';
 import 'router/app_routes.dart';
 
 void main() => runApp(const AppState());
@@ -14,6 +16,7 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => UsersServices()),
+      ChangeNotifierProvider(create: (_) => UserServices()),
       ChangeNotifierProvider(create: (_) => LogoutServices()),
       ChangeNotifierProvider(create: (_) => LoginServices()),
       ChangeNotifierProvider(create: (_) => LoginApiProvider()),

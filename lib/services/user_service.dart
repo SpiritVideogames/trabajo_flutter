@@ -9,43 +9,43 @@ import 'package:http/http.dart' as http;
 
 import 'login_services.dart';
 
-class UsersServices extends ChangeNotifier {
+class UserServices extends ChangeNotifier {
   final String _baseUrl = 'salesin.allsites.es';
-  final List<Datum4> users = [];
+
   late Datum5 selectedUser = Datum5();
 
   bool isLoading = true;
 
-  UsersServices() {
-    loadUsers();
+  UserServices() {
+    loadUser();
   }
 
-  Future loadUsers() async {
+  Future loadUser() async {
     String? token = await LoginServices().readToken();
-
+    int? id = await LoginServices().readId();
     isLoading = true;
     notifyListeners();
-    final url = Uri.http(_baseUrl, '/public/api/users');
+    final url = Uri.http(_baseUrl, '/public/api/usuario/$id');
     final resp = await http.get(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     });
 
     final Map<String, dynamic> usersMap = json.decode(resp.body);
+    print(resp.body);
 
     usersMap.forEach((key, value) {
       if (key == "data") {
-        final List<dynamic> usersMap1 = value;
-        for (int i = 0; i < usersMap1.length; i++) {
-          final tempUser = Datum4.fromMap(usersMap1[i]);
+        final tempUser = Datum5.fromMap(value);
 
-          users.add(tempUser);
-        }
+        selectedUser = tempUser;
       }
     });
 
+    print(selectedUser.id);
+
     isLoading = false;
     notifyListeners();
-    return users;
+    return null;
   }
 }

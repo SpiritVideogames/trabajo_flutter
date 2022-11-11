@@ -26,28 +26,32 @@ class Users {
 
 class Datum4 {
   Datum4({
-    required this.id,
-    required this.name,
-    required this.surname,
-    required this.cicleId,
-    required this.actived,
-    required this.email,
-    required this.type,
-    required this.numOfferApplied,
-    required this.deleted,
-    required this.createdAt,
+    this.id,
+    this.name,
+    this.surname,
+    this.cicleId,
+    this.actived,
+    this.email,
+    this.type,
+    this.numOfferApplied,
+    this.deleted,
+    this.createdAt,
+    this.emailVerifiedAt,
+    this.updatedAt,
   });
 
-  int id;
-  String name;
-  String surname;
-  int cicleId;
-  int actived;
-  String email;
-  String type;
-  int numOfferApplied;
-  int deleted;
-  String createdAt;
+  int? id;
+  String? name;
+  String? surname;
+  int? cicleId;
+  int? actived;
+  String? email;
+  String? type;
+  int? numOfferApplied;
+  int? deleted;
+  String? createdAt;
+  String? updatedAt;
+  String? emailVerifiedAt;
 
   factory Datum4.fromJson(String str) => Datum4.fromMap(json.decode(str));
 
@@ -62,5 +66,22 @@ class Datum4 {
         numOfferApplied: json["num_offer_applied"],
         deleted: json["deleted"],
         createdAt: json["created_at"],
+        emailVerifiedAt: json["email_verified_at"],
+        updatedAt: json["updated_at"],
+      );
+
+  Datum4 copy() => Datum4(
+        actived: this.actived,
+        cicleId: this.cicleId,
+        createdAt: this.createdAt,
+        deleted: this.deleted,
+        email: this.email,
+        id: this.id,
+        name: this.name,
+        numOfferApplied: this.numOfferApplied,
+        surname: this.surname,
+        type: this.type,
+        emailVerifiedAt: this.emailVerifiedAt,
+        updatedAt: this.updatedAt,
       );
 }

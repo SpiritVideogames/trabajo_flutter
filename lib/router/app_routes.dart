@@ -10,7 +10,7 @@ class AppRoutes {
     MenuOption(
         route: 'login',
         name: 'Login Screen',
-        screen: const LoginScreen(),
+        screen: LoginScreen(),
         icon: Icons.account_balance_outlined),
     MenuOption(
         route: 'index',
@@ -26,6 +26,11 @@ class AppRoutes {
         route: 'user',
         name: 'User Screen',
         screen: const UserScreen(),
+        icon: Icons.account_balance_outlined),
+    MenuOption(
+        route: 'load',
+        name: 'Loadig Screen',
+        screen: const LoadingScreen(),
         icon: Icons.account_balance_outlined),
   ];
 
@@ -49,6 +54,6 @@ class AppRoutes {
   // };
 
   static Route<dynamic> onGenerateRoute(settings) {
-    return MaterialPageRoute(builder: (context) => const LoginScreen());
+    return MaterialPageRoute(builder: (context) => LoginScreen());
   }
 }

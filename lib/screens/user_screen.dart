@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trabajo_flutter/providers/edit_form_provider.dart';
+import 'package:trabajo_flutter/providers/user_form_provider.dart';
+import 'package:trabajo_flutter/screens/screens.dart';
 
 import '../models/models.dart';
 import '../services/services.dart';
@@ -11,6 +13,9 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Navigator.restorablePushReplacementNamed(context, 'user');
+    final usersService = Provider.of<UserServices>(context, listen: false);
+    if (usersService.isLoading) return LoadingScreen();
     return Scaffold(
         backgroundColor: Colors.white,
         body: AuthBackground(
@@ -25,9 +30,10 @@ class UserScreen extends StatelessWidget {
                 Text('PROFILE', style: Theme.of(context).textTheme.headline4),
                 const SizedBox(height: 10),
                 ChangeNotifierProvider(
-                  create: (_) => EditFormProvider(),
-                  child: _EditForm(),
-                ),
+                    create: (_) => EditFormProvider(),
+                    child: _UserForm(
+                      usersServices: usersService,
+                    )),
               ],
             )),
           ],
@@ -35,32 +41,38 @@ class UserScreen extends StatelessWidget {
   }
 }
 
-class _EditForm extends StatelessWidget {
+class _UserForm extends StatelessWidget {
+  final UserServices usersServices;
+
+  const _UserForm({super.key, required this.usersServices});
   @override
   Widget build(BuildContext context) {
-    final editForm = Provider.of<EditFormProvider>(context);
-    final userService = Provider.of<UsersServices>(context);
+    final userForm = Provider.of<EditFormProvider>(context);
 
+    print('hola');
+    print(usersServices.selectedUser.email);
+    Datum5 user = usersServices.selectedUser;
+    // final user = userForm.user;
     //print("Tamaño");
     // print(n);
-    User? user = userService.loadUser() as User;
-    print(user.name);
+
+    //print(user.name);
     return Form(
-        key: editForm.formKey,
+        key: userForm.formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(
           children: [
             TextFormField(
                 autocorrect: false,
                 keyboardType: TextInputType.emailAddress,
-                // initialValue: users[0].name,
+                initialValue: user.email,
                 decoration: const InputDecoration(
                   hintText: 'User email',
                   labelText: 'Email',
                   prefixIcon: Icon(Icons.alternate_email_rounded),
                   border: OutlineInputBorder(),
                 ),
-                onChanged: (value) => editForm.email = value,
+                onChanged: (value) => user.email = value,
                 validator: (value) {
                   String pattern =
                       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -77,7 +89,7 @@ class _EditForm extends StatelessWidget {
                   labelText: 'Name',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.account_box_rounded)),
-              onChanged: (value) => editForm.name = value,
+              onChanged: (value) => user.name = value,
             ),
             const SizedBox(height: 20),
             TextFormField(
@@ -87,7 +99,7 @@ class _EditForm extends StatelessWidget {
                   labelText: 'Surname',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.account_box_rounded)),
-              onChanged: (value) => editForm.surname = value,
+              onChanged: (value) => user.surname = value,
             ),
             const SizedBox(height: 20),
             SizedBox(
@@ -100,7 +112,7 @@ class _EditForm extends StatelessWidget {
                 ),
                 onPressed: () async {
                   FocusScope.of(context).requestFocus(FocusNode());
-                  if (editForm.isValidForm()) {
+                  if (userForm.isValidForm()) {
                     //Navigator.pushNamed(context, 'edit');
                   }
                 },
