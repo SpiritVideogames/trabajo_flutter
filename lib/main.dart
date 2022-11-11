@@ -5,6 +5,7 @@ import 'package:trabajo_flutter/services/services.dart';
 import 'models/models.dart';
 import 'providers/user_form_provider.dart';
 import 'router/app_routes.dart';
+import 'services/user_service.dart';
 
 void main() => runApp(const AppState());
 
@@ -20,6 +21,7 @@ class AppState extends StatelessWidget {
       ChangeNotifierProvider(create: (_) => ConfirmServices()),
       ChangeNotifierProvider(create: (_) => DeactivateServices()),
       ChangeNotifierProvider(create: (_) => DeleteServices()),
+      ChangeNotifierProvider(create: (_) => UserServices()),
       ChangeNotifierProvider(create: (_) => LoginServices()),
       ChangeNotifierProvider(create: (_) => LogoutServices()),
       ChangeNotifierProvider(create: (_) => OffersAppliedServices()),

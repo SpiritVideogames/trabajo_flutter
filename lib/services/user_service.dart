@@ -23,7 +23,7 @@ class UserServices extends ChangeNotifier {
   Future loadUser() async {
     String? token = await LoginServices().readToken();
     int? id = await LoginServices().readId();
-    isLoading = true;
+
     notifyListeners();
     final url = Uri.http(_baseUrl, '/public/api/usuario/$id');
     final resp = await http.get(url, headers: {
@@ -46,6 +46,6 @@ class UserServices extends ChangeNotifier {
 
     isLoading = false;
     notifyListeners();
-    return null;
+    return selectedUser;
   }
 }

@@ -5,6 +5,7 @@ import 'package:trabajo_flutter/screens/screens.dart';
 
 import '../models/models.dart';
 import '../services/services.dart';
+import '../services/user_service.dart';
 import '../widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,7 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Navigator.restorablePushReplacementNamed(context, 'user');
-    final usersService = Provider.of<UserServices>(context, listen: false);
+    final usersService = Provider.of<UserServices>(context);
     if (usersService.isLoading) return LoadingScreen();
     return Scaffold(
         backgroundColor: Colors.white,
@@ -83,7 +84,7 @@ class _UserForm extends StatelessWidget {
             const SizedBox(height: 20),
             TextFormField(
               autocorrect: false,
-              // initialValue: user[1].name,
+              initialValue: user.name,
               decoration: const InputDecoration(
                   hintText: 'User name',
                   labelText: 'Name',
@@ -94,6 +95,7 @@ class _UserForm extends StatelessWidget {
             const SizedBox(height: 20),
             TextFormField(
               autocorrect: false,
+              initialValue: user.surname,
               decoration: const InputDecoration(
                   hintText: 'User surname',
                   labelText: 'Surname',
