@@ -40,8 +40,13 @@ class AppRoutes {
         icon: Icons.account_balance_outlined),
     MenuOption(
         route: 'back',
-        name: 'Loadig Screen',
+        name: 'Swipe Screen',
         screen: WithPages(),
+        icon: Icons.account_balance_outlined),
+    MenuOption(
+        route: 'userMenu',
+        name: 'User Screen',
+        screen: const UserMenuScreen(),
         icon: Icons.account_balance_outlined),
   ];
 

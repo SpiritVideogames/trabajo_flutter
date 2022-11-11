@@ -28,7 +28,7 @@ class _WithPages extends State<WithPages> {
     super.initState();
   }
 
-  final pages = [IndexScreen(), UserScreen()];
+  final pages = [UserMenuScreen(), UserScreen()];
 
   Widget _buildDot(int index) {
     double selectedness = Curves.easeOut.transform(
