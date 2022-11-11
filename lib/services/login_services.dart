@@ -28,7 +28,6 @@ class LoginServices extends ChangeNotifier {
       login.forEach((key, value) {
         if (key == 'data') {
           storage.write(key: 'token', value: value['token']);
-          print(value['token']);
           storage.write(key: 'id', value: value['id'].toString());
           type = value['type'];
           if (value['actived'] == 1) {

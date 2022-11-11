@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-import '../models/models.dart';
 import '../providers/login_form_provider.dart';
 import '../services/login_services.dart';
-import '../services/services.dart';
 import '../widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +22,8 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
               children: [
                 const SizedBox(height: 10),
-                Text('Login', style: Theme.of(context).textTheme.headline4),
+                Text('Create account',
+                    style: Theme.of(context).textTheme.headline4),
                 const SizedBox(height: 10),
                 ChangeNotifierProvider(
                   create: (_) => LoginFormProvider(),
@@ -37,13 +36,13 @@ class LoginScreen extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () =>
-                    Navigator.pushReplacementNamed(context, 'register'),
+                    Navigator.pushReplacementNamed(context, 'login'),
                 style: ButtonStyle(
                     overlayColor: MaterialStateProperty.all(
                         Colors.indigo.withOpacity(0.1)),
                     shape: MaterialStateProperty.all(StadiumBorder())),
                 child: const Text(
-                  'Create new account',
+                  'Have an account already?',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -112,9 +111,6 @@ class _LoginForm extends StatelessWidget {
                       Navigator.pushNamed(context, 'index');
                     } else if (errorMessage == 'u') {
                       print(errorMessage);
-                      // ignore: use_build_context_synchronously
-
-                      // ignore: use_build_context_synchronously
                       Navigator.pushNamed(context, 'user');
                     } else {
                       Alert(
