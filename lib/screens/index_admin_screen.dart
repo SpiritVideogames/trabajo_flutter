@@ -122,7 +122,7 @@ class MySlidable extends StatelessWidget {
                       onPressed: () {
                         deleteService.postDelete(id);
                         list.removeAt(index);
-                        Navigator.popAndPushNamed(context, 'index');
+                        Navigator.pushReplacementNamed(context, 'index');
                       },
                       width: 120,
                       child: const Text(
@@ -148,7 +148,7 @@ class MySlidable extends StatelessWidget {
             ),
             SlidableAction(
               onPressed: (BuildContext context) {
-                Navigator.pushNamed(context, 'edit');
+                Navigator.pushReplacementNamed(context, 'edit');
               },
               backgroundColor: const Color(0xFF21B7CA),
               foregroundColor: Colors.white,
@@ -175,7 +175,7 @@ class MySlidable extends StatelessWidget {
                     id: id,
                     index: index,
                   );
-                  Navigator.popAndPushNamed(context, 'index');
+                  Navigator.pushReplacementNamed(context, 'index');
                 } else {
                   activateService.postActivate(id);
                   list[index] = MySlidable(
@@ -185,7 +185,7 @@ class MySlidable extends StatelessWidget {
                     id: id,
                     index: index,
                   );
-                  Navigator.popAndPushNamed(context, 'index');
+                  Navigator.pushReplacementNamed(context, 'index');
                 }
               },
               backgroundColor: bg,
