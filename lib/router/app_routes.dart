@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/models.dart';
+import '../screens/back_screen.dart';
 import '../screens/screens.dart';
 
 class AppRoutes {
@@ -10,7 +11,12 @@ class AppRoutes {
     MenuOption(
         route: 'login',
         name: 'Login Screen',
-        screen: const LoginScreen(),
+        screen: LoginScreen(),
+        icon: Icons.account_balance_outlined),
+    MenuOption(
+        route: 'register',
+        name: 'Register Screen',
+        screen: const RegisterScreen(),
         icon: Icons.account_balance_outlined),
     MenuOption(
         route: 'index',
@@ -26,6 +32,21 @@ class AppRoutes {
         route: 'user',
         name: 'User Screen',
         screen: const UserScreen(),
+        icon: Icons.account_balance_outlined),
+    MenuOption(
+        route: 'load',
+        name: 'Loadig Screen',
+        screen: const LoadingScreen(),
+        icon: Icons.account_balance_outlined),
+    MenuOption(
+        route: 'back',
+        name: 'Swipe Screen',
+        screen: WithPages(),
+        icon: Icons.account_balance_outlined),
+    MenuOption(
+        route: 'userMenu',
+        name: 'User Screen',
+        screen: const UserMenuScreen(),
         icon: Icons.account_balance_outlined),
   ];
 
@@ -49,6 +70,6 @@ class AppRoutes {
   // };
 
   static Route<dynamic> onGenerateRoute(settings) {
-    return MaterialPageRoute(builder: (context) => const LoginScreen());
+    return MaterialPageRoute(builder: (context) => LoginScreen());
   }
 }

@@ -10,7 +10,7 @@ import 'login_services.dart';
 class OffersNotAppliedServices extends ChangeNotifier {
   final String _baseUrl = 'salesin.allsites.es';
 
-  final List<Datum3> offersNotApplied = [];
+  final List<DataOffersNotApplied> offersNotApplied = [];
 
   OffersNotAppliedServices() {}
 
@@ -29,7 +29,8 @@ class OffersNotAppliedServices extends ChangeNotifier {
       if (key == "data") {
         final List<dynamic> offersNotAppliedMap1 = value;
         for (int i = 0; i < offersNotAppliedMap1.length; i++) {
-          final tempOfferNotApplied = Datum3.fromMap(offersNotAppliedMap1[i]);
+          final tempOfferNotApplied =
+              DataOffersNotApplied.fromMap(offersNotAppliedMap1[i]);
 
           offersNotApplied.add(tempOfferNotApplied);
         }

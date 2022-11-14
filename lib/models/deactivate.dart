@@ -12,7 +12,7 @@ class Deactivate {
   });
 
   bool success;
-  Data4 data;
+  DataDeactivate data;
   String message;
 
   factory Deactivate.fromJson(String str) =>
@@ -20,21 +20,22 @@ class Deactivate {
 
   factory Deactivate.fromMap(Map<String, dynamic> json) => Deactivate(
         success: json["success"],
-        data: Data4.fromMap(json["data"]),
+        data: DataDeactivate.fromMap(json["data"]),
         message: json["message"],
       );
 }
 
-class Data4 {
-  Data4({
+class DataDeactivate {
+  DataDeactivate({
     required this.id,
   });
 
   int id;
 
-  factory Data4.fromJson(String str) => Data4.fromMap(json.decode(str));
+  factory DataDeactivate.fromJson(String str) =>
+      DataDeactivate.fromMap(json.decode(str));
 
-  factory Data4.fromMap(Map<String, dynamic> json) => Data4(
+  factory DataDeactivate.fromMap(Map<String, dynamic> json) => DataDeactivate(
         id: json["id"],
       );
 }

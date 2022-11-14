@@ -12,7 +12,7 @@ class Cicles {
   });
 
   bool success;
-  List<Datum> data;
+  List<DataCicles> data;
   String message;
 
   factory Cicles.fromJson(String str) => Cicles.fromMap(json.decode(str));
@@ -21,7 +21,8 @@ class Cicles {
 
   factory Cicles.fromMap(Map<String, dynamic> json) => Cicles(
         success: json["success"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromMap(x))),
+        data: List<DataCicles>.from(
+            json["data"].map((x) => DataCicles.fromMap(x))),
         message: json["message"],
       );
 
@@ -32,8 +33,8 @@ class Cicles {
       };
 }
 
-class Datum {
-  Datum({
+class DataCicles {
+  DataCicles({
     required this.id,
     required this.name,
     required this.img,
@@ -43,11 +44,12 @@ class Datum {
   String name;
   String img;
 
-  factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
+  factory DataCicles.fromJson(String str) =>
+      DataCicles.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Datum.fromMap(Map<String, dynamic> json) => Datum(
+  factory DataCicles.fromMap(Map<String, dynamic> json) => DataCicles(
         id: json["id"],
         name: json["name"],
         img: json["img"],

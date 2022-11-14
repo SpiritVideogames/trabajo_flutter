@@ -22,7 +22,7 @@ class IndexScreen extends StatelessWidget {
 
     final usersService = Provider.of<UsersServices>(context);
 
-    List<Datum4> users = usersService.users.cast<Datum4>();
+    List<DataUsers> users = usersService.users.cast<DataUsers>();
 
     final n = users.length;
     int cont = 0;
@@ -32,7 +32,7 @@ class IndexScreen extends StatelessWidget {
         if (users[i].deleted == 0) {
           if (users[i].actived == 1) {
             list.add(MySlidable(
-              tit: users[i].name + ' ' + users[i].surname,
+              tit: '${users[i].name} ${users[i].surname}',
               actived: 'Deactivate',
               bg: Colors.red,
               id: users[i].id.toString(),
@@ -41,7 +41,7 @@ class IndexScreen extends StatelessWidget {
             cont += 1;
           } else {
             list.add(MySlidable(
-              tit: users[i].name + ' ' + users[i].surname,
+              tit: '${users[i].name} ${users[i].surname}',
               actived: 'Activate',
               bg: Color(0xFF7BC043),
               id: users[i].id.toString(),

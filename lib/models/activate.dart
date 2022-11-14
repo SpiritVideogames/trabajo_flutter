@@ -12,28 +12,29 @@ class Activate {
   });
 
   bool success;
-  Data data;
+  DataActivate data;
   String message;
 
   factory Activate.fromJson(String str) => Activate.fromMap(json.decode(str));
 
   factory Activate.fromMap(Map<String, dynamic> json) => Activate(
         success: json["success"],
-        data: Data.fromMap(json["data"]),
+        data: DataActivate.fromMap(json["data"]),
         message: json["message"],
       );
 }
 
-class Data {
-  Data({
+class DataActivate {
+  DataActivate({
     required this.id,
   });
 
   int id;
 
-  factory Data.fromJson(String str) => Data.fromMap(json.decode(str));
+  factory DataActivate.fromJson(String str) =>
+      DataActivate.fromMap(json.decode(str));
 
-  factory Data.fromMap(Map<String, dynamic> json) => Data(
+  factory DataActivate.fromMap(Map<String, dynamic> json) => DataActivate(
         id: json["id"],
       );
 }

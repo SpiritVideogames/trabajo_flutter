@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-import '../models/models.dart';
 import '../providers/login_form_provider.dart';
 import '../services/login_services.dart';
-import '../services/services.dart';
-import '../services/user_service.dart';
 import '../widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +22,8 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
               children: [
                 const SizedBox(height: 10),
-                Text('Login', style: Theme.of(context).textTheme.headline4),
+                Text('Create account',
+                    style: Theme.of(context).textTheme.headline4),
                 const SizedBox(height: 10),
                 ChangeNotifierProvider(
                   create: (_) => LoginFormProvider(),
@@ -38,13 +36,13 @@ class LoginScreen extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () =>
-                    Navigator.pushReplacementNamed(context, 'register'),
+                    Navigator.pushReplacementNamed(context, 'login'),
                 style: ButtonStyle(
                     overlayColor: MaterialStateProperty.all(
                         Colors.indigo.withOpacity(0.1)),
                     shape: MaterialStateProperty.all(StadiumBorder())),
                 child: const Text(
-                  'Create new account',
+                  'Have an account already?',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -70,11 +68,11 @@ class _LoginForm extends StatelessWidget {
                 autocorrect: false,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
-                    hintText: 'User email',
-                    labelText: 'Email',
-                    prefixIcon: Icon(Icons.alternate_email_rounded),
-                    border: OutlineInputBorder(),
-                    iconColor: Color.fromRGBO(0, 153, 153, 1)),
+                  hintText: 'User email',
+                  labelText: 'Email',
+                  prefixIcon: Icon(Icons.alternate_email_rounded),
+                  border: OutlineInputBorder(),
+                ),
                 onChanged: (value) => loginForm.email = value,
                 validator: (value) {
                   String pattern =
@@ -91,8 +89,7 @@ class _LoginForm extends StatelessWidget {
                   hintText: 'User password',
                   labelText: 'Password',
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.lock_outline_rounded),
-                  iconColor: Color.fromRGBO(0, 153, 153, 1)),
+                  prefixIcon: Icon(Icons.lock_outline_rounded)),
               onChanged: (value) => loginForm.password = value,
             ),
             const SizedBox(height: 20),
@@ -114,54 +111,25 @@ class _LoginForm extends StatelessWidget {
                       Navigator.pushNamed(context, 'index');
                     } else if (errorMessage == 'u') {
                       print(errorMessage);
-                      // ignore: use_build_context_synchronously
-
-                      // ignore: use_build_context_synchronously
-                      Navigator.pushNamed(context, 'back');
+                      Navigator.pushNamed(context, 'user');
                     } else {
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Container(
-                              height: 200,
-                              color: Colors.cyan[900],
-                              child: Center(
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      const SizedBox(height: 18),
-                                      Icon(Icons.error,
-                                          color: Colors.red[400], size: 50),
-                                      const SizedBox(height: 25),
-                                      Text(
-                                        errorMessage!,
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                            fontSize: 18,
-                                            color:
-                                                Color.fromARGB(255, 10, 7, 7)),
-                                      ),
-                                      const SizedBox(height: 15),
-                                      ElevatedButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          style: ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Colors.white54)),
-                                          child: const Text('Close Alert',
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: Colors.black))),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          });
+                      Alert(
+                        context: context,
+                        type: AlertType.error,
+                        title: 'ERROR',
+                        desc: errorMessage,
+                        buttons: [
+                          DialogButton(
+                            onPressed: () => Navigator.pop(context),
+                            width: 120,
+                            child: const Text(
+                              "CLOSE",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                          )
+                        ],
+                      ).show();
                     }
                   }
                 },

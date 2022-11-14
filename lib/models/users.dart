@@ -12,46 +12,51 @@ class Users {
   });
 
   bool success;
-  List<Datum4> data;
+  List<DataUsers> data;
   String message;
 
   factory Users.fromJson(String str) => Users.fromMap(json.decode(str));
 
   factory Users.fromMap(Map<String, dynamic> json) => Users(
         success: json["success"],
-        data: List<Datum4>.from(json["data"].map((x) => Datum4.fromMap(x))),
+        data:
+            List<DataUsers>.from(json["data"].map((x) => DataUsers.fromMap(x))),
         message: json["message"],
       );
 }
 
-class Datum4 {
-  Datum4({
-    required this.id,
-    required this.name,
-    required this.surname,
-    required this.cicleId,
-    required this.actived,
-    required this.email,
-    required this.type,
-    required this.numOfferApplied,
-    required this.deleted,
-    required this.createdAt,
+class DataUsers {
+  DataUsers({
+    this.id,
+    this.name,
+    this.surname,
+    this.cicleId,
+    this.actived,
+    this.email,
+    this.type,
+    this.numOfferApplied,
+    this.deleted,
+    this.createdAt,
+    this.emailVerifiedAt,
+    this.updatedAt,
   });
 
-  int id;
-  String name;
-  String surname;
-  int cicleId;
-  int actived;
-  String email;
-  String type;
-  int numOfferApplied;
-  int deleted;
-  String createdAt;
+  int? id;
+  String? name;
+  String? surname;
+  int? cicleId;
+  int? actived;
+  String? email;
+  String? type;
+  int? numOfferApplied;
+  int? deleted;
+  String? createdAt;
+  String? updatedAt;
+  String? emailVerifiedAt;
 
-  factory Datum4.fromJson(String str) => Datum4.fromMap(json.decode(str));
+  factory DataUsers.fromJson(String str) => DataUsers.fromMap(json.decode(str));
 
-  factory Datum4.fromMap(Map<String, dynamic> json) => Datum4(
+  factory DataUsers.fromMap(Map<String, dynamic> json) => DataUsers(
         id: json["id"],
         name: json["name"],
         surname: json["surname"],
@@ -62,5 +67,22 @@ class Datum4 {
         numOfferApplied: json["num_offer_applied"],
         deleted: json["deleted"],
         createdAt: json["created_at"],
+        emailVerifiedAt: json["email_verified_at"],
+        updatedAt: json["updated_at"],
+      );
+
+  DataUsers copy() => DataUsers(
+        actived: this.actived,
+        cicleId: this.cicleId,
+        createdAt: this.createdAt,
+        deleted: this.deleted,
+        email: this.email,
+        id: this.id,
+        name: this.name,
+        numOfferApplied: this.numOfferApplied,
+        surname: this.surname,
+        type: this.type,
+        emailVerifiedAt: this.emailVerifiedAt,
+        updatedAt: this.updatedAt,
       );
 }
