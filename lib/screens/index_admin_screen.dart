@@ -153,7 +153,7 @@ class MySlidable extends StatelessWidget {
             ),
             SlidableAction(
               onPressed: (BuildContext context) {
-                Navigator.pushNamed(context, 'edit');
+                Navigator.pushReplacementNamed(context, 'edit');
               },
               backgroundColor: const Color(0xFF21B7CA),
               foregroundColor: Colors.white,
