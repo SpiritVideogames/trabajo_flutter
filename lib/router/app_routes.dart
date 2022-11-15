@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trabajo_flutter/screens/index_adminStu_screen.dart';
 
 import '../models/models.dart';
 import '../screens/back_screen.dart';
@@ -21,7 +22,12 @@ class AppRoutes {
     MenuOption(
         route: 'index',
         name: 'Index Screen',
-        screen: const IndexScreen(),
+        screen: IndexScreen(),
+        icon: Icons.account_balance_outlined),
+    MenuOption(
+        route: 'index2',
+        name: 'Index Screen',
+        screen: const Index2Screen(),
         icon: Icons.account_balance_outlined),
     MenuOption(
         route: 'edit',
