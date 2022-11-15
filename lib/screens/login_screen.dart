@@ -9,11 +9,14 @@ import '../services/user_service.dart';
 import '../widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+BuildContext contexto = contexto;
+
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    contexto = context;
     return Scaffold(
         backgroundColor: Colors.white,
         body: AuthBackground(
