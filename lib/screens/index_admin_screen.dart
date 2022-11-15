@@ -62,7 +62,7 @@ class IndexScreen extends StatelessWidget {
                 Deact = true;
               } else {
                 Deact = false;
-                Act = false;
+                Act = true;
               }
               return MySlidable(
                 Act: Act,
@@ -183,7 +183,7 @@ class MySlidable extends StatelessWidget {
               visible: Act,
               child: SlidableAction(
                 onPressed: (BuildContext context) {
-                  Navigator.pushNamed(context, 'Activate');
+                  activateService.postActivate(id);
                 },
                 backgroundColor: const Color(0xFF7BC043),
                 foregroundColor: Colors.white,
