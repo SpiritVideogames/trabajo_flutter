@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../providers/login_form_provider.dart';
+import '../providers/register_form_provider.dart';
 import '../services/login_services.dart';
+import '../services/register_services.dart';
 import '../widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -59,6 +61,8 @@ class _LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final loginService = Provider.of<LoginServices>(context);
     final loginForm = Provider.of<LoginFormProvider>(context);
+    final registerService = Provider.of<RegisterServices>(context);
+    final registerForm = Provider.of<RegisterFormProvider>(context);
     return Form(
         key: loginForm.formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -103,33 +107,22 @@ class _LoginForm extends StatelessWidget {
                 ),
                 onPressed: () async {
                   FocusScope.of(context).requestFocus(FocusNode());
-                  if (loginForm.isValidForm()) {
-                    final String? errorMessage = await loginService.postLogin(
-                        loginForm.email, loginForm.password);
-                    if (errorMessage == 'a') {
-                      // ignore: use_build_context_synchronously
-                      Navigator.pushNamed(context, 'index');
-                    } else if (errorMessage == 'u') {
-                      print(errorMessage);
-                      Navigator.pushNamed(context, 'user');
+                  final registerService =
+                      Provider.of<RegisterServices>(context, listen: false);
+                  if (registerForm.isValidForm()) {
+                    final String? errorMessage =
+                        await registerService.postRegister(
+                            registerForm.name,
+                            registerForm.surname,
+                            registerForm.email,
+                            registerForm.password,
+                            registerForm.c_password,
+                            registerForm.cicle_id);
+
+                    if (errorMessage == null) {
+                      Navigator.pushReplacementNamed(context, 'index');
                     } else {
-                      Alert(
-                        context: context,
-                        type: AlertType.error,
-                        title: 'ERROR',
-                        desc: errorMessage,
-                        buttons: [
-                          DialogButton(
-                            onPressed: () => Navigator.pop(context),
-                            width: 120,
-                            child: const Text(
-                              "CLOSE",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                          )
-                        ],
-                      ).show();
+                      print(errorMessage);
                     }
                   }
                 },
