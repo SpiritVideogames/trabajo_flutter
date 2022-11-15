@@ -13,7 +13,7 @@ class RegisterServices extends ChangeNotifier {
   RegisterServices() {}
 
   postRegister(String name, String surname, String email, String password,
-      String c_password, String cicle_id) async {
+      String c_password, int cicle_id) async {
     final url = Uri.http(_baseUrl, '/public/api/register', {
       'name': name,
       'surname': surname,
