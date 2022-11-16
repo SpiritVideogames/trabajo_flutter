@@ -16,29 +16,86 @@ class UserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     //Navigator.restorablePushReplacementNamed(context, 'user');
     final usersService = Provider.of<UserServices>(context);
-    if (usersService.isLoading) return LoadingScreen();
+    if (usersService.isLoading) return const LoadingScreen();
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: AuthBackground(
-            child: SingleChildScrollView(
-                child: Column(
+      backgroundColor: Colors.white,
+      appBar: AppBar(),
+      body: AuthBackground(
+          child: SingleChildScrollView(
+              child: Column(
+        children: [
+          const SizedBox(height: 250),
+          CardContainer(
+              child: Column(
+            children: [
+              const SizedBox(height: 10),
+              Text('PROFILE', style: Theme.of(context).textTheme.headline4),
+              const SizedBox(height: 10),
+              ChangeNotifierProvider(
+                  create: (_) => EditFormProvider(),
+                  child: _UserForm(
+                    usersServices: usersService,
+                  )),
+            ],
+          )),
+        ],
+      ))),
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
           children: [
-            const SizedBox(height: 250),
-            CardContainer(
-                child: Column(
-              children: [
-                const SizedBox(height: 10),
-                Text('PROFILE', style: Theme.of(context).textTheme.headline4),
-                const SizedBox(height: 10),
-                ChangeNotifierProvider(
-                    create: (_) => EditFormProvider(),
-                    child: _UserForm(
-                      usersServices: usersService,
-                    )),
-              ],
-            )),
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(colors: [
+                  Color.fromRGBO(0, 204, 204, 1),
+                  Color.fromRGBO(0, 153, 153, 1)
+                ]),
+              ),
+              child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(colors: [
+                      Color.fromRGBO(0, 204, 204, 1),
+                      Color.fromRGBO(0, 153, 153, 1)
+                    ]),
+                  ),
+                  child: Stack(
+                    children: [
+                      Positioned(top: 90, left: 30, child: _Bubble()),
+                      Positioned(top: -40, left: 20, child: _Bubble()),
+                      Positioned(top: -50, right: -30, child: _Bubble()),
+                      Positioned(bottom: -50, left: 15, child: _Bubble()),
+                      Positioned(bottom: 90, right: 20, child: _Bubble()),
+                    ],
+                  )),
+            ),
+            ListTile(
+              title: const Text('Item 1'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Item 2'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
           ],
-        ))));
+        ),
+      ),
+    );
   }
 }
 
@@ -50,8 +107,6 @@ class _UserForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final userForm = Provider.of<EditFormProvider>(context);
 
-    print('hola');
-    print(usersServices.selectedUser.email);
     DataUser user = usersServices.selectedUser;
     // final user = userForm.user;
     //print("Tamaño");
@@ -106,5 +161,19 @@ class _UserForm extends StatelessWidget {
             const SizedBox(height: 20),
           ],
         ));
+  }
+}
+
+class _Bubble extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 100,
+      height: 100,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(100),
+        color: const Color.fromRGBO(255, 255, 255, 0.05),
+      ),
+    );
   }
 }

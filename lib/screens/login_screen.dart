@@ -9,6 +9,8 @@ import '../services/user_service.dart';
 import '../widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+import 'screens.dart';
+
 BuildContext contexto = contexto;
 
 class LoginScreen extends StatelessWidget {
@@ -114,13 +116,14 @@ class _LoginForm extends StatelessWidget {
                         loginForm.email, loginForm.password);
                     if (errorMessage == 'a') {
                       // ignore: use_build_context_synchronously
+
                       Navigator.pushNamed(context, 'index');
                     } else if (errorMessage == 'u') {
                       print(errorMessage);
                       // ignore: use_build_context_synchronously
 
                       // ignore: use_build_context_synchronously
-                      Navigator.pushNamed(context, 'back');
+                      Navigator.pushNamed(context, 'user');
                     } else {
                       showModalBottomSheet(
                           context: context,

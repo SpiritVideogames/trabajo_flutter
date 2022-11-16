@@ -128,7 +128,8 @@ class MySlidable extends StatelessWidget {
                       onPressed: () {
                         deleteService.postDelete(id);
                         // IndexScreen().list.removeAt(index);
-                        Navigator.popAndPushNamed(context, 'index');
+                        refresh(context);
+                        Navigator.pushReplacementNamed(context, 'index');
                       },
                       width: 120,
                       child: const Text(
@@ -173,10 +174,12 @@ class MySlidable extends StatelessWidget {
               child: SlidableAction(
                 onPressed: (BuildContext context) {
                   deactivateService.postDeactivate(id);
+                  refresh(context);
+                  Navigator.pushReplacementNamed(context, 'index');
                 },
                 backgroundColor: Colors.red,
                 foregroundColor: Colors.white,
-                icon: Icons.manage_accounts_rounded,
+                icon: Icons.no_accounts_outlined,
                 label: 'Deactivate',
               ),
             ),
@@ -185,10 +188,12 @@ class MySlidable extends StatelessWidget {
               child: SlidableAction(
                 onPressed: (BuildContext context) {
                   activateService.postActivate(id);
+                  refresh(context);
+                  Navigator.pushReplacementNamed(context, 'index');
                 },
                 backgroundColor: const Color(0xFF7BC043),
                 foregroundColor: Colors.white,
-                icon: Icons.manage_accounts_rounded,
+                icon: Icons.check_outlined,
                 label: 'Activate',
               ),
             ),
