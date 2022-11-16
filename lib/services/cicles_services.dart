@@ -10,10 +10,15 @@ class CiclesServices extends ChangeNotifier {
   final String _baseUrl = 'salesin.allsites.es';
 
   final List<DataCicles> cicles = [];
+  bool isLoading = true;
 
-  CiclesServices() {}
+  CiclesServices() {
+    getCicles();
+  }
 
   getCicles() async {
+    isLoading = true;
+    notifyListeners();
     final url = Uri.http(
       _baseUrl,
       '/public/api/cicles',
@@ -34,7 +39,8 @@ class CiclesServices extends ChangeNotifier {
         }
       }
     });
-
+    isLoading = false;
+    notifyListeners();
     return cicles;
   }
 }
