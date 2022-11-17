@@ -82,7 +82,7 @@ class _RegisterForm extends StatelessWidget {
                   hintText: 'User name',
                   labelText: 'Name',
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.lock_outline_rounded)),
+                  prefixIcon: Icon(Icons.account_circle)),
               onChanged: (value) => registerForm.name = value,
             ),
             const SizedBox(height: 20),
@@ -92,7 +92,7 @@ class _RegisterForm extends StatelessWidget {
                   hintText: 'User surname',
                   labelText: 'Surname',
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.lock_outline_rounded)),
+                  prefixIcon: Icon(Icons.account_circle)),
               onChanged: (value) => registerForm.surname = value,
             ),
             const SizedBox(height: 20),
@@ -111,7 +111,9 @@ class _RegisterForm extends StatelessWidget {
                       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
                   RegExp regExp = new RegExp(pattern);
-                  return regExp.hasMatch(value ?? '') ? null : 'Insert email';
+                  return regExp.hasMatch(value ?? '')
+                      ? null
+                      : 'Please, insert a valid email';
                 }),
             const SizedBox(height: 20),
             TextFormField(
@@ -141,7 +143,7 @@ class _RegisterForm extends StatelessWidget {
                   hintText: 'User cicle',
                   labelText: 'Cicle',
                   border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.lock_outline_rounded)),
+                  prefixIcon: Icon(Icons.auto_awesome_motion_sharp)),
               items: listOfCicles.map((e) {
                 /// Ahora creamos "e" y contiene cada uno de los items de la lista.
                 return DropdownMenuItem(
@@ -153,7 +155,9 @@ class _RegisterForm extends StatelessWidget {
                 registerForm.cicle_id = value!;
               },
               validator: (value) {
-                return (value != null && value != 0) ? null : 'select a cicle';
+                return (value != null && value != 0)
+                    ? null
+                    : 'Please, select a cicle';
               },
             ),
             const SizedBox(height: 20),
@@ -180,9 +184,25 @@ class _RegisterForm extends StatelessWidget {
                             registerForm.cicle_id);
 
                     if (errorMessage == null) {
-                      Navigator.pushReplacementNamed(context, 'index');
+                      Navigator.pushReplacementNamed(context, 'login');
                     } else {
-                      print(errorMessage);
+                      Alert(
+                        context: context,
+                        type: AlertType.error,
+                        title: 'ERROR',
+                        desc: errorMessage,
+                        buttons: [
+                          DialogButton(
+                            onPressed: () => Navigator.pop(context),
+                            width: 120,
+                            child: const Text(
+                              "CLOSE",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                          )
+                        ],
+                      ).show();
                     }
                   }
                 },
