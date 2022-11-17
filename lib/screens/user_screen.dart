@@ -24,7 +24,7 @@ class UserScreen extends StatelessWidget {
           child: SingleChildScrollView(
               child: Column(
         children: [
-          const SizedBox(height: 250),
+          const SizedBox(height: 200),
           CardContainer(
               child: Column(
             children: [
@@ -75,12 +75,16 @@ class UserScreen extends StatelessWidget {
                   )),
             ),
             ListTile(
-              title: const Text('Item 1'),
+              title: const Text('Logout'),
+              leading: Icon(Icons.logout_outlined),
               onTap: () {
+                final logoutServices =
+                    Provider.of<LoginServices>(context, listen: false);
                 // Update the state of the app
                 // ...
                 // Then close the drawer
-                Navigator.pop(context);
+                logoutServices.logout();
+                Navigator.pushReplacementNamed(context, 'login');
               },
             ),
             ListTile(

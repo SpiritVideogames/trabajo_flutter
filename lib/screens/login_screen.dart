@@ -122,8 +122,6 @@ class _LoginForm extends StatelessWidget {
                       // ignore: use_build_context_synchronously
                       Navigator.pushNamed(context, 'user');
                     } else {
-                      StaggerDemo1();
-                      /*
                       showModalBottomSheet(
                           context: context,
                           builder: (BuildContext context) {
@@ -166,7 +164,7 @@ class _LoginForm extends StatelessWidget {
                                 ),
                               ),
                             );
-                          });*/
+                          });
                     }
                   }
                 },
@@ -243,7 +241,7 @@ class StaggerAnimation extends StatelessWidget {
         ),
         borderRadius = BorderRadiusTween(
           begin: BorderRadius.circular(4.0),
-          end: BorderRadius.circular(75.0),
+          end: BorderRadius.circular(4.0),
         ).animate(
           CurvedAnimation(
             parent: controller,
@@ -298,14 +296,16 @@ class StaggerAnimation extends StatelessWidget {
             borderRadius: borderRadius.value,
           ),
           child: Center(
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(Icons.error_outline),
-              Text('ERROR TO LOGIN', style: TextStyle(color: Colors.white)),
-            ],
-          )),
+            child: SizedBox(
+                width: width.value,
+                child: TextFormField(
+                    readOnly: true,
+                    initialValue: 'ERROR TO LOGIN',
+                    decoration: const InputDecoration(
+                        disabledBorder: UnderlineInputBorder(),
+                        prefixIcon: Icon(Icons.error_outline),
+                        iconColor: Color.fromRGBO(0, 153, 153, 1)))),
+          ),
         ),
       ),
     );
@@ -334,7 +334,7 @@ class _StaggerDemo1State extends State<StaggerDemo1>
     super.initState();
 
     _controller = AnimationController(
-        duration: const Duration(milliseconds: 2000), vsync: this);
+        duration: const Duration(milliseconds: 1000), vsync: this);
   }
 
   @override
