@@ -23,6 +23,7 @@ class AppState extends StatelessWidget {
       ChangeNotifierProvider(create: (_) => DeleteServices()),
       ChangeNotifierProvider(create: (_) => UserServices()),
       ChangeNotifierProvider(create: (_) => LoginServices()),
+      ChangeNotifierProvider(create: (_) => RegisterServices()),
       ChangeNotifierProvider(create: (_) => LogoutServices()),
       ChangeNotifierProvider(create: (_) => OffersAppliedServices()),
       ChangeNotifierProvider(create: (_) => OffersNotAppliedServices()),

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+import '../models/models.dart';
 import '../providers/login_form_provider.dart';
 import '../providers/register_form_provider.dart';
 import '../services/login_services.dart';
 import '../services/register_services.dart';
+import '../services/services.dart';
 import '../widgets/widgets.dart';
+import '../screens/screens.dart';
 import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -13,6 +16,9 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ciclesService = Provider.of<CiclesServices>(context);
+    List<DataCicles> ciclesList = ciclesService.cicles.cast<DataCicles>();
+    if (ciclesService.isLoading) return LoadingScreen();
     return Scaffold(
         backgroundColor: Colors.white,
         body: AuthBackground(
@@ -28,8 +34,8 @@ class RegisterScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline4),
                 const SizedBox(height: 10),
                 ChangeNotifierProvider(
-                  create: (_) => LoginFormProvider(),
-                  child: _LoginForm(),
+                  create: (_) => RegisterFormProvider(),
+                  child: _RegisterForm(ciclesList),
                 )
               ],
             )),
@@ -56,18 +62,40 @@ class RegisterScreen extends StatelessWidget {
   }
 }
 
-class _LoginForm extends StatelessWidget {
+class _RegisterForm extends StatelessWidget {
+  List<DataCicles> listOfCicles = [];
+  _RegisterForm(List<DataCicles> ciclesList, {super.key}) {
+    listOfCicles = ciclesList;
+  }
   @override
   Widget build(BuildContext context) {
-    final loginService = Provider.of<LoginServices>(context);
-    final loginForm = Provider.of<LoginFormProvider>(context);
     final registerService = Provider.of<RegisterServices>(context);
     final registerForm = Provider.of<RegisterFormProvider>(context);
     return Form(
-        key: loginForm.formKey,
+        key: registerForm.formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(
           children: [
+            TextFormField(
+              autocorrect: false,
+              decoration: const InputDecoration(
+                  hintText: 'User name',
+                  labelText: 'Name',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.lock_outline_rounded)),
+              onChanged: (value) => registerForm.name = value,
+            ),
+            const SizedBox(height: 20),
+            TextFormField(
+              autocorrect: false,
+              decoration: const InputDecoration(
+                  hintText: 'User surname',
+                  labelText: 'Surname',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.lock_outline_rounded)),
+              onChanged: (value) => registerForm.surname = value,
+            ),
+            const SizedBox(height: 20),
             TextFormField(
                 autocorrect: false,
                 keyboardType: TextInputType.emailAddress,
@@ -77,7 +105,7 @@ class _LoginForm extends StatelessWidget {
                   prefixIcon: Icon(Icons.alternate_email_rounded),
                   border: OutlineInputBorder(),
                 ),
-                onChanged: (value) => loginForm.email = value,
+                onChanged: (value) => registerForm.email = value,
                 validator: (value) {
                   String pattern =
                       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -94,7 +122,39 @@ class _LoginForm extends StatelessWidget {
                   labelText: 'Password',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.lock_outline_rounded)),
-              onChanged: (value) => loginForm.password = value,
+              onChanged: (value) => registerForm.password = value,
+            ),
+            const SizedBox(height: 20),
+            TextFormField(
+              autocorrect: false,
+              obscureText: true,
+              decoration: const InputDecoration(
+                  hintText: 'User c_password',
+                  labelText: 'Confirm password',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.lock_outline_rounded)),
+              onChanged: (value) => registerForm.c_password = value,
+            ),
+            const SizedBox(height: 20),
+            DropdownButtonFormField(
+              decoration: const InputDecoration(
+                  hintText: 'User cicle',
+                  labelText: 'Cicle',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.lock_outline_rounded)),
+              items: listOfCicles.map((e) {
+                /// Ahora creamos "e" y contiene cada uno de los items de la lista.
+                return DropdownMenuItem(
+                  child: Text(e.name.toString()),
+                  value: e.id,
+                );
+              }).toList(),
+              onChanged: (value) {
+                registerForm.cicle_id = value!;
+              },
+              validator: (value) {
+                return (value != null && value != 0) ? null : 'select a cicle';
+              },
             ),
             const SizedBox(height: 20),
             SizedBox(
@@ -126,7 +186,7 @@ class _LoginForm extends StatelessWidget {
                     }
                   }
                 },
-                child: const Center(child: Text('Login')),
+                child: const Center(child: Text('Register')),
               ),
             ),
           ],
