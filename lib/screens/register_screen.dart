@@ -25,7 +25,7 @@ class RegisterScreen extends StatelessWidget {
             child: SingleChildScrollView(
                 child: Column(
           children: [
-            const SizedBox(height: 250),
+            const SizedBox(height: 180),
             CardContainer(
                 child: Column(
               children: [
@@ -85,7 +85,7 @@ class _RegisterForm extends StatelessWidget {
                   prefixIcon: Icon(Icons.account_circle)),
               onChanged: (value) => registerForm.name = value,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             TextFormField(
               autocorrect: false,
               decoration: const InputDecoration(
@@ -95,7 +95,7 @@ class _RegisterForm extends StatelessWidget {
                   prefixIcon: Icon(Icons.account_circle)),
               onChanged: (value) => registerForm.surname = value,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             TextFormField(
                 autocorrect: false,
                 keyboardType: TextInputType.emailAddress,
@@ -115,7 +115,7 @@ class _RegisterForm extends StatelessWidget {
                       ? null
                       : 'Please, insert a valid email';
                 }),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             TextFormField(
               autocorrect: false,
               obscureText: true,
@@ -126,7 +126,7 @@ class _RegisterForm extends StatelessWidget {
                   prefixIcon: Icon(Icons.lock_outline_rounded)),
               onChanged: (value) => registerForm.password = value,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             TextFormField(
               autocorrect: false,
               obscureText: true,
@@ -137,7 +137,7 @@ class _RegisterForm extends StatelessWidget {
                   prefixIcon: Icon(Icons.lock_outline_rounded)),
               onChanged: (value) => registerForm.c_password = value,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             DropdownButtonFormField(
               decoration: const InputDecoration(
                   hintText: 'User cicle',
@@ -160,7 +160,7 @@ class _RegisterForm extends StatelessWidget {
                     : 'Please, select a cicle';
               },
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             SizedBox(
               width: 300,
               child: ElevatedButton(
