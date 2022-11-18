@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-
+import 'package:cool_alert/cool_alert.dart';
 import '../models/models.dart';
 
 import '../providers/register_form_provider.dart';
@@ -202,23 +202,14 @@ class _RegisterForm extends StatelessWidget {
                     if (errorMessage == null) {
                       Navigator.pushReplacementNamed(context, 'login');
                     } else {
-                      Alert(
+                      CoolAlert.show(
                         context: context,
-                        type: AlertType.error,
-                        title: 'ERROR',
-                        desc: errorMessage,
-                        buttons: [
-                          DialogButton(
-                            onPressed: () => Navigator.pop(context),
-                            width: 120,
-                            child: const Text(
-                              "CLOSE",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                          )
-                        ],
-                      ).show();
+                        type: CoolAlertType.error,
+                        text: errorMessage,
+                        borderRadius: 30,
+                        loopAnimation: true,
+                        confirmBtnColor: Colors.red,
+                      );
                     }
                   }
                 },
