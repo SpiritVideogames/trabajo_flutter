@@ -117,26 +117,32 @@ class MySlidable extends StatelessWidget {
           // All actions are defined in the children parameter.
           children: [
             // A SlidableAction can have an icon and/or a label.
-            SlidableAction(onPressed: (BuildContext _) {
-              CoolAlert.show(
-                context: context,
-                type: CoolAlertType.warning,
-                title: 'Are you sure?',
-                text: "Are you sure you want to delete this user?",
-                showCancelBtn: true,
-                confirmBtnColor: Colors.red,
-                confirmBtnText: 'Delete',
-                onConfirmBtnTap: () {
-                  deleteService.postDelete(id);
-                  // IndexScreen().list.removeAt(index);
-                  refresh(context);
-                  Navigator.pushReplacementNamed(context, 'index');
-                },
-                onCancelBtnTap: () {
-                  Navigator.pop(context);
-                },
-              );
-            }),
+            SlidableAction(
+              onPressed: (BuildContext _) async {
+                await CoolAlert.show(
+                  context: context,
+                  type: CoolAlertType.warning,
+                  title: 'Are you sure?',
+                  text: "Are you sure you want to delete this user?",
+                  showCancelBtn: true,
+                  confirmBtnColor: Colors.red,
+                  confirmBtnText: 'Delete',
+                  onConfirmBtnTap: () {
+                    deleteService.postDelete(id);
+                    // IndexScreen().list.removeAt(index);
+                    refresh(context);
+                    Navigator.pushReplacementNamed(context, 'index');
+                  },
+                  onCancelBtnTap: () {
+                    Navigator.pop(context);
+                  },
+                );
+              },
+              backgroundColor: const Color(0xFFFE4A49),
+              foregroundColor: Colors.white,
+              icon: Icons.delete,
+              label: 'Delete',
+            ),
             SlidableAction(
               onPressed: (BuildContext context) {
                 Navigator.pushReplacementNamed(context, 'edit');

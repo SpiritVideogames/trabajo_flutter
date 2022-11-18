@@ -128,7 +128,7 @@ class _LoginForm extends StatelessWidget {
                         type: CoolAlertType.error,
                         text: errorMessage,
                         borderRadius: 30,
-                        loopAnimation: true,
+                        //loopAnimation: true,
                         confirmBtnColor: Colors.red,
                       );
                       /*
