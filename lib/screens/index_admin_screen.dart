@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -116,43 +117,26 @@ class MySlidable extends StatelessWidget {
           // All actions are defined in the children parameter.
           children: [
             // A SlidableAction can have an icon and/or a label.
-            SlidableAction(
-              onPressed: (BuildContext _) {
-                Alert(
-                  context: context,
-                  type: AlertType.error,
-                  title: 'Are you sure?',
-                  desc: "Are you sure you want to delete this user?",
-                  buttons: [
-                    DialogButton(
-                      onPressed: () {
-                        deleteService.postDelete(id);
-                        // IndexScreen().list.removeAt(index);
-                        refresh(context);
-                        Navigator.pushReplacementNamed(context, 'index');
-                      },
-                      width: 120,
-                      child: const Text(
-                        "DELETE",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ),
-                    DialogButton(
-                      onPressed: () => Navigator.pop(context),
-                      width: 120,
-                      child: const Text(
-                        "CLOSE",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    )
-                  ],
-                ).show();
-              },
-              backgroundColor: const Color(0xFFFE4A49),
-              foregroundColor: Colors.white,
-              icon: Icons.delete,
-              label: 'Delete',
-            ),
+            SlidableAction(onPressed: (BuildContext _) {
+              CoolAlert.show(
+                context: context,
+                type: CoolAlertType.warning,
+                title: 'Are you sure?',
+                text: "Are you sure you want to delete this user?",
+                showCancelBtn: true,
+                confirmBtnColor: Colors.red,
+                confirmBtnText: 'Delete',
+                onConfirmBtnTap: () {
+                  deleteService.postDelete(id);
+                  // IndexScreen().list.removeAt(index);
+                  refresh(context);
+                  Navigator.pushReplacementNamed(context, 'index');
+                },
+                onCancelBtnTap: () {
+                  Navigator.pop(context);
+                },
+              );
+            }),
             SlidableAction(
               onPressed: (BuildContext context) {
                 Navigator.pushReplacementNamed(context, 'edit');

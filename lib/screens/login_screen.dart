@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'dart:async';
@@ -30,8 +31,8 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 ChangeNotifierProvider(
                   create: (_) => LoginFormProvider(),
-                  //  child: _LoginForm(),
-                  child: StaggerDemo1(),
+                  child: _LoginForm(),
+                  // child: StaggerDemo1(),
                 )
               ],
             )),
@@ -122,6 +123,15 @@ class _LoginForm extends StatelessWidget {
                       // ignore: use_build_context_synchronously
                       Navigator.pushNamed(context, 'user');
                     } else {
+                      CoolAlert.show(
+                        context: context,
+                        type: CoolAlertType.error,
+                        text: errorMessage,
+                        borderRadius: 30,
+                        loopAnimation: true,
+                        confirmBtnColor: Colors.red,
+                      );
+                      /*
                       showModalBottomSheet(
                           context: context,
                           builder: (BuildContext context) {
@@ -164,7 +174,7 @@ class _LoginForm extends StatelessWidget {
                                 ),
                               ),
                             );
-                          });
+                          });*/
                     }
                   }
                 },

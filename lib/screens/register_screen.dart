@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../models/models.dart';
-import '../providers/login_form_provider.dart';
+
 import '../providers/register_form_provider.dart';
-import '../services/login_services.dart';
-import '../services/register_services.dart';
+
 import '../services/services.dart';
 import '../widgets/widgets.dart';
 import '../screens/screens.dart';
