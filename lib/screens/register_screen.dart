@@ -79,7 +79,7 @@ class _RegisterForm extends StatelessWidget {
             TextFormField(
               autocorrect: false,
               decoration: const InputDecoration(
-                  hintText: 'User name',
+                  hintText: 'Your name',
                   labelText: 'Name',
                   contentPadding: const EdgeInsets.symmetric(
                       vertical: 15.0, horizontal: 10.0),
@@ -91,7 +91,7 @@ class _RegisterForm extends StatelessWidget {
             TextFormField(
               autocorrect: false,
               decoration: const InputDecoration(
-                  hintText: 'User surname',
+                  hintText: 'Your surname',
                   labelText: 'Surname',
                   contentPadding: const EdgeInsets.symmetric(
                       vertical: 15.0, horizontal: 10.0),
@@ -104,7 +104,7 @@ class _RegisterForm extends StatelessWidget {
                 autocorrect: false,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
-                  hintText: 'User email',
+                  hintText: 'Your email',
                   labelText: 'Email',
                   contentPadding: const EdgeInsets.symmetric(
                       vertical: 15.0, horizontal: 10.0),
@@ -126,7 +126,7 @@ class _RegisterForm extends StatelessWidget {
               autocorrect: false,
               obscureText: true,
               decoration: const InputDecoration(
-                  hintText: 'User password',
+                  hintText: 'Your password',
                   labelText: 'Password',
                   contentPadding: const EdgeInsets.symmetric(
                       vertical: 15.0, horizontal: 10.0),
@@ -139,13 +139,18 @@ class _RegisterForm extends StatelessWidget {
               autocorrect: false,
               obscureText: true,
               decoration: const InputDecoration(
-                  hintText: 'User c_password',
-                  labelText: 'Confirm password',
+                  hintText: 'Confirm your password',
+                  labelText: 'Password confirmation',
                   contentPadding: const EdgeInsets.symmetric(
                       vertical: 15.0, horizontal: 10.0),
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.lock_outline_rounded)),
               onChanged: (value) => registerForm.c_password = value,
+              validator: (value) {
+                return (value != null && value == registerForm.password)
+                    ? null
+                    : 'Passwords doesn\'t match';
+              },
             ),
             const SizedBox(height: 10),
             DropdownButtonFormField(
