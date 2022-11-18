@@ -200,6 +200,9 @@ class _RegisterForm extends StatelessWidget {
                             registerForm.cicle_id);
 
                     if (errorMessage == null) {
+                      //final confirmServices =
+                      //    Provider.of<ConfirmServices>(context, listen: false);
+                      //confirmServices.postConfirm()
                       Navigator.pushReplacementNamed(context, 'login');
                     } else {
                       CoolAlert.show(
