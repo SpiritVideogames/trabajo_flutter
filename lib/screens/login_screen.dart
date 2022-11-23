@@ -115,7 +115,7 @@ class _LoginForm extends StatelessWidget {
                     if (errorMessage == 'a') {
                       // ignore: use_build_context_synchronously
 
-                      Navigator.pushNamed(context, 'index');
+                      Navigator.pushNamed(context, 'index2');
                     } else if (errorMessage == 'u') {
                       print(errorMessage);
                       // ignore: use_build_context_synchronously
