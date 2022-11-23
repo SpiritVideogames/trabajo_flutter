@@ -28,10 +28,12 @@ class DataRegister {
   DataRegister({
     required this.token,
     required this.name,
+    required this.id,
   });
 
   String token;
   String name;
+  String id;
 
   factory DataRegister.fromJson(String str) =>
       DataRegister.fromMap(json.decode(str));
@@ -39,5 +41,6 @@ class DataRegister {
   factory DataRegister.fromMap(Map<String, dynamic> json) => DataRegister(
         token: json["token"],
         name: json["name"],
+        id: json["id"],
       );
 }

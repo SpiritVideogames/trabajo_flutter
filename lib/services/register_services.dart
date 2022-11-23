@@ -14,7 +14,6 @@ class RegisterServices extends ChangeNotifier {
 
   postRegister(String name, String surname, String email, String password,
       String c_password, int cicle_id) async {
-    print(cicle_id);
     final url = Uri.http(_baseUrl, '/public/api/register', {
       'name': name,
       'surname': surname,
@@ -33,6 +32,7 @@ class RegisterServices extends ChangeNotifier {
       register.forEach((key, value) {
         if (key == 'data') {
           storage.write(key: 'token', value: value['token']);
+          storage.write(key: 'id', value: value['id'].toString());
         }
       });
     } else {
@@ -47,10 +47,15 @@ class RegisterServices extends ChangeNotifier {
 
   Future logout() async {
     await storage.delete(key: 'token');
+    await storage.delete(key: 'id');
     return;
   }
 
   Future<String> readToken() async {
     return await storage.read(key: 'token') ?? '';
+  }
+
+  Future<String> readId() async {
+    return await storage.read(key: 'id') ?? '';
   }
 }

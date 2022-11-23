@@ -200,6 +200,11 @@ class _RegisterForm extends StatelessWidget {
                             registerForm.cicle_id);
 
                     if (errorMessage == null) {
+                      String? user_id = await RegisterServices().readId();
+                      final confirmServices =
+                          Provider.of<ConfirmServices>(context, listen: false);
+                      confirmServices.postConfirm(user_id);
+                      RegisterServices().logout();
                       Navigator.pushReplacementNamed(context, 'login');
                     } else {
                       CoolAlert.show(
