@@ -131,50 +131,6 @@ class _LoginForm extends StatelessWidget {
                         //loopAnimation: true,
                         confirmBtnColor: Colors.red,
                       );
-                      /*
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Container(
-                              height: 200,
-                              color: Colors.cyan[900],
-                              child: Center(
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      const SizedBox(height: 18),
-                                      Icon(Icons.error,
-                                          color: Colors.red[400], size: 50),
-                                      const SizedBox(height: 25),
-                                      Text(
-                                        errorMessage!,
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                            fontSize: 18,
-                                            color:
-                                                Color.fromARGB(255, 10, 7, 7)),
-                                      ),
-                                      const SizedBox(height: 15),
-                                      ElevatedButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          style: ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Colors.white54)),
-                                          child: const Text('Close Alert',
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: Colors.black))),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          });*/
                     }
                   }
                 },
