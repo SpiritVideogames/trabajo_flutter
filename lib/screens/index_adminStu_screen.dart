@@ -197,8 +197,6 @@ class _MySlidableState extends State<MySlidable> {
                   setState(() {
                     widget.usersFinal[widget.index].actived = 0;
                     refresh(context);
-                    deact = false;
-                    act = true;
                   });
                   //Navigator.restorablePushNamed(context, 'index2');
                 },
@@ -217,8 +215,6 @@ class _MySlidableState extends State<MySlidable> {
                   setState(() {
                     widget.usersFinal[widget.index].actived = 1;
                     refresh(context);
-                    deact = true;
-                    act = false;
                   });
                   // Navigator.restorablePushNamed(context, 'index2');
                 },
