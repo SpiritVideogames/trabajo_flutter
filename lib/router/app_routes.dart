@@ -27,7 +27,7 @@ class AppRoutes {
     MenuOption(
         route: 'index2',
         name: 'Index Screen',
-        screen: const Index2Screen(),
+        screen: Index2Screen(),
         icon: Icons.account_balance_outlined),
     MenuOption(
         route: 'edit',

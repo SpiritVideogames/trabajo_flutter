@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -11,112 +12,118 @@ import '../services/services.dart';
 import '../widgets/widgets.dart';
 
 //List<MySlidable> list = [];
-class Index2Screen extends StatelessWidget {
-  const Index2Screen({super.key});
+List<DataUsers> users = [];
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Users'),
-          elevation: 0,
-          automaticallyImplyLeading: false,
-        ),
-        floatingActionButton: const ExampleExpandableFab(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-        body: Container(
-          color: Colors.cyanAccent[50],
-          child: ListUser(),
-        ));
-  }
+Future refresh(BuildContext context) async {
+  users.clear();
+  final usersService = Provider.of<UsersServices>(context, listen: false);
+  usersService.loadUsers();
 }
 
-class ListUser extends StatefulWidget {
-  const ListUser({super.key});
+class Index2Screen extends StatefulWidget {
+  Index2Screen({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<ListUser> createState() => _ListUserState();
+  State<Index2Screen> createState() => _Index2ScreenState();
 }
 
-class _ListUserState extends State<ListUser> {
-  List<DataUsers> users = [];
-  bool loading = true;
-
-  void loadUser() async {
-    final usersService = Provider.of<UsersServices>(context);
-    // usersService.loadUsers();
-
-    setState(() {
-      users = usersService.users.cast<DataUsers>();
-      loading = false;
-    });
-  }
-
+class _Index2ScreenState extends State<Index2Screen> {
+  final _key = GlobalKey<ExpandableFabState>();
+  List<DataUsers> usersFinal = [];
+  @override
   void initState() {
-    users = [];
-    loading = true;
-
     super.initState();
+    refresh(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    loadUser();
+    setState(() {
+      final usersService = Provider.of<UsersServices>(context);
 
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        if (users[index].deleted == 0) {
-          if (users[index].actived == 1) {
-            return MySlidable(
-              actived: 'Deactivate',
-              bg: Colors.red,
-              id: users[index].id.toString(),
-              index: index,
-              tit: '${users[index].name} ${users[index].surname}',
-            );
-          } else {
-            return MySlidable(
-              actived: 'Activate',
-              bg: const Color(0xFF7BC043),
-              id: users[index].id.toString(),
-              index: index,
-              tit: '${users[index].name} ${users[index].surname}',
-            );
-          }
+      users = usersService.users.cast<DataUsers>();
+
+      for (int i = 0; i < users.length; i++) {
+        if (users[i].deleted == 0) {
+          usersFinal.add(users[i]);
         }
-        return MySlidable(
-          actived: 'Deactivate',
-          bg: Colors.red,
-          id: users[index].id.toString(),
-          index: index,
-          tit: '${users[index].name} ${users[index].surname}',
-        );
-      },
-      itemCount: users.length,
+      }
+      if (usersService.isLoading) LoadingScreen();
+    });
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Users'),
+        elevation: 0,
+        automaticallyImplyLeading: false,
+      ),
+      floatingActionButton: const ExampleExpandableFab(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      body: RefreshIndicator(
+          onRefresh: () async {
+            refresh(context);
+            Navigator.pushReplacementNamed(context, 'index2');
+          },
+          child: ListView.builder(
+            itemBuilder: (context, index) {
+              bool Act;
+              bool Deact;
+              if (usersFinal[index].actived == 1) {
+                Act = false;
+                Deact = true;
+              } else {
+                Deact = false;
+                Act = true;
+              }
+              return MySlidable(
+                usersFinal: usersFinal,
+                Act: Act,
+                Deact: Deact,
+                id: usersFinal[index].id.toString(),
+                index: index,
+                tit: '${usersFinal[index].name} ${usersFinal[index].surname}',
+              );
+            },
+            itemCount: usersFinal.length,
+          )),
     );
   }
 }
 
-class MySlidable extends StatelessWidget {
+class MySlidable extends StatefulWidget {
   final String tit;
-  final Color bg;
-  final String actived;
+  final bool Act;
+  final bool Deact;
   final String id;
   final int index;
+  final List<DataUsers> usersFinal;
   const MySlidable({
     Key? key,
     required this.tit,
-    required this.actived,
-    required this.bg,
     required this.id,
     required this.index,
+    required this.Act,
+    required this.Deact,
+    required this.usersFinal,
   }) : super(key: key);
 
+  @override
+  State<MySlidable> createState() => _MySlidableState();
+
+  static void goview(String route, BuildContext context) {
+    Navigator.pushNamed(context, route);
+  }
+}
+
+class _MySlidableState extends State<MySlidable> {
   @override
   Widget build(BuildContext context) {
     final activateService = Provider.of<ActivateServices>(context);
     final deactivateService = Provider.of<DeactivateServices>(context);
     final deleteService = Provider.of<DeleteServices>(context);
+    bool act = widget.Act;
+    bool deact = widget.Deact;
     return Slidable(
 
         // Specify a key if the Slidable is dismissible.
@@ -135,36 +142,30 @@ class MySlidable extends StatelessWidget {
           children: [
             // A SlidableAction can have an icon and/or a label.
             SlidableAction(
-              onPressed: (BuildContext _) {
-                Alert(
+              onPressed: (BuildContext _) async {
+                await CoolAlert.show(
                   context: context,
-                  type: AlertType.error,
+                  type: CoolAlertType.warning,
                   title: 'Are you sure?',
-                  desc: "Are you sure you want to delete this user?",
-                  buttons: [
-                    DialogButton(
-                      onPressed: () {
-                        deleteService.postDelete(id);
-                        // IndexScreen().list.removeAt(index);
+                  text: "Are you sure you want to delete this user?",
+                  showCancelBtn: true,
+                  confirmBtnColor: Colors.red,
+                  confirmBtnText: 'Delete',
+                  onConfirmBtnTap: () {
+                    deleteService.postDelete(widget.id);
 
-                        Navigator.popAndPushNamed(context, 'index2');
-                      },
-                      width: 120,
-                      child: const Text(
-                        "DELETE",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ),
-                    DialogButton(
-                      onPressed: () => Navigator.pop(context),
-                      width: 120,
-                      child: const Text(
-                        "CLOSE",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    )
-                  ],
-                ).show();
+                    // IndexScreen().list.removeAt(index);
+                    setState(() {
+                      widget.usersFinal.removeAt(widget.index);
+                      refresh(context);
+                    });
+
+                    Navigator.pop(context);
+                  },
+                  onCancelBtnTap: () {
+                    Navigator.pop(context);
+                  },
+                );
               },
               backgroundColor: const Color(0xFFFE4A49),
               foregroundColor: Colors.white,
@@ -173,7 +174,7 @@ class MySlidable extends StatelessWidget {
             ),
             SlidableAction(
               onPressed: (BuildContext context) {
-                Navigator.pushNamed(context, 'edit');
+                Navigator.pushReplacementNamed(context, 'edit');
               },
               backgroundColor: const Color(0xFF21B7CA),
               foregroundColor: Colors.white,
@@ -187,41 +188,41 @@ class MySlidable extends StatelessWidget {
         endActionPane: ActionPane(
           motion: const ScrollMotion(),
           children: [
-            SlidableAction(
-              // An action can be bigger than the others.
+            Visibility(
+              visible: deact,
+              child: SlidableAction(
+                onPressed: (BuildContext context) {
+                  deactivateService.postDeactivate(widget.id);
 
-              onPressed: (BuildContext context) async {
-                if (actived == 'Deactivate') {
-                  final lista = IndexScreen();
+                  setState(() {
+                    widget.usersFinal[widget.index].actived = 0;
+                    refresh(context);
+                  });
+                  //Navigator.restorablePushNamed(context, 'index2');
+                },
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+                icon: Icons.no_accounts_outlined,
+                label: 'Deactivate',
+              ),
+            ),
+            Visibility(
+              visible: act,
+              child: SlidableAction(
+                onPressed: (BuildContext context) {
+                  activateService.postActivate(widget.id);
 
-                  deactivateService.postDeactivate(id);
-                  /*
-                  lista.list[index] = MySlidable(
-                    tit: tit,
-                    actived: 'Activate',
-                    bg: const Color(0xFF7BC043),
-                    id: id,
-                    index: index,
-                  );*/
-                  Navigator.popAndPushNamed(context, 'index2');
-                } else {
-                  final lista = IndexScreen();
-                  activateService.postActivate(id);
-                  /*
-                  lista.list[index] = MySlidable(
-                    tit: tit,
-                    actived: 'Deactivate',
-                    bg: Colors.red,
-                    id: id,
-                    index: index,
-                  );*/
-                  Navigator.popAndPushNamed(context, 'index2');
-                }
-              },
-              backgroundColor: bg,
-              foregroundColor: Colors.white,
-              icon: Icons.done_outline_rounded,
-              label: actived,
+                  setState(() {
+                    widget.usersFinal[widget.index].actived = 1;
+                    refresh(context);
+                  });
+                  // Navigator.restorablePushNamed(context, 'index2');
+                },
+                backgroundColor: const Color(0xFF7BC043),
+                foregroundColor: Colors.white,
+                icon: Icons.check_outlined,
+                label: 'Activate',
+              ),
             ),
           ],
         ),
@@ -229,11 +230,7 @@ class MySlidable extends StatelessWidget {
         // The child of the Slidable is what the user sees when the
         // component is not dragged.
         child: ListTile(
-          title: Text(tit),
+          title: Text(widget.tit),
         ));
-  }
-
-  static void goview(String route, BuildContext context) {
-    Navigator.pushNamed(context, route);
   }
 }
