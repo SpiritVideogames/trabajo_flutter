@@ -85,6 +85,11 @@ class _RegisterForm extends StatelessWidget {
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.account_circle)),
               onChanged: (value) => registerForm.name = value,
+              validator: (value) {
+                return (value != null && value.length >= 1)
+                    ? null
+                    : 'Please, enter your name';
+              },
             ),
             const SizedBox(height: 10),
             TextFormField(
@@ -97,6 +102,11 @@ class _RegisterForm extends StatelessWidget {
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.account_circle)),
               onChanged: (value) => registerForm.surname = value,
+              validator: (value) {
+                return (value != null && value.length >= 1)
+                    ? null
+                    : 'Please, enter your surname';
+              },
             ),
             const SizedBox(height: 10),
             TextFormField(
@@ -132,6 +142,11 @@ class _RegisterForm extends StatelessWidget {
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.lock_outline_rounded)),
               onChanged: (value) => registerForm.password = value,
+              validator: (value) {
+                return (value != null && value.length >= 6)
+                    ? null
+                    : 'Please, enter a valid password';
+              },
             ),
             const SizedBox(height: 10),
             TextFormField(
