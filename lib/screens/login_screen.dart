@@ -144,6 +144,11 @@ class _LoginForm extends StatelessWidget {
                       color: Color.fromARGB(255, 18, 201, 159)),
                   iconColor: Color.fromRGBO(0, 153, 153, 1)),
               onChanged: (value) => loginForm.password = value,
+              validator: (value) {
+                return (value != null && value.length >= 1)
+                    ? null
+                    : 'Please, enter your password';
+              },
             ),
             const SizedBox(height: 20),
             SizedBox(

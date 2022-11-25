@@ -119,6 +119,11 @@ class _RegisterForm extends StatelessWidget {
                   prefixIcon: Icon(Icons.account_circle,
                       color: Color.fromARGB(255, 18, 201, 159))),
               onChanged: (value) => registerForm.name = value,
+              validator: (value) {
+                return (value != null && value.length >= 1)
+                    ? null
+                    : 'Please, enter your name';
+              },
             ),
             const SizedBox(height: 10),
             TextFormField(
@@ -145,6 +150,11 @@ class _RegisterForm extends StatelessWidget {
                   prefixIcon: Icon(Icons.account_circle,
                       color: Color.fromARGB(255, 18, 201, 159))),
               onChanged: (value) => registerForm.surname = value,
+              validator: (value) {
+                return (value != null && value.length >= 1)
+                    ? null
+                    : 'Please, enter your surname';
+              },
             ),
             const SizedBox(height: 10),
             TextFormField(
@@ -208,6 +218,11 @@ class _RegisterForm extends StatelessWidget {
                   prefixIcon: Icon(Icons.lock_outline_rounded,
                       color: Color.fromARGB(255, 18, 201, 159))),
               onChanged: (value) => registerForm.password = value,
+              validator: (value) {
+                return (value != null && value.length >= 6)
+                    ? null
+                    : 'Please, enter a valid password';
+              },
             ),
             const SizedBox(height: 10),
             TextFormField(
