@@ -26,17 +26,37 @@ class RegisterScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 180),
             CardContainer(
-                child: Column(
-              children: [
-                const SizedBox(height: 10),
-                Text('Create account',
-                    style: Theme.of(context).textTheme.headline4),
-                const SizedBox(height: 10),
-                ChangeNotifierProvider(
-                  create: (_) => RegisterFormProvider(),
-                  child: _RegisterForm(ciclesList),
-                )
-              ],
+                child: Container(
+              width: 300,
+              child: DecoratedBox(
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10.0),
+                        // ignore: prefer_const_literals_to_create_immutables
+                        boxShadow: [
+                      const BoxShadow(
+                        color: Colors.white,
+                        blurRadius: 5,
+                        offset: Offset(0, 0),
+                      )
+                    ]),
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      Text('Create account',
+                          style: TextStyle(
+                              fontSize: 34,
+                              color: Color.fromARGB(255, 18, 201, 159))),
+                      const SizedBox(height: 10),
+                      ChangeNotifierProvider(
+                        create: (_) => RegisterFormProvider(),
+                        child: _RegisterForm(ciclesList),
+                      )
+                    ],
+                  ),
+                ),
+              ),
             )),
             const SizedBox(
               height: 5,
@@ -53,7 +73,7 @@ class RegisterScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black54,
+                    color: Color.fromARGB(255, 18, 201, 159),
                   ),
                 ))
           ],
@@ -79,11 +99,25 @@ class _RegisterForm extends StatelessWidget {
               autocorrect: false,
               decoration: const InputDecoration(
                   hintText: 'Your name',
+                  hintStyle:
+                      TextStyle(color: Color.fromARGB(255, 18, 201, 159)),
+                  labelStyle:
+                      TextStyle(color: Color.fromARGB(255, 18, 201, 159)),
                   labelText: 'Name',
-                  contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 10.0),
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.account_circle)),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 18, 201, 159))),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 18, 201, 159))),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 18, 201, 159)),
+                  ),
+                  prefixIcon: Icon(Icons.account_circle,
+                      color: Color.fromARGB(255, 18, 201, 159))),
               onChanged: (value) => registerForm.name = value,
             ),
             const SizedBox(height: 10),
@@ -92,10 +126,24 @@ class _RegisterForm extends StatelessWidget {
               decoration: const InputDecoration(
                   hintText: 'Your surname',
                   labelText: 'Surname',
-                  contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 10.0),
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.account_circle)),
+                  hintStyle:
+                      TextStyle(color: Color.fromARGB(255, 18, 201, 159)),
+                  labelStyle:
+                      TextStyle(color: Color.fromARGB(255, 18, 201, 159)),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 18, 201, 159))),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 18, 201, 159))),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 18, 201, 159)),
+                  ),
+                  prefixIcon: Icon(Icons.account_circle,
+                      color: Color.fromARGB(255, 18, 201, 159))),
               onChanged: (value) => registerForm.surname = value,
             ),
             const SizedBox(height: 10),
@@ -105,10 +153,24 @@ class _RegisterForm extends StatelessWidget {
                 decoration: const InputDecoration(
                   hintText: 'Your email',
                   labelText: 'Email',
-                  contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 10.0),
-                  prefixIcon: Icon(Icons.alternate_email_rounded),
-                  border: OutlineInputBorder(),
+                  hintStyle:
+                      TextStyle(color: Color.fromARGB(255, 18, 201, 159)),
+                  labelStyle:
+                      TextStyle(color: Color.fromARGB(255, 18, 201, 159)),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                  prefixIcon: Icon(Icons.alternate_email_rounded,
+                      color: Color.fromARGB(255, 18, 201, 159)),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 18, 201, 159))),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 18, 201, 159))),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 18, 201, 159)),
+                  ),
                 ),
                 onChanged: (value) => registerForm.email = value,
                 validator: (value) {
@@ -127,10 +189,24 @@ class _RegisterForm extends StatelessWidget {
               decoration: const InputDecoration(
                   hintText: 'Your password',
                   labelText: 'Password',
-                  contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 10.0),
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.lock_outline_rounded)),
+                  hintStyle:
+                      TextStyle(color: Color.fromARGB(255, 18, 201, 159)),
+                  labelStyle:
+                      TextStyle(color: Color.fromARGB(255, 18, 201, 159)),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 18, 201, 159))),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 18, 201, 159))),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 18, 201, 159)),
+                  ),
+                  prefixIcon: Icon(Icons.lock_outline_rounded,
+                      color: Color.fromARGB(255, 18, 201, 159))),
               onChanged: (value) => registerForm.password = value,
             ),
             const SizedBox(height: 10),
@@ -140,10 +216,24 @@ class _RegisterForm extends StatelessWidget {
               decoration: const InputDecoration(
                   hintText: 'Confirm your password',
                   labelText: 'Password confirmation',
-                  contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 10.0),
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.lock_outline_rounded)),
+                  hintStyle:
+                      TextStyle(color: Color.fromARGB(255, 18, 201, 159)),
+                  labelStyle:
+                      TextStyle(color: Color.fromARGB(255, 18, 201, 159)),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 18, 201, 159))),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 18, 201, 159))),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 18, 201, 159)),
+                  ),
+                  prefixIcon: Icon(Icons.lock_outline_rounded,
+                      color: Color.fromARGB(255, 18, 201, 159))),
               onChanged: (value) => registerForm.c_password = value,
               validator: (value) {
                 return (value != null && value == registerForm.password)
@@ -156,14 +246,30 @@ class _RegisterForm extends StatelessWidget {
               decoration: const InputDecoration(
                   hintText: 'User cicle',
                   labelText: 'Cicle',
-                  contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 10.0),
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.auto_awesome_motion_sharp)),
+                  hintStyle:
+                      TextStyle(color: Color.fromARGB(255, 18, 201, 159)),
+                  labelStyle:
+                      TextStyle(color: Color.fromARGB(255, 18, 201, 159)),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 18, 201, 159))),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 18, 201, 159))),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 18, 201, 159)),
+                  ),
+                  prefixIcon: Icon(Icons.auto_awesome_motion_sharp,
+                      color: Color.fromARGB(255, 18, 201, 159))),
               items: listOfCicles.map((e) {
                 /// Ahora creamos "e" y contiene cada uno de los items de la lista.
                 return DropdownMenuItem(
-                  child: Text(e.name.toString()),
+                  child: Text(e.name.toString(),
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 18, 201, 159))),
                   value: e.id,
                 );
               }).toList(),
@@ -181,7 +287,8 @@ class _RegisterForm extends StatelessWidget {
               width: 300,
               child: ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.cyan),
+                  backgroundColor: MaterialStateProperty.all(
+                      Color.fromARGB(255, 18, 201, 159)),
                   fixedSize: MaterialStateProperty.all(
                       const Size(double.infinity, 30)),
                 ),
