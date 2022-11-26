@@ -26,13 +26,37 @@ class LoginScreen extends StatelessWidget {
             CardContainer(
                 child: Column(
               children: [
-                const SizedBox(height: 10),
-                Text('Login', style: Theme.of(context).textTheme.headline4),
-                const SizedBox(height: 10),
-                ChangeNotifierProvider(
-                  create: (_) => LoginFormProvider(),
-                  child: _LoginForm(),
-                  // child: StaggerDemo1(),
+                Container(
+                  width: 300,
+                  child: DecoratedBox(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          // ignore: prefer_const_literals_to_create_immutables
+                          boxShadow: [
+                            const BoxShadow(
+                              color: Colors.white,
+                              blurRadius: 5,
+                              offset: Offset(0, 0),
+                            )
+                          ]),
+                      child: Container(
+                        margin: const EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 10),
+                            const Text('Login',
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 18, 201, 159),
+                                    fontSize: 38)),
+                            const SizedBox(height: 10),
+                            ChangeNotifierProvider(
+                              create: (_) => LoginFormProvider(),
+                              child: _LoginForm(),
+                              // child: StaggerDemo1(),
+                            )
+                          ],
+                        ),
+                      )),
                 )
               ],
             )),
@@ -51,7 +75,7 @@ class LoginScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black54,
+                    color: Color.fromARGB(255, 18, 201, 159),
                   ),
                 ))
           ],
@@ -73,11 +97,22 @@ class _LoginForm extends StatelessWidget {
                 autocorrect: false,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
-                    hintText: 'User email',
-                    labelText: 'Email',
-                    prefixIcon: Icon(Icons.alternate_email_rounded),
-                    border: OutlineInputBorder(),
-                    iconColor: Color.fromRGBO(0, 153, 153, 1)),
+                  hintText: 'User email',
+                  hintStyle:
+                      TextStyle(color: Color.fromARGB(255, 18, 201, 159)),
+                  labelText: 'Email',
+                  labelStyle:
+                      TextStyle(color: Color.fromARGB(255, 18, 201, 159)),
+                  prefixIcon: Icon(Icons.alternate_email_rounded,
+                      color: Color.fromARGB(255, 18, 201, 159)),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 18, 201, 159))),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 18, 201, 159)),
+                  ),
+                ),
                 onChanged: (value) => loginForm.email = value,
                 validator: (value) {
                   String pattern =
@@ -93,8 +128,20 @@ class _LoginForm extends StatelessWidget {
               decoration: const InputDecoration(
                   hintText: 'User password',
                   labelText: 'Password',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.lock_outline_rounded),
+                  labelStyle:
+                      TextStyle(color: Color.fromARGB(255, 18, 201, 159)),
+                  hintStyle:
+                      TextStyle(color: Color.fromARGB(255, 18, 201, 159)),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 18, 201, 159)),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 18, 201, 159)),
+                  ),
+                  prefixIcon: Icon(Icons.lock_outline_rounded,
+                      color: Color.fromARGB(255, 18, 201, 159)),
                   iconColor: Color.fromRGBO(0, 153, 153, 1)),
               onChanged: (value) => loginForm.password = value,
               validator: (value) {
@@ -108,7 +155,8 @@ class _LoginForm extends StatelessWidget {
               width: 300,
               child: ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.cyan),
+                  backgroundColor: MaterialStateProperty.all(
+                      Color.fromARGB(255, 18, 201, 159)),
                   fixedSize: MaterialStateProperty.all(
                       const Size(double.infinity, 30)),
                 ),

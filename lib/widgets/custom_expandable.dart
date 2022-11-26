@@ -149,7 +149,7 @@ class _ExpandableFabState extends State<ExpandableFab>
     final children = <Widget>[];
     final count = widget.children.length;
     final step = 90.0 / (count - 1);
-    for (var i = 0, angleInDegrees = 0.0;
+    for (var i = 0, angleInDegrees = 90.0;
         i < count;
         i++, angleInDegrees += step) {
       children.add(
@@ -183,7 +183,7 @@ class _ExpandableFabState extends State<ExpandableFab>
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: FloatingActionButton(
-              backgroundColor: const Color.fromRGBO(0, 153, 153, 1),
+              backgroundColor: Color.fromARGB(255, 18, 201, 159),
               onPressed: _toggle,
               child: const Icon(Icons.account_circle_rounded),
             ),
@@ -252,7 +252,7 @@ class ActionButton extends StatelessWidget {
         shape: const CircleBorder(),
         clipBehavior: Clip.antiAlias,
         // color: theme.colorScheme.secondary,
-        color: const Color.fromRGBO(0, 153, 153, 1),
+        color: Color.fromARGB(255, 18, 201, 159),
         elevation: 4.0,
         child: IconButton(
           onPressed: onPressed,

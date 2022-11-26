@@ -63,8 +63,8 @@ class _ColorBox extends StatelessWidget {
   BoxDecoration _buildBoxDecoration() {
     return const BoxDecoration(
       gradient: LinearGradient(colors: [
-        Color.fromARGB(187, 5, 101, 101),
-        Color.fromARGB(255, 17, 185, 185)
+        Color.fromARGB(197, 17, 193, 134),
+        Color.fromARGB(155, 11, 134, 89)
       ]),
     );
   }
