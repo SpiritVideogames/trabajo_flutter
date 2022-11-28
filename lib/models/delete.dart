@@ -25,16 +25,10 @@ class Delete {
 }
 
 class DataDelete {
-  DataDelete({
-    required this.id,
-  });
-
-  int id;
+  DataDelete();
 
   factory DataDelete.fromJson(String str) =>
       DataDelete.fromMap(json.decode(str));
 
-  factory DataDelete.fromMap(Map<String, dynamic> json) => DataDelete(
-        id: json["id"],
-      );
+  factory DataDelete.fromMap(Map<String, dynamic> json) => DataDelete();
 }

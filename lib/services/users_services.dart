@@ -10,9 +10,8 @@ import 'package:http/http.dart' as http;
 import 'login_services.dart';
 
 class UsersServices extends ChangeNotifier {
-  final String _baseUrl = 'salesin.allsites.es';
+  final String _baseUrl = 'semillero.allsites.es';
   final List<DataUsers> users = [];
-  late DataUser selectedUser = DataUser();
 
   bool isLoading = true;
 
@@ -46,7 +45,6 @@ class UsersServices extends ChangeNotifier {
 
     isLoading = false;
     notifyListeners();
-    print(users.length);
     return users;
   }
 }

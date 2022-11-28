@@ -71,7 +71,8 @@ class IndexScreen extends StatelessWidget {
                 Deact: Deact,
                 id: usersFinal[index].id.toString(),
                 index: index,
-                tit: '${usersFinal[index].name} ${usersFinal[index].surname}',
+                tit:
+                    '${usersFinal[index].firstname} ${usersFinal[index].secondname}',
               );
             },
             itemCount: usersFinal.length,

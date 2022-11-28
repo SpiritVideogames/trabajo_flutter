@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'login_services.dart';
 
 class DeactivateServices extends ChangeNotifier {
-  final String _baseUrl = 'salesin.allsites.es';
+  final String _baseUrl = 'semillero.allsites.es';
 
   DeactivateServices() {}
 

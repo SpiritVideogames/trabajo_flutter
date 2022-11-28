@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'login_services.dart';
 
 class UserServices extends ChangeNotifier {
-  final String _baseUrl = 'salesin.allsites.es';
+  final String _baseUrl = 'semillero.allsites.es';
 
   late DataUser selectedUser = DataUser();
 
@@ -32,7 +32,6 @@ class UserServices extends ChangeNotifier {
     });
 
     final Map<String, dynamic> usersMap = json.decode(resp.body);
-    print(resp.body);
 
     usersMap.forEach((key, value) {
       if (key == "data") {
@@ -41,8 +40,6 @@ class UserServices extends ChangeNotifier {
         selectedUser = tempUser;
       }
     });
-
-    print(selectedUser.id);
 
     isLoading = false;
     notifyListeners();

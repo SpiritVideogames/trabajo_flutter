@@ -28,61 +28,46 @@ class Users {
 class DataUsers {
   DataUsers({
     this.id,
-    this.name,
-    this.surname,
-    this.cicleId,
+    this.firstname,
+    this.secondname,
+    this.company_id,
     this.actived,
     this.email,
     this.type,
-    this.numOfferApplied,
+    this.email_confirmed,
     this.deleted,
-    this.createdAt,
-    this.emailVerifiedAt,
-    this.updatedAt,
+    this.iscontact,
+    this.created_at,
+    this.company,
   });
 
   int? id;
-  String? name;
-  String? surname;
-  int? cicleId;
+  String? firstname;
+  String? secondname;
+  int? company_id;
   int? actived;
   String? email;
   String? type;
-  int? numOfferApplied;
+  int? email_confirmed;
   int? deleted;
-  String? createdAt;
-  String? updatedAt;
-  String? emailVerifiedAt;
+  int? iscontact;
+  String? company;
+  String? created_at;
 
   factory DataUsers.fromJson(String str) => DataUsers.fromMap(json.decode(str));
 
   factory DataUsers.fromMap(Map<String, dynamic> json) => DataUsers(
         id: json["id"],
-        name: json["name"],
-        surname: json["surname"],
-        cicleId: json["cicle_id"],
+        firstname: json["firstname"],
+        secondname: json["secondname"],
+        company_id: json["cicle_id"],
         actived: json["actived"],
         email: json["email"],
         type: json["type"],
-        numOfferApplied: json["num_offer_applied"],
+        email_confirmed: json["num_offer_applied"],
         deleted: json["deleted"],
-        createdAt: json["created_at"],
-        emailVerifiedAt: json["email_verified_at"],
-        updatedAt: json["updated_at"],
-      );
-
-  DataUsers copy() => DataUsers(
-        actived: this.actived,
-        cicleId: this.cicleId,
-        createdAt: this.createdAt,
-        deleted: this.deleted,
-        email: this.email,
-        id: this.id,
-        name: this.name,
-        numOfferApplied: this.numOfferApplied,
-        surname: this.surname,
-        type: this.type,
-        emailVerifiedAt: this.emailVerifiedAt,
-        updatedAt: this.updatedAt,
+        iscontact: json["created_at_at"],
+        created_at: json["email_verified_at"],
+        company: json["updated_at"],
       );
 }

@@ -21,81 +21,56 @@ class User {
 
   factory User.fromJson(String str) => User.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory User.fromMap(Map<String, dynamic> json) => User(
         success: json["success"],
         data: DataUser.fromMap(json["data"]),
         message: json["message"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "success": success,
-        "data": data.toMap(),
-        "message": message,
-      };
 }
 
 class DataUser {
   DataUser({
     this.id,
-    this.name,
-    this.surname,
-    this.cicleId,
+    this.firstname,
+    this.secondname,
+    this.company_id,
     this.actived,
     this.email,
-    this.numOfferApplied,
     this.type,
+    this.email_confirmed,
     this.deleted,
-    this.emailVerifiedAt,
-    this.createdAt,
-    this.updatedAt,
+    this.iscontact,
+    this.company,
+    this.created_at,
   });
 
   int? id;
-  String? name;
-  String? surname;
-  int? cicleId;
+  String? firstname;
+  String? secondname;
+  int? company_id;
   int? actived;
   String? email;
-  int? numOfferApplied;
   String? type;
+  int? email_confirmed;
   int? deleted;
-  String? emailVerifiedAt;
-  String? createdAt;
-  String? updatedAt;
+  String? iscontact;
+  String? company;
+  String? created_at;
 
   factory DataUser.fromJson(String str) => DataUser.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory DataUser.fromMap(Map<String, dynamic> json) => DataUser(
         id: json["id"],
-        name: json["name"],
-        surname: json["surname"],
-        cicleId: json["cicle_id"],
+        firstname: json["firstname"],
+        secondname: json["secondname"],
+        company_id: json["company_id"],
         actived: json["actived"],
         email: json["email"],
-        numOfferApplied: json["num_offer_applied"],
         type: json["type"],
+        email_confirmed: json["email_confirmed"],
         deleted: json["deleted"],
-        emailVerifiedAt: json["email_verified_at"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
+        iscontact: json["iscontact"],
+        company: json["comapany"],
+        created_at: json["created_at"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "id": id,
-        "name": name,
-        "surname": surname,
-        "cicle_id": cicleId,
-        "actived": actived,
-        "email": email,
-        "num_offer_applied": numOfferApplied,
-        "type": type,
-        "deleted": deleted,
-        "email_verified_at": emailVerifiedAt,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
-      };
 }

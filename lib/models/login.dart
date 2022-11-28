@@ -28,21 +28,24 @@ class DataLogin {
   DataLogin({
     required this.token,
     required this.id,
-    required this.numOfferApplied,
     required this.type,
+    required this.actived,
+    required this.deleted,
   });
 
   String token;
   int id;
-  int numOfferApplied;
   String type;
+  int actived;
+  int deleted;
 
   factory DataLogin.fromJson(String str) => DataLogin.fromMap(json.decode(str));
 
   factory DataLogin.fromMap(Map<String, dynamic> json) => DataLogin(
         token: json["token"],
         id: json["id"],
-        numOfferApplied: json["num_offer_applied"],
         type: json["type"],
+        actived: json["actived"],
+        deleted: json["deleted"],
       );
 }

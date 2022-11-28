@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trabajo_flutter/services/services.dart';
 
-import 'models/models.dart';
-import 'providers/user_form_provider.dart';
 import 'router/app_routes.dart';
 import 'services/user_service.dart';
 
@@ -16,19 +14,15 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => ActivateServices()),
-      ChangeNotifierProvider(create: (_) => AppliedServices()),
-      ChangeNotifierProvider(create: (_) => CiclesServices()),
-      ChangeNotifierProvider(create: (_) => ConfirmServices()),
+      ChangeNotifierProvider(create: (_) => CompaniesServices()),
       ChangeNotifierProvider(create: (_) => DeactivateServices()),
       ChangeNotifierProvider(create: (_) => DeleteServices()),
       ChangeNotifierProvider(create: (_) => UserServices()),
       ChangeNotifierProvider(create: (_) => LoginServices()),
-      ChangeNotifierProvider(create: (_) => RegisterServices()),
       ChangeNotifierProvider(create: (_) => LogoutServices()),
-      ChangeNotifierProvider(create: (_) => OffersAppliedServices()),
-      ChangeNotifierProvider(create: (_) => OffersNotAppliedServices()),
+      ChangeNotifierProvider(create: (_) => ProductsServices()),
+      ChangeNotifierProvider(create: (_) => RegisterServices()),
       ChangeNotifierProvider(create: (_) => UsersServices()),
-      ChangeNotifierProvider(create: (_) => UnappliedServices()),
     ], child: const MyApp());
   }
 }

@@ -143,24 +143,24 @@ class _UserForm extends StatelessWidget {
             const SizedBox(height: 20),
             TextFormField(
               autocorrect: false,
-              initialValue: user.name,
+              initialValue: user.firstname,
               decoration: const InputDecoration(
                   hintText: 'User name',
                   labelText: 'Name',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.account_box_rounded)),
-              onChanged: (value) => user.name = value,
+              onChanged: (value) => user.firstname = value,
             ),
             const SizedBox(height: 20),
             TextFormField(
               autocorrect: false,
-              initialValue: user.surname,
+              initialValue: user.secondname,
               decoration: const InputDecoration(
                   hintText: 'User surname',
                   labelText: 'Surname',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.account_box_rounded)),
-              onChanged: (value) => user.surname = value,
+              onChanged: (value) => user.secondname = value,
             ),
             const SizedBox(height: 20),
           ],

@@ -27,20 +27,20 @@ class Register {
 class DataRegister {
   DataRegister({
     required this.token,
-    required this.name,
-    required this.id,
+    required this.firstname,
+    required this.secondname,
   });
 
   String token;
-  String name;
-  String id;
+  String firstname;
+  String secondname;
 
   factory DataRegister.fromJson(String str) =>
       DataRegister.fromMap(json.decode(str));
 
   factory DataRegister.fromMap(Map<String, dynamic> json) => DataRegister(
         token: json["token"],
-        name: json["name"],
-        id: json["id"],
+        firstname: json["firstname"],
+        secondname: json["secondname"],
       );
 }

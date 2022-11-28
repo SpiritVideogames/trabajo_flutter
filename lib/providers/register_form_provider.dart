@@ -8,7 +8,7 @@ class RegisterFormProvider extends ChangeNotifier {
   String email = '';
   String password = '';
   String c_password = '';
-  int cicle_id = 0;
+  String company_id = '';
 
   bool isValidForm() {
     return formKey.currentState?.validate() ?? false;
