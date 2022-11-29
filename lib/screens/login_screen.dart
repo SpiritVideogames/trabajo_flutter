@@ -174,7 +174,7 @@ class _LoginForm extends StatelessWidget {
                       // ignore: use_build_context_synchronously
 
                       // ignore: use_build_context_synchronously
-                      Navigator.pushNamed(context, 'user');
+                      Navigator.pushNamed(context, 'userCompany');
                     } else {
                       CoolAlert.show(
                         context: context,

@@ -4,4 +4,4 @@ export 'package:trabajo_flutter/screens/register_screen.dart';
 export 'package:trabajo_flutter/screens/edit_screen.dart';
 export 'package:trabajo_flutter/screens/loading_screen.dart';
 export 'package:trabajo_flutter/screens/user_screen.dart';
-export 'package:trabajo_flutter/screens/user_menu_screen.dart';
+export 'package:trabajo_flutter/screens/user_company_screen.dart';

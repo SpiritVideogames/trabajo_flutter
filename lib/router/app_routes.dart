@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trabajo_flutter/screens/index_adminStu_screen.dart';
 
 import '../models/models.dart';
-import '../screens/back_screen.dart';
+
 import '../screens/screens.dart';
 
 class AppRoutes {
@@ -40,19 +40,14 @@ class AppRoutes {
         screen: const UserScreen(),
         icon: Icons.account_balance_outlined),
     MenuOption(
+        route: 'userCompany',
+        name: 'User Company Screen',
+        screen: const UserCompanyScreen(),
+        icon: Icons.account_balance_outlined),
+    MenuOption(
         route: 'load',
         name: 'Loadig Screen',
         screen: const LoadingScreen(),
-        icon: Icons.account_balance_outlined),
-    MenuOption(
-        route: 'back',
-        name: 'Swipe Screen',
-        screen: WithPages(),
-        icon: Icons.account_balance_outlined),
-    MenuOption(
-        route: 'userMenu',
-        name: 'User Screen',
-        screen: const UserMenuScreen(),
         icon: Icons.account_balance_outlined),
   ];
 
