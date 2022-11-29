@@ -184,7 +184,9 @@ class _Index2ScreenState extends State<Index2Screen> {
                         // component is not dragged.
                         child: ListTile(
                           title: Text(
-                              users[index].name! + ' ' + users[index].surname!,
+                              users[index].firstname! +
+                                  ' ' +
+                                  users[index].secondname!,
                               style: const TextStyle(
                                   color: Color.fromARGB(255, 18, 201, 159))),
                           //  subtitle:    (Text(_Index2ScreenState().users[index].email!)),

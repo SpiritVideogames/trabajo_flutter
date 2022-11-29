@@ -6,21 +6,21 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class RegisterServices extends ChangeNotifier {
-  final String _baseUrl = 'salesin.allsites.es';
+  final String _baseUrl = 'semillero.allsites.es';
 
   final storage = FlutterSecureStorage();
 
   RegisterServices() {}
 
-  postRegister(String name, String surname, String email, String password,
-      String c_password, int cicle_id) async {
+  postRegister(String firstname, String secondname, String email,
+      String password, String c_password, String company_id) async {
     final url = Uri.http(_baseUrl, '/public/api/register', {
-      'name': name,
-      'surname': surname,
+      'firstname': firstname,
+      'secondname': secondname,
       'email': email,
       'password': password,
       'c_password': c_password,
-      'cicle_id': cicle_id.toString(),
+      'company_id': company_id,
     });
     final response = await http
         .post(url, headers: {HttpHeaders.acceptHeader: 'application/json'});

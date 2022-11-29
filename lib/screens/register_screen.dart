@@ -15,9 +15,10 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ciclesService = Provider.of<CiclesServices>(context);
-    List<DataCicles> ciclesList = ciclesService.cicles.cast<DataCicles>();
-    if (ciclesService.isLoading) return LoadingScreen();
+    final companiesService = Provider.of<CompaniesServices>(context);
+    List<DataCompanies> companiesList =
+        companiesService.companies.cast<DataCompanies>();
+    if (companiesService.isLoading) return LoadingScreen();
     return Scaffold(
         backgroundColor: Colors.white,
         body: AuthBackground(
@@ -51,7 +52,7 @@ class RegisterScreen extends StatelessWidget {
                       const SizedBox(height: 10),
                       ChangeNotifierProvider(
                         create: (_) => RegisterFormProvider(),
-                        child: _RegisterForm(ciclesList),
+                        child: _RegisterForm(companiesList),
                       )
                     ],
                   ),
@@ -82,9 +83,9 @@ class RegisterScreen extends StatelessWidget {
 }
 
 class _RegisterForm extends StatelessWidget {
-  List<DataCicles> listOfCicles = [];
-  _RegisterForm(List<DataCicles> ciclesList, {super.key}) {
-    listOfCicles = ciclesList;
+  List<DataCompanies> listOfCompanies = [];
+  _RegisterForm(List<DataCompanies> companiesList, {super.key}) {
+    listOfCompanies = companiesList;
   }
   @override
   Widget build(BuildContext context) {
@@ -279,7 +280,7 @@ class _RegisterForm extends StatelessWidget {
                   ),
                   prefixIcon: Icon(Icons.auto_awesome_motion_sharp,
                       color: Color.fromARGB(255, 18, 201, 159))),
-              items: listOfCicles.map((e) {
+              items: listOfCompanies.map((e) {
                 /// Ahora creamos "e" y contiene cada uno de los items de la lista.
                 return DropdownMenuItem(
                   child: Text(e.name.toString(),
@@ -288,9 +289,7 @@ class _RegisterForm extends StatelessWidget {
                   value: e.id,
                 );
               }).toList(),
-              onChanged: (value) {
-                registerForm.cicle_id = value!;
-              },
+              onChanged: (value) => registerForm.company_id = value.toString(),
               validator: (value) {
                 return (value != null && value != 0)
                     ? null
@@ -319,13 +318,9 @@ class _RegisterForm extends StatelessWidget {
                             registerForm.email,
                             registerForm.password,
                             registerForm.c_password,
-                            registerForm.cicle_id);
+                            registerForm.company_id);
 
                     if (errorMessage == null) {
-                      String? user_id = await RegisterServices().readId();
-                      final confirmServices =
-                          Provider.of<ConfirmServices>(context, listen: false);
-                      confirmServices.postConfirm(user_id);
                       RegisterServices().logout();
                       Navigator.pushReplacementNamed(context, 'login');
                     } else {

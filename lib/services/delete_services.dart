@@ -7,14 +7,15 @@ import 'package:http/http.dart' as http;
 import 'login_services.dart';
 
 class DeleteServices extends ChangeNotifier {
-  final String _baseUrl = 'salesin.allsites.es';
+  final String _baseUrl = 'semillero.allsites.es';
 
   DeleteServices() {}
 
   postDelete(String user_id) async {
     String? token = await LoginServices().readToken();
 
-    final url = Uri.http(_baseUrl, '/public/api/delete', {'user_id': user_id});
+    final url = Uri.http(
+        _baseUrl, '/public/api/deleted/$user_id', {'user_id': user_id});
     final response = await http.post(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
