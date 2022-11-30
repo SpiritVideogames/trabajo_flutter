@@ -12,20 +12,21 @@ class Orders {
   });
 
   bool success;
-  List<Datum> data;
+  List<DataOrders> data;
   String message;
 
   factory Orders.fromJson(String str) => Orders.fromMap(json.decode(str));
 
   factory Orders.fromMap(Map<String, dynamic> json) => Orders(
         success: json["success"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromMap(x))),
+        data: List<DataOrders>.from(
+            json["data"].map((x) => DataOrders.fromMap(x))),
         message: json["message"],
       );
 }
 
-class Datum {
-  Datum({
+class DataOrders {
+  DataOrders({
     required this.id,
     required this.num,
     required this.issueDate,
@@ -43,9 +44,10 @@ class Datum {
   int deliveryNotes;
   int invoices;
 
-  factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
+  factory DataOrders.fromJson(String str) =>
+      DataOrders.fromMap(json.decode(str));
 
-  factory Datum.fromMap(Map<String, dynamic> json) => Datum(
+  factory DataOrders.fromMap(Map<String, dynamic> json) => DataOrders(
         id: json["id"],
         num: json["num"],
         issueDate: json["issue_date"],
