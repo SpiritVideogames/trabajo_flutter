@@ -35,7 +35,6 @@ class UserServices extends ChangeNotifier {
 
     final Map<String, dynamic> usersMap = json.decode(resp.body);
 
-    print(usersMap);
     usersMap.forEach((key, value) {
       if (key == "data") {
         final tempUser = DataUser.fromMap(value);
