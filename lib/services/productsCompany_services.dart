@@ -21,21 +21,23 @@ class ProductsCompanyServices extends ChangeNotifier {
     products.clear();
     isLoading = true;
     notifyListeners();
+
     final url = Uri.http(_baseUrl, '/public/api/products/company',
         {'company_id': '$id_company'});
+    print('hola');
     final response = await http.post(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     });
 
     final Map<String, dynamic> productsMap = json.decode(response.body);
-
+    print(productsMap);
     productsMap.forEach((key, value) {
       if (key == "data") {
         final List<dynamic> productsMap1 = value;
         for (int i = 0; i < productsMap1.length; i++) {
           final tempProduct = DataProducts.fromMap(productsMap1[i]);
-
+          print(tempProduct.compamyName);
           products.add(tempProduct);
         }
       }

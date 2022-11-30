@@ -11,14 +11,14 @@ import '../services/user_service.dart';
 import '../widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-class UserCompanyScreen extends StatefulWidget {
-  const UserCompanyScreen({Key? key}) : super(key: key);
+class UserArticleScreen extends StatefulWidget {
+  const UserArticleScreen({Key? key}) : super(key: key);
 
   @override
-  State<UserCompanyScreen> createState() => _UserCompanyScreenState();
+  _UserArticleScreenState createState() => _UserArticleScreenState();
 }
 
-class _UserCompanyScreenState extends State<UserCompanyScreen> {
+class _UserArticleScreenState extends State<UserCompanyScreen> {
   List<Widget> widgets = [];
   List<DataProducts> products = [];
   final productsCompanyService = ProductsCompanyServices();
@@ -76,7 +76,7 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
                 child: Container(
                     child: Swiper(
                   scrollDirection: Axis.vertical,
-                  itemCount: products.length,
+                  itemCount: 5,
                   layout: SwiperLayout.STACK,
                   itemWidth: 600,
                   itemHeight: 200,
