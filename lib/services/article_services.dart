@@ -24,7 +24,7 @@ class ArticleServices extends ChangeNotifier {
 
     notifyListeners();
     final url = Uri.http(_baseUrl, '/public/api/mostrarArt', {'id': id});
-    final resp = await http.get(url, headers: {
+    final resp = await http.post(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     });
