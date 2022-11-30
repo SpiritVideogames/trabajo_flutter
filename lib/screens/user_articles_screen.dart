@@ -20,7 +20,7 @@ class UserArticleScreen extends StatefulWidget {
 
 class _UserArticleScreenState extends State<UserCompanyScreen> {
   List<Widget> widgets = [];
-  List<DataProducts> products = [];
+  List<DataProductsCompany> products = [];
   final productsCompanyService = ProductsCompanyServices();
 
   Future refresh() async {
@@ -29,10 +29,10 @@ class _UserArticleScreenState extends State<UserCompanyScreen> {
     final productsCompanyService =
         Provider.of<ProductsCompanyServices>(context, listen: false);
 
-    await productsCompanyService.postProducts();
+    await productsCompanyService.postProductsCompany();
 
     setState(() {
-      products = productsCompanyService.products;
+      products = productsCompanyService.productsCompany;
     });
   }
 
