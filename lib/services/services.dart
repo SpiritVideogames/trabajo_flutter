@@ -4,6 +4,6 @@ export '../services/deactivate_services.dart';
 export '../services/delete_services.dart';
 export '../services/login_services.dart';
 export '../services/logout_services.dart';
-export '../services/products_services.dart';
+export 'productsCompany_services.dart';
 export '../services/register_services.dart';
 export '../services/users_services.dart';

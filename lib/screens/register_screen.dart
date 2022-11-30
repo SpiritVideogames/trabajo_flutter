@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+
 import 'package:cool_alert/cool_alert.dart';
 import '../models/models.dart';
 

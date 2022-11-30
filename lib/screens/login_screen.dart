@@ -1,6 +1,7 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:trabajo_flutter/services/user_service.dart';
 import 'dart:async';
 import 'package:trabajo_flutter/widgets/stagger_animation.dart';
 
@@ -87,6 +88,7 @@ class _LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loginService = Provider.of<LoginServices>(context);
+    final userServices = Provider.of<UserServices>(context);
     final loginForm = Provider.of<LoginFormProvider>(context);
     return Form(
         key: loginForm.formKey,
@@ -170,7 +172,9 @@ class _LoginForm extends StatelessWidget {
 
                       Navigator.pushNamed(context, 'index2');
                     } else if (errorMessage == 'u') {
+                      userServices.loadUser;
                       print(errorMessage);
+
                       // ignore: use_build_context_synchronously
 
                       // ignore: use_build_context_synchronously

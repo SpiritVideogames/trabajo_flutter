@@ -53,7 +53,7 @@ class DataUser {
   String? type;
   int? email_confirmed;
   int? deleted;
-  String? iscontact;
+  int? iscontact;
   String? company;
   String? created_at;
 
@@ -70,7 +70,7 @@ class DataUser {
         email_confirmed: json["email_confirmed"],
         deleted: json["deleted"],
         iscontact: json["iscontact"],
-        company: json["comapany"],
+        company: json["company"],
         created_at: json["created_at"],
       );
 }

@@ -4,7 +4,7 @@ import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+
 import 'package:trabajo_flutter/screens/screens.dart';
 
 import '../models/models.dart';
@@ -183,6 +183,7 @@ class _Index2ScreenState extends State<Index2Screen> {
                         // The child of the Slidable is what the user sees when the
                         // component is not dragged.
                         child: ListTile(
+                          subtitle: Text(users[index].email!),
                           title: Text(
                               users[index].firstname! +
                                   ' ' +
