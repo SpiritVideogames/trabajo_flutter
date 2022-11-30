@@ -11,14 +11,14 @@ import '../models/models.dart';
 class ProductsCompanyServices extends ChangeNotifier {
   final String _baseUrl = 'semillero.allsites.es';
 
-  final List<DataProducts> products = [];
+  final List<DataProductsCompany> productsCompany = [];
 
   bool isLoading = true;
 
-  postProducts() async {
+  postProductsCompany() async {
     String? token = await LoginServices().readToken();
     int? id_company = await UserServices().readIdCompany();
-    products.clear();
+    productsCompany.clear();
     isLoading = true;
     notifyListeners();
 
@@ -30,20 +30,21 @@ class ProductsCompanyServices extends ChangeNotifier {
       HttpHeaders.authorizationHeader: 'Bearer $token'
     });
 
-    final Map<String, dynamic> productsMap = json.decode(response.body);
-    print(productsMap);
-    productsMap.forEach((key, value) {
+    final Map<String, dynamic> productsCompanyMap = json.decode(response.body);
+
+    productsCompanyMap.forEach((key, value) {
       if (key == "data") {
-        final List<dynamic> productsMap1 = value;
-        for (int i = 0; i < productsMap1.length; i++) {
-          final tempProduct = DataProducts.fromMap(productsMap1[i]);
-          print(tempProduct.compamyName);
-          products.add(tempProduct);
+        final List<dynamic> productsCompanyMap1 = value;
+        for (int i = 0; i < productsCompanyMap1.length; i++) {
+          final tempProduct =
+              DataProductsCompany.fromMap(productsCompanyMap1[i]);
+
+          productsCompany.add(tempProduct);
         }
       }
     });
     isLoading = false;
     notifyListeners();
-    return products;
+    return productsCompany;
   }
 }
