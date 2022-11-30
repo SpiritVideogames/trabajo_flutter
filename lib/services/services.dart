@@ -1,9 +1,11 @@
 export '../services/activate_services.dart';
+export '../services/article_services.dart';
+export '../services/articles_services.dart';
 export '../services/companies_services.dart';
 export '../services/deactivate_services.dart';
 export '../services/delete_services.dart';
 export '../services/login_services.dart';
 export '../services/logout_services.dart';
-export 'productsCompany_services.dart';
+export '../services/productsCompany_services.dart';
 export '../services/register_services.dart';
 export '../services/users_services.dart';

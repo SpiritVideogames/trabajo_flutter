@@ -1,32 +1,33 @@
 // To parse required this JSON data, do
 //
-//     final products = productsFromMap(jsonString);
+//     final productsCompany = productsCompanyFromMap(jsonString);
 
 import 'dart:convert';
 
-class Products {
-  Products({
+class ProductsCompany {
+  ProductsCompany({
     required this.success,
     required this.data,
     required this.message,
   });
 
   bool success;
-  List<DataProducts> data;
+  List<DataProductsCompany> data;
   String message;
 
-  factory Products.fromJson(String str) => Products.fromMap(json.decode(str));
+  factory ProductsCompany.fromJson(String str) =>
+      ProductsCompany.fromMap(json.decode(str));
 
-  factory Products.fromMap(Map<String, dynamic> json) => Products(
+  factory ProductsCompany.fromMap(Map<String, dynamic> json) => ProductsCompany(
         success: json["success"],
-        data: List<DataProducts>.from(
-            json["data"].map((x) => DataProducts.fromMap(x))),
+        data: List<DataProductsCompany>.from(
+            json["data"].map((x) => DataProductsCompany.fromMap(x))),
         message: json["message"],
       );
 }
 
-class DataProducts {
-  DataProducts({
+class DataProductsCompany {
+  DataProductsCompany({
     required this.id,
     required this.articleId,
     required this.companyId,
@@ -48,10 +49,11 @@ class DataProducts {
   int familyId;
   int deleted;
 
-  factory DataProducts.fromJson(String str) =>
-      DataProducts.fromMap(json.decode(str));
+  factory DataProductsCompany.fromJson(String str) =>
+      DataProductsCompany.fromMap(json.decode(str));
 
-  factory DataProducts.fromMap(Map<String, dynamic> json) => DataProducts(
+  factory DataProductsCompany.fromMap(Map<String, dynamic> json) =>
+      DataProductsCompany(
         id: json["id"],
         articleId: json["article_id"],
         companyId: json["company_id"],
