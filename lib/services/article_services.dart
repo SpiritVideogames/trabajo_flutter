@@ -17,13 +17,10 @@ class ArticleServices extends ChangeNotifier {
 
   bool isLoading = true;
 
-  ArticleServices() {
-    loadArticle();
-  }
+  ArticleServices() {}
 
-  Future loadArticle() async {
+  Future loadArticle(String id) async {
     String? token = await LoginServices().readToken();
-    int? id = await LoginServices().readId();
 
     notifyListeners();
     final url = Uri.http(_baseUrl, '/public/api/mostrarArt', {'id': id});
@@ -32,10 +29,9 @@ class ArticleServices extends ChangeNotifier {
       HttpHeaders.authorizationHeader: 'Bearer $token'
     });
 
-    final Map<String, dynamic> ArticlesMap = json.decode(resp.body);
+    final Map<String, dynamic> articlesMap = json.decode(resp.body);
 
-    print(ArticlesMap);
-    ArticlesMap.forEach((key, value) {
+    articlesMap.forEach((key, value) {
       if (key == "data") {
         final tempArticle = DataArticle.fromMap(value);
 
@@ -50,7 +46,7 @@ class ArticleServices extends ChangeNotifier {
   }
 
   Future<int> readId() async {
-    String? i = await storage.read(key: 'idCompany');
+    String? i = await storage.read(key: 'id');
     return int.parse(i!);
   }
 }
