@@ -18,21 +18,33 @@ class UserArticleScreen extends StatefulWidget {
   _UserArticleScreenState createState() => _UserArticleScreenState();
 }
 
-class _UserArticleScreenState extends State<UserCompanyScreen> {
-  List<Widget> widgets = [];
+class _UserArticleScreenState extends State<UserArticleScreen> {
+  List<DataArticles> articles = [];
+
   List<DataProductsCompany> products = [];
-  final productsCompanyService = ProductsCompanyServices();
+
+  final articlesServices = ArticlesServices();
 
   Future refresh() async {
-    setState(() => products.clear());
+    setState(() => articles.clear());
 
+    final articlesServices =
+        Provider.of<ArticlesServices>(context, listen: false);
     final productsCompanyService =
         Provider.of<ProductsCompanyServices>(context, listen: false);
 
     await productsCompanyService.postProductsCompany();
 
+    products = productsCompanyService.productsCompany;
+
+    await articlesServices.loadArticles();
+
     setState(() {
-      products = productsCompanyService.productsCompany;
+      articles = articlesServices.articles;
+      for (var p in products) {
+        articles.removeWhere((element) =>
+            element.id.toString().contains(p.articleId.toString()));
+      }
     });
   }
 
@@ -44,6 +56,7 @@ class _UserArticleScreenState extends State<UserCompanyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final productAdd = Provider.of<ProductAddServices>(context);
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 222, 222, 222),
         body: RefreshIndicator(
@@ -51,32 +64,41 @@ class _UserArticleScreenState extends State<UserCompanyScreen> {
           child: Column(children: [
             Row(
               children: [
+                Stack(children: [
+                  Container(
+                    color: Color.fromARGB(255, 25, 205, 163),
+                    height: 90,
+                    width: 360,
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    width: 70,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(
+                          width: 3, color: Color.fromARGB(255, 17, 158, 125)),
+                    ),
+                    child: IconButton(
+                      color: Color.fromARGB(255, 17, 147, 116),
+                      iconSize: 50,
+                      icon: Icon(Icons.collections_bookmark_rounded),
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'userCompany');
+                      },
+                    ),
+                  ),
+                ]),
                 SizedBox(height: 150),
-                Container(
-                  margin: EdgeInsets.all(10),
-                  width: 70,
-                  height: 70,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                        width: 3, color: Color.fromARGB(255, 17, 158, 125)),
-                  ),
-                  child: IconButton(
-                    color: Color.fromARGB(255, 17, 147, 116),
-                    iconSize: 50,
-                    icon: Icon(Icons.card_travel_outlined),
-                    onPressed: () {},
-                  ),
-                ),
               ],
             ),
             SizedBox(
-                height: 500,
+                height: 600,
                 width: 300,
                 child: Container(
                     child: Swiper(
                   scrollDirection: Axis.vertical,
-                  itemCount: 5,
+                  itemCount: articles.length,
                   layout: SwiperLayout.STACK,
                   itemWidth: 600,
                   itemHeight: 200,
@@ -85,7 +107,7 @@ class _UserArticleScreenState extends State<UserCompanyScreen> {
                       padding: EdgeInsets.all(10),
                       height: 200,
                       decoration: BoxDecoration(
-                        color: Colors.red,
+                        color: Color.fromARGB(255, 235, 229, 229),
                         borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(
                             width: 3, color: Color.fromARGB(255, 17, 158, 125)),
@@ -107,12 +129,29 @@ class _UserArticleScreenState extends State<UserCompanyScreen> {
                                 ),
                                 child: IconButton(
                                   iconSize: 40,
-                                  icon:
-                                      Icon(Icons.remove_shopping_cart_outlined),
-                                  onPressed: () {},
+                                  icon: Icon(Icons.add_shopping_cart_outlined),
+                                  onPressed: () {
+                                    print(productAdd.postProductAdd(
+                                        articles[index].id,
+                                        50,
+                                        articles[index].familyId));
+                                    setState(() {
+                                      articles.removeAt(index);
+                                    });
+                                  },
                                 ),
                               ),
-                              Text('Producto', style: TextStyle(fontSize: 40))
+                              Text(articles[index].name,
+                                  style: TextStyle(fontSize: 25))
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.all(10),
+                                  child: Text(articles[index].description,
+                                      style: TextStyle(fontSize: 20))),
+                              //Text(articles[index].price,style: TextStyle(fontSize: 40))),
                             ],
                           ),
                           Row(
@@ -120,10 +159,10 @@ class _UserArticleScreenState extends State<UserCompanyScreen> {
                               Container(
                                   margin: EdgeInsets.all(10),
                                   child: Text('40€',
-                                      style: TextStyle(fontSize: 40))),
-                              //Text(products[index].price,style: TextStyle(fontSize: 40))),
+                                      style: TextStyle(fontSize: 30))),
+                              //Text(articles[index].price,style: TextStyle(fontSize: 40))),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     );

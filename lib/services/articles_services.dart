@@ -12,6 +12,7 @@ import 'services.dart';
 class ArticlesServices extends ChangeNotifier {
   final String _baseUrl = 'semillero.allsites.es';
   final List<DataArticles> articles = [];
+  List<DataProductsCompany> products = [];
 
   bool isLoading = true;
 
@@ -36,9 +37,8 @@ class ArticlesServices extends ChangeNotifier {
         final List<dynamic> articlesMap1 = value;
         for (int i = 0; i < articlesMap1.length; i++) {
           final tempUser = DataArticles.fromMap(articlesMap1[i]);
-          if (tempUser.deleted == 0) {
-            articles.add(tempUser);
-          }
+
+          articles.add(tempUser);
         }
       }
     });

@@ -11,15 +11,15 @@ class ProductAddServices extends ChangeNotifier {
 
   ProductAddServices() {}
 
-  postProductAdd(String article_id, String company_id, String price,
-      String family_id) async {
+  postProductAdd(int article_id, double price, int family_id) async {
     String? token = await LoginServices().readToken();
-
+    int? company_id = await UserServices().readIdCompany();
+    print(company_id);
     final url = Uri.http(_baseUrl, '/public/api/products', {
-      'article_id': article_id,
-      'company_id': company_id,
-      'price': price,
-      'family_id': family_id
+      'article_id': '$article_id',
+      'company_id': '$company_id',
+      'price': '$price',
+      'family_id': '$family_id'
     });
     final response = await http.post(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',
@@ -30,6 +30,7 @@ class ProductAddServices extends ChangeNotifier {
 
     var resp;
     if (productAdd.containsValue(true)) {
+      resp = 'hola';
     } else {
       String? error = '';
 
@@ -37,6 +38,7 @@ class ProductAddServices extends ChangeNotifier {
 
       resp = error;
     }
+    print(resp);
     return resp;
   }
 }

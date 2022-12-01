@@ -19,7 +19,6 @@ class UserCompanyScreen extends StatefulWidget {
 }
 
 class _UserCompanyScreenState extends State<UserCompanyScreen> {
-  List<Widget> widgets = [];
   List<DataProductsCompany> products = [];
   final productsCompanyService = ProductsCompanyServices();
 
@@ -51,27 +50,36 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
           child: Column(children: [
             Row(
               children: [
+                Stack(children: [
+                  Container(
+                    color: Color.fromARGB(255, 25, 205, 163),
+                    height: 90,
+                    width: 360,
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    width: 70,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(
+                          width: 3, color: Color.fromARGB(255, 17, 158, 125)),
+                    ),
+                    child: IconButton(
+                      color: Color.fromARGB(255, 17, 147, 116),
+                      iconSize: 50,
+                      icon: Icon(Icons.shopping_cart_outlined),
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'userCompany');
+                      },
+                    ),
+                  ),
+                ]),
                 SizedBox(height: 150),
-                Container(
-                  margin: EdgeInsets.all(10),
-                  width: 70,
-                  height: 70,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                        width: 3, color: Color.fromARGB(255, 17, 158, 125)),
-                  ),
-                  child: IconButton(
-                    color: Color.fromARGB(255, 17, 147, 116),
-                    iconSize: 50,
-                    icon: Icon(Icons.card_travel_outlined),
-                    onPressed: () {},
-                  ),
-                ),
               ],
             ),
             SizedBox(
-                height: 500,
+                height: 600,
                 width: 300,
                 child: Container(
                     child: Swiper(
@@ -85,7 +93,7 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
                       padding: EdgeInsets.all(10),
                       height: 200,
                       decoration: BoxDecoration(
-                        color: Colors.red,
+                        color: Color.fromARGB(255, 235, 229, 229),
                         borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(
                             width: 3, color: Color.fromARGB(255, 17, 158, 125)),
@@ -112,15 +120,26 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
                                   onPressed: () {},
                                 ),
                               ),
-                              Text('Producto', style: TextStyle(fontSize: 40))
+                              Text(products[index].compamyName,
+                                  style: TextStyle(fontSize: 25))
                             ],
                           ),
                           Row(
                             children: [
                               Container(
                                   margin: EdgeInsets.all(10),
-                                  child: Text('40€',
-                                      style: TextStyle(fontSize: 40))),
+                                  child: Text(
+                                      products[index].compamyDescription,
+                                      style: TextStyle(fontSize: 20))),
+                              //Text(articles[index].price,style: TextStyle(fontSize: 40))),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.all(10),
+                                  child: Text(products[index].price,
+                                      style: TextStyle(fontSize: 30))),
                               //Text(products[index].price,style: TextStyle(fontSize: 40))),
                             ],
                           )

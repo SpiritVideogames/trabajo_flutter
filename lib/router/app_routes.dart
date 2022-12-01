@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:trabajo_flutter/screens/index_adminStu_screen.dart';
 
 import '../models/models.dart';
 
@@ -43,6 +42,11 @@ class AppRoutes {
         route: 'userCompany',
         name: 'User Company Screen',
         screen: const UserCompanyScreen(),
+        icon: Icons.account_balance_outlined),
+    MenuOption(
+        route: 'userArticles',
+        name: 'User Article Screen',
+        screen: const UserArticleScreen(),
         icon: Icons.account_balance_outlined),
     MenuOption(
         route: 'load',

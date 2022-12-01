@@ -172,7 +172,7 @@ class _LoginForm extends StatelessWidget {
 
                       Navigator.pushNamed(context, 'index2');
                     } else if (errorMessage == 'u') {
-                      userServices.loadUser;
+                     await userServices.loadUser;
                       print(errorMessage);
 
                       // ignore: use_build_context_synchronously
