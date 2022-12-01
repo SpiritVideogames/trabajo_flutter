@@ -41,6 +41,7 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final productDelete = Provider.of<ProductDeleteServices>(context);
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 222, 222, 222),
         body: productsCompanyService.isLoading
@@ -124,7 +125,13 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
                                         iconSize: 40,
                                         icon: Icon(Icons
                                             .remove_shopping_cart_outlined),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          productDelete.deleteProductDelete(
+                                              products[index].id.toString());
+                                          setState(() {
+                                            products.removeAt(index);
+                                          });
+                                        },
                                       ),
                                     ),
                                     Text(products[index].compamyName,
