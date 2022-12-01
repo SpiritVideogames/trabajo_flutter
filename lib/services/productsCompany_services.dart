@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:trabajo_flutter/services/services.dart';
-import 'package:trabajo_flutter/services/user_service.dart';
 
 import '../models/models.dart';
 
@@ -19,7 +18,6 @@ class ProductsCompanyServices extends ChangeNotifier {
     String? token = await LoginServices().readToken();
     int? id_company = await UserServices().readIdCompany();
 
-    productsCompany.clear();
     isLoading = true;
     notifyListeners();
 
@@ -30,14 +28,13 @@ class ProductsCompanyServices extends ChangeNotifier {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     });
-    print(response.body);
 
     final Map<String, dynamic> productsCompanyMap = json.decode(response.body);
 
     productsCompanyMap.forEach((key, value) {
       if (key == "data") {
         final List<dynamic> productsCompanyMap1 = value;
-        print(productsCompanyMap1);
+
         for (int i = 0; i < productsCompanyMap1.length; i++) {
           final tempProduct =
               DataProductsCompany.fromMap(productsCompanyMap1[i]);
@@ -48,7 +45,7 @@ class ProductsCompanyServices extends ChangeNotifier {
     });
     isLoading = false;
     notifyListeners();
-    print(productsCompany.length);
+
     return productsCompany;
   }
 }

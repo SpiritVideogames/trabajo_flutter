@@ -2,6 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:trabajo_flutter/providers/edit_form_provider.dart';
 import 'package:trabajo_flutter/providers/user_form_provider.dart';
 import 'package:trabajo_flutter/screens/screens.dart';
@@ -29,8 +30,6 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
   Future refresh() async {
     setState(() => articles.clear());
 
-    final articlesServices =
-        Provider.of<ArticlesServices>(context, listen: false);
     final productsCompanyService =
         Provider.of<ProductsCompanyServices>(context, listen: false);
 
@@ -58,6 +57,7 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
   @override
   Widget build(BuildContext context) {
     final productAdd = Provider.of<ProductAddServices>(context);
+
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 222, 222, 222),
         body: articlesServices.isLoading
@@ -109,6 +109,7 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                         itemWidth: 600,
                         itemHeight: 200,
                         itemBuilder: (BuildContext context, int index) {
+                          double _value = 10;
                           return Container(
                             padding: EdgeInsets.all(10),
                             height: 200,
@@ -169,8 +170,23 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                                   children: [
                                     Container(
                                         margin: EdgeInsets.all(10),
-                                        child: Text('40€',
+                                        child: Text('$_value',
                                             style: TextStyle(fontSize: 30))),
+                                    SfSlider(
+                                      min: 1,
+                                      max: 60,
+                                      value: _value,
+                                      interval: 20,
+                                      showTicks: true,
+                                      showLabels: true,
+                                      enableTooltip: true,
+                                      minorTicksPerInterval: 1,
+                                      onChanged: (dynamic value) {
+                                        setState(() {
+                                          _value = value;
+                                        });
+                                      },
+                                    ),
                                     //Text(articles[index].price,style: TextStyle(fontSize: 40))),
                                   ],
                                 ),
@@ -182,117 +198,4 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                 ]),
               ));
   }
-
-  /*
-                CarouselSlider(
-                  options: CarouselOptions(
-                    aspectRatio: 40 / 9,
-                    scrollDirection: Axis.vertical,
-                  ),
-                  items: [1, 2, 3, 4, 5].map((i) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                            width: MediaQuery.of(context).size.width,
-                            child: Container(
-                              padding: EdgeInsets.all(10),
-                              height: 200,
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(10.0),
-                                border: Border.all(
-                                    width: 3,
-                                    color: Color.fromARGB(255, 17, 158, 125)),
-                              ),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        width: 55,
-                                        height: 55,
-                                        margin: EdgeInsets.all(10),
-                                        padding: EdgeInsets.only(
-                                            right: 20, bottom: 10),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          border: Border.all(
-                                              width: 2,
-                                              color: Color.fromARGB(
-                                                  255, 17, 158, 125)),
-                                        ),
-                                        child: IconButton(
-                                          iconSize: 40,
-                                          icon: Icon(
-                                              Icons.add_shopping_cart_outlined),
-                                          onPressed: () {},
-                                        ),
-                                      ),
-                                      Text('Producto',
-                                          style: TextStyle(fontSize: 40))
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Container(
-                                          margin: EdgeInsets.all(10),
-                                          child: Text('40€',
-                                              style: TextStyle(fontSize: 40))),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ));
-                      },
-                    );
-                  }).toList(),
-                ) ListWheelScrollView(itemExtent: 200, children: [
-                Container(
-                  padding: EdgeInsets.all(10),
-                  width: 800,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                        width: 3, color: Color.fromARGB(255, 17, 158, 125)),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            width: 55,
-                            height: 55,
-                            margin: EdgeInsets.all(10),
-                            padding: EdgeInsets.only(right: 20, bottom: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              border: Border.all(
-                                  width: 2,
-                                  color: Color.fromARGB(255, 17, 158, 125)),
-                            ),
-                            child: IconButton(
-                              iconSize: 40,
-                              icon: Icon(Icons.add_shopping_cart_outlined),
-                              onPressed: () {},
-                            ),
-                          ),
-                          Text('Producto', style: TextStyle(fontSize: 40))
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                              margin: EdgeInsets.all(10),
-                              child:
-                                  Text('40€', style: TextStyle(fontSize: 40))),
-                        ],
-                      )
-                    ],
-                  ),
-                )
-              ]),*/
-
 }

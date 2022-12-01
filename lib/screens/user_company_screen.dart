@@ -26,9 +26,6 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
   Future refresh() async {
     setState(() => products.clear());
 
-    final productsCompanyService =
-        Provider.of<ProductsCompanyServices>(context, listen: false);
-
     await productsCompanyService.postProductsCompany();
 
     setState(() {
@@ -76,7 +73,7 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
                             iconSize: 50,
                             icon: Icon(Icons.shopping_cart_outlined),
                             onPressed: () {
-                              Navigator.pushNamed(context, 'userCompany');
+                              Navigator.pushNamed(context, 'userArticles');
                             },
                           ),
                         ),
