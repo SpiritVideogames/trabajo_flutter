@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:trabajo_flutter/providers/precio_form_provider.dart';
 import 'package:trabajo_flutter/services/services.dart';
 
 import 'router/app_routes.dart';
@@ -31,6 +32,7 @@ class AppState extends StatelessWidget {
       ChangeNotifierProvider(create: (_) => UpdateServices()),
       ChangeNotifierProvider(create: (_) => UserServices()),
       ChangeNotifierProvider(create: (_) => UsersServices()),
+      ChangeNotifierProvider(create: (_) => PrecioFormProvider()),
     ], child: const MyApp());
   }
 }
