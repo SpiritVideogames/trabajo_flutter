@@ -1,5 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:trabajo_flutter/providers/edit_form_provider.dart';
@@ -126,11 +127,30 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
                                         icon: Icon(Icons
                                             .remove_shopping_cart_outlined),
                                         onPressed: () {
-                                          productDelete.deleteProductDelete(
-                                              products[index].id.toString());
-                                          setState(() {
-                                            products.removeAt(index);
-                                          });
+                                          CoolAlert.show(
+                                            context: context,
+                                            type: CoolAlertType.warning,
+                                            title: 'Are you sure?',
+                                            text:
+                                                "Are you sure you want to delete this product?",
+                                            showCancelBtn: true,
+                                            confirmBtnColor: Colors.red,
+                                            confirmBtnText: 'Delete',
+                                            onConfirmBtnTap: () {
+                                              productDelete.deleteProductDelete(
+                                                  products[index]
+                                                      .id
+                                                      .toString());
+                                              setState(() {
+                                                products.removeAt(index);
+                                              });
+
+                                              Navigator.pop(context);
+                                            },
+                                            onCancelBtnTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                          );
                                         },
                                       ),
                                     ),
