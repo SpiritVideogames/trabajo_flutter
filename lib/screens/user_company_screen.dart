@@ -41,6 +41,7 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final productDelete = Provider.of<ProductDeleteServices>(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.logout),
@@ -60,7 +61,18 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
                 children: [
                   Stack(children: [
                     Container(
-                      color: Color.fromARGB(255, 25, 205, 163),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(20),
+                          bottomLeft: Radius.circular(20),
+                        ),
+                        border: Border.all(
+                          width: 3,
+                          color: const Color.fromARGB(255, 25, 205, 163),
+                          style: BorderStyle.solid,
+                        ),
+                        color: const Color.fromARGB(255, 25, 205, 163),
+                      ),
                       height: 90,
                       width: 360,
                     ),
@@ -119,25 +131,36 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
                           children: [
                             Row(
                               children: [
-                                Container(
-                                  width: 55,
-                                  height: 55,
-                                  margin: EdgeInsets.all(10),
-                                  padding:
-                                      EdgeInsets.only(right: 20, bottom: 10),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    border: Border.all(
-                                        width: 2,
-                                        color:
-                                            Color.fromARGB(255, 17, 158, 125)),
-                                  ),
-                                  child: IconButton(
-                                    iconSize: 40,
-                                    icon: Icon(
-                                        Icons.remove_shopping_cart_outlined),
-                                    onPressed: () {},
-                                  ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 55,
+                                      height: 55,
+                                      margin: EdgeInsets.all(10),
+                                      padding: EdgeInsets.only(
+                                          right: 20, bottom: 10),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        border: Border.all(
+                                            width: 2,
+                                            color: Color.fromARGB(
+                                                255, 17, 158, 125)),
+                                      ),
+                                      child: IconButton(
+                                        iconSize: 40,
+                                        icon: Icon(Icons
+                                            .remove_shopping_cart_outlined),
+                                        onPressed: () {
+                                          productDelete.deleteProductDelete(
+                                              products[index].id.toString());
+                                          setState(() {
+                                            products.removeAt(index);
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 Text(products[index].compamyName,
                                     style: TextStyle(fontSize: 25))
@@ -170,117 +193,4 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
             ]),
     );
   }
-
-  /*
-                CarouselSlider(
-                  options: CarouselOptions(
-                    aspectRatio: 40 / 9,
-                    scrollDirection: Axis.vertical,
-                  ),
-                  items: [1, 2, 3, 4, 5].map((i) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                            width: MediaQuery.of(context).size.width,
-                            child: Container(
-                              padding: EdgeInsets.all(10),
-                              height: 200,
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(10.0),
-                                border: Border.all(
-                                    width: 3,
-                                    color: Color.fromARGB(255, 17, 158, 125)),
-                              ),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        width: 55,
-                                        height: 55,
-                                        margin: EdgeInsets.all(10),
-                                        padding: EdgeInsets.only(
-                                            right: 20, bottom: 10),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          border: Border.all(
-                                              width: 2,
-                                              color: Color.fromARGB(
-                                                  255, 17, 158, 125)),
-                                        ),
-                                        child: IconButton(
-                                          iconSize: 40,
-                                          icon: Icon(
-                                              Icons.add_shopping_cart_outlined),
-                                          onPressed: () {},
-                                        ),
-                                      ),
-                                      Text('Producto',
-                                          style: TextStyle(fontSize: 40))
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Container(
-                                          margin: EdgeInsets.all(10),
-                                          child: Text('40€',
-                                              style: TextStyle(fontSize: 40))),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ));
-                      },
-                    );
-                  }).toList(),
-                ) ListWheelScrollView(itemExtent: 200, children: [
-                Container(
-                  padding: EdgeInsets.all(10),
-                  width: 800,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                        width: 3, color: Color.fromARGB(255, 17, 158, 125)),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            width: 55,
-                            height: 55,
-                            margin: EdgeInsets.all(10),
-                            padding: EdgeInsets.only(right: 20, bottom: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              border: Border.all(
-                                  width: 2,
-                                  color: Color.fromARGB(255, 17, 158, 125)),
-                            ),
-                            child: IconButton(
-                              iconSize: 40,
-                              icon: Icon(Icons.add_shopping_cart_outlined),
-                              onPressed: () {},
-                            ),
-                          ),
-                          Text('Producto', style: TextStyle(fontSize: 40))
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                              margin: EdgeInsets.all(10),
-                              child:
-                                  Text('40€', style: TextStyle(fontSize: 40))),
-                        ],
-                      )
-                    ],
-                  ),
-                )
-              ]),*/
-
 }

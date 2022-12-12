@@ -81,7 +81,18 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                     children: [
                       Stack(children: [
                         Container(
-                          color: const Color.fromARGB(255, 25, 205, 163),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(20),
+                              bottomLeft: Radius.circular(20),
+                            ),
+                            border: Border.all(
+                              width: 3,
+                              color: const Color.fromARGB(255, 25, 205, 163),
+                              style: BorderStyle.solid,
+                            ),
+                            color: const Color.fromARGB(255, 25, 205, 163),
+                          ),
                           height: 90,
                           width: 360,
                         ),
@@ -122,125 +133,156 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                       height: 600,
                       width: 300,
                       child: Container(
-                          child: Swiper(
-                        scrollDirection: Axis.vertical,
-                        itemCount: articles.length,
-                        layout: SwiperLayout.STACK,
-                        itemWidth: 600,
-                        itemHeight: 200,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            padding: const EdgeInsets.all(10),
-                            height: 200,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 235, 229, 229),
-                              borderRadius: BorderRadius.circular(10.0),
-                              border: Border.all(
-                                  width: 3,
-                                  color:
-                                      const Color.fromARGB(255, 17, 158, 125)),
-                            ),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: 55,
-                                      height: 55,
-                                      margin: const EdgeInsets.all(10),
-                                      padding: const EdgeInsets.only(
-                                          right: 20, bottom: 10),
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        border: Border.all(
-                                            width: 2,
-                                            color: const Color.fromARGB(
-                                                255, 17, 158, 125)),
-                                      ),
-                                      child: IconButton(
-                                        iconSize: 40,
-                                        icon: const Icon(
-                                            Icons.add_shopping_cart_outlined),
-                                        onPressed: () async {
-                                          FocusScope.of(context)
-                                              .requestFocus(FocusNode());
-                                          if (precioForm.precio == '' ||
-                                              double.parse(precioForm.precio) <
-                                                  double.parse(articles[index]
-                                                      .priceMin) ||
-                                              double.parse(precioForm.precio) >
-                                                  double.parse(articles[index]
-                                                      .priceMax)) {
-                                            return CoolAlert.show(
-                                              context: context,
-                                              type: CoolAlertType.error,
-                                              title: 'Enter a correct price',
-                                              text:
-                                                  'Min price: ${articles[index].priceMin}, Min price: ${articles[index].priceMax}',
-                                              borderRadius: 30,
-                                              //loopAnimation: true,
-                                              confirmBtnColor: Colors.red,
-                                            );
-                                          }
-                                          await productAdd.postProductAdd(
-                                              articles[index].id,
-                                              double.parse(precioForm.precio),
-                                              articles[index].familyId);
-                                          setState(() {
-                                            articles.removeAt(index);
-                                          });
-                                        },
-                                      ),
+                          child: Expanded(
+                        flex: 10,
+                        child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: articles.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Column(
+                                children: [
+                                  SizedBox(
+                                    height: 30,
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.all(10),
+                                    height: 215,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 235, 229, 229),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      border: Border.all(
+                                          width: 3,
+                                          color: const Color.fromARGB(
+                                              255, 17, 158, 125)),
                                     ),
-                                    Text(articles[index].name,
-                                        style: const TextStyle(fontSize: 25))
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                        margin: const EdgeInsets.all(10),
-                                        child: Text(articles[index].description,
-                                            style:
-                                                const TextStyle(fontSize: 20))),
-                                    //Text(articles[index].price,style: TextStyle(fontSize: 40))),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                        margin: const EdgeInsets.all(10),
-                                        child: const Text('Price: ',
-                                            style: TextStyle(fontSize: 30))),
-                                    Container(
-                                      width: 150,
-                                      height: 30,
-                                      child: TextFormField(
-                                        autocorrect: false,
-                                        keyboardType: TextInputType.number,
-                                        decoration: const InputDecoration(
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Color.fromARGB(
-                                                    255, 18, 201, 159)),
-                                          ),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              width: 55,
+                                              height: 55,
+                                              margin: const EdgeInsets.all(10),
+                                              padding: const EdgeInsets.only(
+                                                  right: 20, bottom: 10),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                border: Border.all(
+                                                    width: 2,
+                                                    color: const Color.fromARGB(
+                                                        255, 17, 158, 125)),
+                                              ),
+                                              child: IconButton(
+                                                iconSize: 40,
+                                                icon: const Icon(Icons
+                                                    .add_shopping_cart_outlined),
+                                                onPressed: () async {
+                                                  FocusScope.of(context)
+                                                      .requestFocus(
+                                                          FocusNode());
+                                                  if (precioForm.precio == '' ||
+                                                      double.parse(precioForm
+                                                              .precio) <
+                                                          double.parse(
+                                                              articles[index]
+                                                                  .priceMin) ||
+                                                      double.parse(precioForm
+                                                              .precio) >
+                                                          double.parse(
+                                                              articles[index]
+                                                                  .priceMax)) {
+                                                    return CoolAlert.show(
+                                                      context: context,
+                                                      type: CoolAlertType.error,
+                                                      title:
+                                                          'Enter a correct price',
+                                                      text:
+                                                          'Min price: ${articles[index].priceMin}, Min price: ${articles[index].priceMax}',
+                                                      borderRadius: 30,
+                                                      //loopAnimation: true,
+                                                      confirmBtnColor:
+                                                          Colors.red,
+                                                    );
+                                                  }
+                                                  await productAdd
+                                                      .postProductAdd(
+                                                          articles[index].id,
+                                                          double.parse(
+                                                              precioForm
+                                                                  .precio),
+                                                          articles[index]
+                                                              .familyId);
+                                                  setState(() {
+                                                    articles.removeAt(index);
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                            Text(articles[index].name,
+                                                style: const TextStyle(
+                                                    fontSize: 25))
+                                          ],
                                         ),
-                                        inputFormatters: <TextInputFormatter>[
-                                          FilteringTextInputFormatter.digitsOnly
-                                        ],
-                                        onChanged: (value) =>
-                                            precioForm.precio = value,
-                                      ),
-                                    ),
+                                        Row(
+                                          children: [
+                                            Container(
+                                                margin:
+                                                    const EdgeInsets.all(10),
+                                                child: Text(
+                                                    articles[index].description,
+                                                    style: const TextStyle(
+                                                        fontSize: 20))),
+                                            //Text(articles[index].price,style: TextStyle(fontSize: 40))),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Container(
+                                                margin:
+                                                    const EdgeInsets.all(10),
+                                                child: const Text('Price: ',
+                                                    style: TextStyle(
+                                                        fontSize: 30))),
 
-                                    //Text(articles[index].price,style: TextStyle(fontSize: 40))),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          );
-                        },
+                                            Container(
+                                              width: 170,
+                                              height: 40,
+                                              margin: EdgeInsets.only(top: 30),
+                                              child: TextFormField(
+                                                autocorrect: false,
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                inputFormatters: [
+                                                  FilteringTextInputFormatter
+                                                      .digitsOnly
+                                                ],
+                                                maxLength: 10,
+                                                maxLengthEnforcement:
+                                                    MaxLengthEnforcement
+                                                        .enforced,
+                                                decoration:
+                                                    const InputDecoration(
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: Color.fromARGB(
+                                                            255, 18, 201, 159)),
+                                                  ),
+                                                ),
+                                                onChanged: (value) =>
+                                                    precioForm.precio = value,
+                                              ),
+                                            ) //Text(articles[index].price,style: TextStyle(fontSize: 40))),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }),
                       )))
                 ]),
               ),
