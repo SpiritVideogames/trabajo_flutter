@@ -69,6 +69,17 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
           LoginServices().logout();
         },
       ),
+      appBar: AppBar(title: Text('Search Bar'), actions: [
+        IconButton(
+          onPressed: () {
+            showSearch(
+              context: context,
+              delegate: CustomSearchDelegate(),
+            );
+          },
+          icon: const Icon(Icons.search),
+        ),
+      ]),
       backgroundColor: const Color.fromARGB(255, 222, 222, 222),
       body: articlesServices.isLoading
           ? const Center(
@@ -287,6 +298,69 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                 ]),
               ),
             ),
+    );
+  }
+}
+
+class CustomSearchDelegate extends SearchDelegate {
+  List<String> searchTerms = [];
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var article in searchTerms) {
+      if (article.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(article);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var fruit in searchTerms) {
+      if (fruit.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(fruit);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+        );
+      },
     );
   }
 }
