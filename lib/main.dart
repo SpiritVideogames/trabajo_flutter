@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:trabajo_flutter/providers/precio_form_provider.dart';
 import 'package:trabajo_flutter/services/services.dart';
@@ -13,6 +14,10 @@ class AppState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => ActivateServices()),
       ChangeNotifierProvider(create: (_) => ArticleServices()),
