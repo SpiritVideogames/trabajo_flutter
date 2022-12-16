@@ -61,21 +61,25 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
               Row(
                 children: [
                   Stack(children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
+                    SizedBox(
+                      child: SingleChildScrollView(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(20),
+                              bottomLeft: Radius.circular(20),
+                            ),
+                            border: Border.all(
+                              width: 3,
+                              color: const Color.fromARGB(255, 25, 205, 163),
+                              style: BorderStyle.solid,
+                            ),
+                            color: const Color.fromARGB(255, 25, 205, 163),
+                          ),
+                          height: 90,
+                          width: 360,
                         ),
-                        border: Border.all(
-                          width: 3,
-                          color: const Color.fromARGB(255, 25, 205, 163),
-                          style: BorderStyle.solid,
-                        ),
-                        color: const Color.fromARGB(255, 25, 205, 163),
                       ),
-                      height: 90,
-                      width: 360,
                     ),
                     Container(
                       margin: EdgeInsets.all(10),

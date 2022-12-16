@@ -50,6 +50,15 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
     });
   }
 
+  void updateList(String value) {
+    setState(() {
+      articles = articlesServices.articles
+          .where((element) =>
+              element.name!.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -61,25 +70,14 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
     final productAdd = Provider.of<ProductAddServices>(context);
     final precioForm = Provider.of<PrecioFormProvider>(context);
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.logout),
-        backgroundColor: const Color.fromARGB(255, 25, 205, 163),
-        onPressed: () {
-          Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
-          LoginServices().logout();
-        },
-      ),
-      appBar: AppBar(title: Text('Search Bar'), actions: [
-        IconButton(
-          onPressed: () {
-            showSearch(
-              context: context,
-              delegate: CustomSearchDelegate(),
-            );
-          },
-          icon: const Icon(Icons.search),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.add_shopping_cart_outlined),
+          onPressed: () => Navigator.of(context).pop(),
         ),
-      ]),
+        backgroundColor: Color.fromARGB(255, 17, 158, 125),
+        elevation: 0.0,
+      ),
       backgroundColor: const Color.fromARGB(255, 222, 222, 222),
       body: articlesServices.isLoading
           ? const Center(
@@ -89,55 +87,27 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
               child: Form(
                 child: Column(children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Stack(children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(20),
-                              bottomLeft: Radius.circular(20),
+                      Container(
+                        margin: EdgeInsetsDirectional.only(
+                            start: 30, top: 10, bottom: 10),
+                        height: 50,
+                        width: 300,
+                        child: TextField(
+                          onChanged: ((value) => updateList(value)),
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.search),
+                            filled: true,
+                            fillColor: Color.fromARGB(55, 17, 158, 125),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              borderSide: BorderSide.none,
                             ),
-                            border: Border.all(
-                              width: 3,
-                              color: const Color.fromARGB(255, 25, 205, 163),
-                              style: BorderStyle.solid,
-                            ),
-                            color: const Color.fromARGB(255, 25, 205, 163),
-                          ),
-                          height: 90,
-                          width: 360,
-                        ),
-                        Container(
-                          margin: const EdgeInsets.all(10),
-                          width: 70,
-                          height: 70,
-                          decoration: BoxDecoration(
-                            // ignore: prefer_const_literals_to_create_immutables
-                            boxShadow: [
-                              const BoxShadow(
-                                spreadRadius: 2,
-                                color: Colors.white,
-                                blurRadius: 5,
-                                offset: Offset(0, 0),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(10.0),
-                            border: Border.all(
-                                width: 3,
-                                color: const Color.fromARGB(255, 17, 158, 125)),
-                          ),
-                          child: IconButton(
-                            color: const Color.fromARGB(255, 17, 147, 116),
-                            iconSize: 50,
-                            icon:
-                                const Icon(Icons.collections_bookmark_rounded),
-                            onPressed: () {
-                              Navigator.pushNamed(context, 'userCompany');
-                            },
+                            hintText: "Search",
                           ),
                         ),
-                      ]),
-                      const SizedBox(height: 150),
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -302,65 +272,67 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
   }
 }
 
-class CustomSearchDelegate extends SearchDelegate {
-  List<String> searchTerms = [];
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-        icon: const Icon(Icons.clear),
-        onPressed: () {
-          query = '';
-        },
-      ),
-    ];
-  }
+// class CustomSearchDelegate extends SearchDelegate {
+//   final articlesServices = ArticlesServices();
+//   List<String> searchTerms = ['coche', 'camion', 'moto'];
 
-  @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.arrow_back),
-      onPressed: () {
-        close(context, null);
-      },
-    );
-  }
+//   @override
+//   List<Widget> buildActions(BuildContext context) {
+//     return [
+//       IconButton(
+//         icon: const Icon(Icons.clear),
+//         onPressed: () {
+//           query = '';
+//         },
+//       ),
+//     ];
+//   }
 
-  @override
-  Widget buildResults(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var article in searchTerms) {
-      if (article.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(article);
-      }
-    }
-    return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index) {
-        var result = matchQuery[index];
-        return ListTile(
-          title: Text(result),
-        );
-      },
-    );
-  }
+//   @override
+//   Widget buildLeading(BuildContext context) {
+//     return IconButton(
+//       icon: const Icon(Icons.arrow_back),
+//       onPressed: () {
+//         close(context, null);
+//       },
+//     );
+//   }
 
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var fruit in searchTerms) {
-      if (fruit.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(fruit);
-      }
-    }
-    return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index) {
-        var result = matchQuery[index];
-        return ListTile(
-          title: Text(result),
-        );
-      },
-    );
-  }
-}
+//   @override
+//   Widget buildResults(BuildContext context) {
+//     List<String> matchQuery = [];
+//     for (var article in searchTerms) {
+//       if (article.toLowerCase().contains(query.toLowerCase())) {
+//         matchQuery.add(article);
+//       }
+//     }
+//     return ListView.builder(
+//       itemCount: matchQuery.length,
+//       itemBuilder: (context, index) {
+//         var result = matchQuery[index];
+//         return ListTile(
+//           title: Text(result),
+//         );
+//       },
+//     );
+//   }
+
+//   @override
+//   Widget buildSuggestions(BuildContext context) {
+//     List<String> matchQuery = [];
+//     for (var fruit in searchTerms) {
+//       if (fruit.toLowerCase().contains(query.toLowerCase())) {
+//         matchQuery.add(fruit);
+//       }
+//     }
+//     return ListView.builder(
+//       itemCount: matchQuery.length,
+//       itemBuilder: (context, index) {
+//         var result = matchQuery[index];
+//         return ListTile(
+//           title: Text(result),
+//         );
+//       },
+//     );
+//   }
+// }
