@@ -1,19 +1,13 @@
-import 'package:card_swiper/card_swiper.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
-import 'package:trabajo_flutter/providers/edit_form_provider.dart';
+
 import 'package:trabajo_flutter/providers/precio_form_provider.dart';
-import 'package:trabajo_flutter/providers/user_form_provider.dart';
-import 'package:trabajo_flutter/screens/screens.dart';
 
 import '../models/models.dart';
 import '../services/services.dart';
-import '../services/user_service.dart';
-import '../widgets/widgets.dart';
+
 import 'package:provider/provider.dart';
 
 class UserArticleScreen extends StatefulWidget {
@@ -25,7 +19,7 @@ class UserArticleScreen extends StatefulWidget {
 
 class _UserArticleScreenState extends State<UserArticleScreen> {
   List<DataArticles> articles = [];
-
+  int counter = 0;
   List<DataProductsCompany> products = [];
 
   final articlesServices = ArticlesServices();
@@ -54,7 +48,7 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
     setState(() {
       articles = articlesServices.articles
           .where((element) =>
-              element.name!.toLowerCase().contains(value.toLowerCase()))
+              element.name.toLowerCase().contains(value.toLowerCase()))
           .toList();
     });
   }
@@ -69,6 +63,9 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
   Widget build(BuildContext context) {
     final productAdd = Provider.of<ProductAddServices>(context);
     final precioForm = Provider.of<PrecioFormProvider>(context);
+    final productsCompanyService =
+        Provider.of<ProductsCompanyServices>(context);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -108,6 +105,7 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                           ),
                         ),
                       ),
+                      Text('articles added: $counter')
                     ],
                   ),
                   SizedBox(
@@ -163,41 +161,62 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                                                   FocusScope.of(context)
                                                       .requestFocus(
                                                           FocusNode());
-                                                  if (precioForm.precio == '' ||
-                                                      double.parse(precioForm
-                                                              .precio) <
-                                                          double.parse(
-                                                              articles[index]
-                                                                  .priceMin) ||
-                                                      double.parse(precioForm
-                                                              .precio) >
-                                                          double.parse(
-                                                              articles[index]
-                                                                  .priceMax)) {
+                                                  if (productsCompanyService
+                                                          .productsCompany
+                                                          .length >
+                                                      10) {
                                                     return CoolAlert.show(
                                                       context: context,
                                                       type: CoolAlertType.error,
                                                       title:
-                                                          'Enter a correct price',
-                                                      text:
-                                                          'Min price: ${articles[index].priceMin}, Min price: ${articles[index].priceMax}',
+                                                          'Limit of articles: 10',
+
                                                       borderRadius: 30,
                                                       //loopAnimation: true,
                                                       confirmBtnColor:
                                                           Colors.red,
                                                     );
+                                                  } else {
+                                                    if (precioForm.precio ==
+                                                            '' ||
+                                                        double.parse(precioForm
+                                                                .precio) <
+                                                            double.parse(
+                                                                articles[index]
+                                                                    .priceMin) ||
+                                                        double.parse(precioForm
+                                                                .precio) >
+                                                            double.parse(
+                                                                articles[index]
+                                                                    .priceMax)) {
+                                                      return CoolAlert.show(
+                                                        context: context,
+                                                        type:
+                                                            CoolAlertType.error,
+                                                        title:
+                                                            'Enter a correct price',
+                                                        text:
+                                                            'Min price: ${articles[index].priceMin}, Min price: ${articles[index].priceMax}',
+                                                        borderRadius: 30,
+                                                        //loopAnimation: true,
+                                                        confirmBtnColor:
+                                                            Colors.red,
+                                                      );
+                                                    }
+                                                    await productAdd
+                                                        .postProductAdd(
+                                                            articles[index].id,
+                                                            double.parse(
+                                                                precioForm
+                                                                    .precio),
+                                                            articles[index]
+                                                                .familyId);
+
+                                                    setState(() {
+                                                      counter++;
+                                                      articles.removeAt(index);
+                                                    });
                                                   }
-                                                  await productAdd
-                                                      .postProductAdd(
-                                                          articles[index].id,
-                                                          double.parse(
-                                                              precioForm
-                                                                  .precio),
-                                                          articles[index]
-                                                              .familyId);
-                                                  setState(() {
-                                                    articles.removeAt(index);
-                                                  });
                                                 },
                                               ),
                                             ),
@@ -271,68 +290,3 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
     );
   }
 }
-
-// class CustomSearchDelegate extends SearchDelegate {
-//   final articlesServices = ArticlesServices();
-//   List<String> searchTerms = ['coche', 'camion', 'moto'];
-
-//   @override
-//   List<Widget> buildActions(BuildContext context) {
-//     return [
-//       IconButton(
-//         icon: const Icon(Icons.clear),
-//         onPressed: () {
-//           query = '';
-//         },
-//       ),
-//     ];
-//   }
-
-//   @override
-//   Widget buildLeading(BuildContext context) {
-//     return IconButton(
-//       icon: const Icon(Icons.arrow_back),
-//       onPressed: () {
-//         close(context, null);
-//       },
-//     );
-//   }
-
-//   @override
-//   Widget buildResults(BuildContext context) {
-//     List<String> matchQuery = [];
-//     for (var article in searchTerms) {
-//       if (article.toLowerCase().contains(query.toLowerCase())) {
-//         matchQuery.add(article);
-//       }
-//     }
-//     return ListView.builder(
-//       itemCount: matchQuery.length,
-//       itemBuilder: (context, index) {
-//         var result = matchQuery[index];
-//         return ListTile(
-//           title: Text(result),
-//         );
-//       },
-//     );
-//   }
-
-//   @override
-//   Widget buildSuggestions(BuildContext context) {
-//     List<String> matchQuery = [];
-//     for (var fruit in searchTerms) {
-//       if (fruit.toLowerCase().contains(query.toLowerCase())) {
-//         matchQuery.add(fruit);
-//       }
-//     }
-//     return ListView.builder(
-//       itemCount: matchQuery.length,
-//       itemBuilder: (context, index) {
-//         var result = matchQuery[index];
-//         return ListTile(
-//           title: Text(result),
-//         );
-//       },
-//     );
-//   }
-// }
