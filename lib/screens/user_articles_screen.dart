@@ -68,6 +68,14 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          Center(
+              child: Container(
+            margin: EdgeInsets.all(10),
+            child: Text('articles added: $counter',
+                style: TextStyle(fontSize: 16)),
+          ))
+        ],
         leading: IconButton(
           icon: Icon(Icons.add_shopping_cart_outlined),
           onPressed: () => Navigator.of(context).pop(),
@@ -105,7 +113,6 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                           ),
                         ),
                       ),
-                      Text('articles added: $counter')
                     ],
                   ),
                   SizedBox(
@@ -164,12 +171,12 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                                                   if (productsCompanyService
                                                           .productsCompany
                                                           .length >
-                                                      10) {
-                                                    return CoolAlert.show(
+                                                      5) {
+                                                    CoolAlert.show(
                                                       context: context,
                                                       type: CoolAlertType.error,
                                                       title:
-                                                          'Limit of articles: 10',
+                                                          'Limit of articles: 5',
 
                                                       borderRadius: 30,
                                                       //loopAnimation: true,

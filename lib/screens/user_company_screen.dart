@@ -44,6 +44,14 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
   Widget build(BuildContext context) {
     final productDelete = Provider.of<ProductDeleteServices>(context);
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.shopping_bag),
+          onPressed: () => Navigator.pushNamed(context, 'userArticles'),
+        ),
+        backgroundColor: Color.fromARGB(255, 17, 158, 125),
+        elevation: 0.0,
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.logout),
         backgroundColor: const Color.fromARGB(255, 25, 205, 163),
@@ -60,55 +68,7 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
           : Column(children: [
               Row(
                 children: [
-                  Stack(children: [
-                    SizedBox(
-                      child: SingleChildScrollView(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(20),
-                              bottomLeft: Radius.circular(20),
-                            ),
-                            border: Border.all(
-                              width: 3,
-                              color: const Color.fromARGB(255, 25, 205, 163),
-                              style: BorderStyle.solid,
-                            ),
-                            color: const Color.fromARGB(255, 25, 205, 163),
-                          ),
-                          height: 90,
-                          width: 360,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      width: 70,
-                      height: 70,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        boxShadow: [
-                          const BoxShadow(
-                            spreadRadius: 2,
-                            color: Colors.white,
-                            blurRadius: 5,
-                            offset: Offset(0, 0),
-                          )
-                        ],
-                        border: Border.all(
-                            width: 3, color: Color.fromARGB(255, 17, 158, 125)),
-                      ),
-                      child: IconButton(
-                        color: Color.fromARGB(255, 17, 147, 116),
-                        iconSize: 50,
-                        icon: Icon(Icons.shopping_cart_outlined),
-                        onPressed: () {
-                          Navigator.pushNamed(context, 'userArticles');
-                        },
-                      ),
-                    ),
-                  ]),
-                  SizedBox(height: 150),
+                  SizedBox(height: 50),
                 ],
               ),
               SizedBox(
