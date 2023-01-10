@@ -75,14 +75,12 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
                   height: 600,
                   width: 300,
                   child: Container(
-                      child: Swiper(
+                      child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: products.length,
-                    layout: SwiperLayout.STACK,
-                    itemWidth: 600,
-                    itemHeight: 200,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
+                        margin: EdgeInsets.all(10),
                         padding: EdgeInsets.all(10),
                         height: 200,
                         decoration: BoxDecoration(

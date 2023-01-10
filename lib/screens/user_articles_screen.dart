@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,8 +23,11 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
   List<DataArticles> articles = [];
   int counter = 0;
   List<DataProductsCompany> products = [];
+  List<DataFamilies> families = [];
 
   final articlesServices = ArticlesServices();
+
+  final familiesServices = FamiliesServices();
 
   Future refresh() async {
     setState(() => articles.clear());
@@ -35,8 +40,11 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
     products = productsCompanyService.productsCompany;
 
     await articlesServices.loadArticles();
+    await familiesServices.loadFamilies();
 
     setState(() {
+      counter = 0;
+      families = familiesServices.families;
       articles = articlesServices.articles;
       for (var p in products) {
         articles.removeWhere((element) => element.id == p.articleId);
@@ -78,7 +86,7 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
         ],
         leading: IconButton(
           icon: Icon(Icons.add_shopping_cart_outlined),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.pushNamed(context, 'userCompany'),
         ),
         backgroundColor: Color.fromARGB(255, 17, 158, 125),
         elevation: 0.0,
@@ -186,13 +194,17 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                                                   } else {
                                                     if (precioForm.precio ==
                                                             '' ||
-                                                        double.parse(precioForm
-                                                                .precio) <
+                                                        double.parse(precioForm.precio) <
                                                             double.parse(
                                                                 articles[index]
                                                                     .priceMin) ||
                                                         double.parse(precioForm
-                                                                .precio) >
+                                                                    .precio) +
+                                                                (double.parse(
+                                                                        precioForm
+                                                                            .precio) *
+                                                                    (double.parse(families.elementAt(articles[index].familyId).profitMargin) /
+                                                                        100)) >
                                                             double.parse(
                                                                 articles[index]
                                                                     .priceMax)) {
