@@ -215,7 +215,7 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                                                         title:
                                                             'Enter a correct price',
                                                         text:
-                                                            'Min price: ${articles[index].priceMin}, Min price: ${articles[index].priceMax}',
+                                                            'Min price: ${articles[index].priceMin}, Min price: ${articles[index].priceMax} watch out for the margin profit',
                                                         borderRadius: 30,
                                                         //loopAnimation: true,
                                                         confirmBtnColor:
