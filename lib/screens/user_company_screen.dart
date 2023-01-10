@@ -49,6 +49,10 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
           icon: Icon(Icons.shopping_bag),
           onPressed: () => Navigator.pushNamed(context, 'userArticles'),
         ),
+        title: IconButton(
+          icon: Icon(Icons.monetization_on),
+          onPressed: () => Navigator.pushNamed(context, 'userOrder'),
+        ),
         backgroundColor: Color.fromARGB(255, 17, 158, 125),
         elevation: 0.0,
       ),

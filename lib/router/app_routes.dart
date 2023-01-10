@@ -49,8 +49,13 @@ class AppRoutes {
         screen: const UserArticleScreen(),
         icon: Icons.account_balance_outlined),
     MenuOption(
+        route: 'userOrder',
+        name: 'User Order Screen',
+        screen: const UserOrderScreen(),
+        icon: Icons.account_balance_outlined),
+    MenuOption(
         route: 'load',
-        name: 'Loadig Screen',
+        name: 'Loading Screen',
         screen: const LoadingScreen(),
         icon: Icons.account_balance_outlined),
   ];

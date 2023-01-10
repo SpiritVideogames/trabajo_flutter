@@ -7,3 +7,4 @@ export 'package:trabajo_flutter/screens/user_screen.dart';
 export 'package:trabajo_flutter/screens/user_company_screen.dart';
 export 'package:trabajo_flutter/screens/index_adminStu_screen.dart';
 export 'package:trabajo_flutter/screens/user_articles_screen.dart';
+export 'package:trabajo_flutter/screens/user_order_screen.dart';
