@@ -42,6 +42,10 @@ class _UserOrderScreenState extends State<UserOrderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = new DateTime.now();
+    DateTime date = new DateTime(now.year, now.month, now.day);
+    Color color;
+    Color color2;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 17, 158, 125),
@@ -74,6 +78,18 @@ class _UserOrderScreenState extends State<UserOrderScreen> {
                     scrollDirection: Axis.vertical,
                     itemCount: orders.length,
                     itemBuilder: (BuildContext context, int index) {
+                      if (DateTime.parse(orders[index].issueDate.toString())
+                              .compareTo(date) >
+                          0) {
+                        color = Colors.red;
+                      } else {
+                        color = Colors.green;
+                      }
+                      if (orders[index].invoices == 0) {
+                        color2 = Colors.red;
+                      } else {
+                        color2 = Colors.green;
+                      }
                       return Container(
                         margin: EdgeInsets.all(10),
                         padding: EdgeInsets.all(10),
@@ -99,6 +115,29 @@ class _UserOrderScreenState extends State<UserOrderScreen> {
                                     margin: EdgeInsets.all(10),
                                     child: Text(orders[index].targetCompanyName,
                                         style: TextStyle(fontSize: 20))),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.all(5),
+                                    child: Text(orders[index].createdAt,
+                                        style: TextStyle(fontSize: 15))),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.all(5),
+                                    child: Text(orders[index].issueDate,
+                                        style: TextStyle(fontSize: 15))),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Icon(Icons.airport_shuttle_outlined,
+                                    color: color, size: 35),
+                                Icon(Icons.assignment, color: color2, size: 35)
                               ],
                             ),
                           ],
