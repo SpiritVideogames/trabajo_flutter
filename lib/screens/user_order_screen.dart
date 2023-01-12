@@ -105,39 +105,29 @@ class _UserOrderScreenState extends State<UserOrderScreen> {
                           children: [
                             Row(
                               children: [
-                                Text(orders[index].num,
-                                    style: TextStyle(fontSize: 25))
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Text(orders[index].targetCompanyName,
-                                        style: TextStyle(fontSize: 20))),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                    margin: EdgeInsets.all(5),
-                                    child: Text(orders[index].createdAt,
-                                        style: TextStyle(fontSize: 15))),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                    margin: EdgeInsets.all(5),
-                                    child: Text(orders[index].issueDate,
-                                        style: TextStyle(fontSize: 15))),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Icon(Icons.airport_shuttle_outlined,
-                                    color: color, size: 35),
-                                Icon(Icons.assignment, color: color2, size: 35)
+                                Column(
+                                  children: [
+                                    Text(orders[index].num,
+                                        style: TextStyle(fontSize: 25)),
+                                    Container(
+                                        margin: EdgeInsets.all(10),
+                                        child: Text(
+                                            orders[index].targetCompanyName,
+                                            style: TextStyle(fontSize: 20))),
+                                    Container(
+                                        margin: EdgeInsets.all(5),
+                                        child: Text(orders[index].createdAt,
+                                            style: TextStyle(fontSize: 15))),
+                                    Container(
+                                        margin: EdgeInsets.all(5),
+                                        child: Text(orders[index].issueDate,
+                                            style: TextStyle(fontSize: 15))),
+                                    Icon(Icons.airport_shuttle_outlined,
+                                        color: color, size: 35),
+                                    Icon(Icons.assignment,
+                                        color: color2, size: 35),
+                                  ],
+                                ),
                               ],
                             ),
                           ],
