@@ -1,4 +1,4 @@
-import 'dart:ffi';
+// ignore_for_file: library_private_types_in_public_api
 
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
@@ -79,16 +79,16 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
         actions: [
           Center(
               child: Container(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             child: Text('articles added: $counter',
-                style: TextStyle(fontSize: 16)),
+                style: const TextStyle(fontSize: 16)),
           ))
         ],
         leading: IconButton(
-          icon: Icon(Icons.add_shopping_cart_outlined),
+          icon: const Icon(Icons.add_shopping_cart_outlined),
           onPressed: () => Navigator.pushNamed(context, 'userCompany'),
         ),
-        backgroundColor: Color.fromARGB(255, 17, 158, 125),
+        backgroundColor: const Color.fromARGB(255, 17, 158, 125),
         elevation: 0.0,
       ),
       backgroundColor: const Color.fromARGB(255, 222, 222, 222),
@@ -103,16 +103,16 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsetsDirectional.only(
+                        margin: const EdgeInsetsDirectional.only(
                             start: 30, top: 10, bottom: 10),
                         height: 50,
                         width: 300,
                         child: TextField(
                           onChanged: ((value) => updateList(value)),
                           decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.search),
+                            prefixIcon: const Icon(Icons.search),
                             filled: true,
-                            fillColor: Color.fromARGB(55, 17, 158, 125),
+                            fillColor: const Color.fromARGB(55, 17, 158, 125),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8.0),
                               borderSide: BorderSide.none,
@@ -126,8 +126,7 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                   SizedBox(
                       height: 600,
                       width: 300,
-                      child: Container(
-                          child: Expanded(
+                      child: Expanded(
                         flex: 10,
                         child: ListView.builder(
                             scrollDirection: Axis.vertical,
@@ -135,7 +134,7 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                             itemBuilder: (BuildContext context, int index) {
                               return Column(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 30,
                                   ),
                                   Container(
@@ -253,7 +252,6 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                                                     articles[index].description,
                                                     style: const TextStyle(
                                                         fontSize: 20))),
-                                            //Text(articles[index].price,style: TextStyle(fontSize: 40))),
                                           ],
                                         ),
                                         Row(
@@ -264,11 +262,11 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                                                 child: const Text('Price: ',
                                                     style: TextStyle(
                                                         fontSize: 30))),
-
                                             Container(
                                               width: 170,
                                               height: 40,
-                                              margin: EdgeInsets.only(top: 30),
+                                              margin: const EdgeInsets.only(
+                                                  top: 30),
                                               child: TextFormField(
                                                 autocorrect: false,
                                                 keyboardType:
@@ -293,7 +291,7 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                                                 onChanged: (value) =>
                                                     precioForm.precio = value,
                                               ),
-                                            ) //Text(articles[index].price,style: TextStyle(fontSize: 40))),
+                                            )
                                           ],
                                         ),
                                       ],
@@ -302,7 +300,7 @@ class _UserArticleScreenState extends State<UserArticleScreen> {
                                 ],
                               );
                             }),
-                      )))
+                      ))
                 ]),
               ),
             ),

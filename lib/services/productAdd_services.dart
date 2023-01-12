@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -9,17 +11,16 @@ import 'services.dart';
 class ProductAddServices extends ChangeNotifier {
   final String _baseUrl = 'semillero.allsites.es';
 
-  ProductAddServices() {}
+  ProductAddServices();
 
-  postProductAdd(int article_id, double price, int family_id) async {
+  postProductAdd(int articleId, double price, int familyId) async {
     String? token = await LoginServices().readToken();
-    int? company_id = await UserServices().readIdCompany();
-    print(company_id);
+    int? companyId = await UserServices().readIdCompany();
     final url = Uri.http(_baseUrl, '/public/api/products', {
-      'article_id': '$article_id',
-      'company_id': '$company_id',
+      'article_id': '$articleId',
+      'company_id': '$companyId',
       'price': '$price',
-      'family_id': '$family_id'
+      'family_id': '$familyId'
     });
     final response = await http.post(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',
@@ -28,7 +29,7 @@ class ProductAddServices extends ChangeNotifier {
 
     final Map<String, dynamic> productAdd = json.decode(response.body);
 
-    var resp;
+    String resp;
     if (productAdd.containsValue(true)) {
       resp = 'hola';
     } else {
@@ -38,7 +39,6 @@ class ProductAddServices extends ChangeNotifier {
 
       resp = error;
     }
-    print(resp);
     return resp;
   }
 }

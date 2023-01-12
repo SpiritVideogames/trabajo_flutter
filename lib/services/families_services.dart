@@ -2,12 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:trabajo_flutter/models/user.dart';
 
 import '../models/models.dart';
 import 'package:http/http.dart' as http;
-
-import 'services.dart';
 
 class FamiliesServices extends ChangeNotifier {
   final String _baseUrl = 'semillero.allsites.es';
@@ -15,7 +12,7 @@ class FamiliesServices extends ChangeNotifier {
 
   bool isLoading = true;
 
-  FamiliesServices() {}
+  FamiliesServices();
 
   Future loadFamilies() async {
     families.clear();

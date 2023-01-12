@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -107,7 +109,6 @@ class StaggerAnimation extends StatelessWidget {
       child: Opacity(
         opacity: opacity.value,
         child: Container(
-          child: Text('error'),
           width: width.value,
           height: height.value,
           decoration: BoxDecoration(
@@ -118,6 +119,7 @@ class StaggerAnimation extends StatelessWidget {
             ),
             borderRadius: borderRadius.value,
           ),
+          child: const Text('error'),
         ),
       ),
     );
@@ -133,6 +135,8 @@ class StaggerAnimation extends StatelessWidget {
 }
 
 class StaggerDemo extends StatefulWidget {
+  const StaggerDemo({super.key});
+
   @override
   _StaggerDemoState createState() => _StaggerDemoState();
 }

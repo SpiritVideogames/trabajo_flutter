@@ -8,25 +8,24 @@ import 'package:http/http.dart' as http;
 class RegisterServices extends ChangeNotifier {
   final String _baseUrl = 'semillero.allsites.es';
 
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
 
-  RegisterServices() {}
+  RegisterServices();
 
   postRegister(String firstname, String secondname, String email,
-      String password, String c_password, String company_id) async {
+      String password, String cPassword, String companyId) async {
     final url = Uri.http(_baseUrl, '/public/api/register', {
       'firstname': firstname,
       'secondname': secondname,
       'email': email,
       'password': password,
-      'c_password': c_password,
-      'company_id': company_id,
+      'c_password': cPassword,
+      'company_id': companyId,
     });
     final response = await http
         .post(url, headers: {HttpHeaders.acceptHeader: 'application/json'});
 
-    var error;
-    var resp;
+    String resp = '';
     final Map<String, dynamic> register = json.decode(response.body);
     if (register.containsValue(true)) {
       register.forEach((key, value) {

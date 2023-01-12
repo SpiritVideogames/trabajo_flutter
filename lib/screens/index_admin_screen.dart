@@ -1,6 +1,7 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
@@ -21,14 +22,12 @@ Future refresh(BuildContext context) async {
 }
 
 class IndexScreen extends StatelessWidget {
-  IndexScreen({
+  const IndexScreen({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _key = GlobalKey<ExpandableFabState>();
-
     final usersService = Provider.of<UsersServices>(context);
 
     users = usersService.users.cast<DataUsers>();

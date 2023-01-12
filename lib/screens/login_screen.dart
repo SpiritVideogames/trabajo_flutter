@@ -1,19 +1,18 @@
+// ignore_for_file: use_build_context_synchronously, prefer_typing_uninitialized_variables, must_be_immutable, library_private_types_in_public_api
+
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:trabajo_flutter/services/user_service.dart';
 import 'dart:async';
-import 'package:trabajo_flutter/widgets/stagger_animation.dart';
 
 import '../providers/login_form_provider.dart';
-import '../services/login_services.dart';
 import '../services/services.dart';
 
 import '../widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class LoginScreen extends StatelessWidget {
             CardContainer(
                 child: Column(
               children: [
-                Container(
+                SizedBox(
                   width: 300,
                   child: DecoratedBox(
                       decoration: BoxDecoration(
@@ -120,7 +119,7 @@ class _LoginForm extends StatelessWidget {
                   String pattern =
                       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
-                  RegExp regExp = new RegExp(pattern);
+                  RegExp regExp = RegExp(pattern);
                   return regExp.hasMatch(value ?? '') ? null : 'Insert email';
                 }),
             const SizedBox(height: 20),
@@ -147,7 +146,7 @@ class _LoginForm extends StatelessWidget {
                   iconColor: Color.fromRGBO(0, 153, 153, 1)),
               onChanged: (value) => loginForm.password = value,
               validator: (value) {
-                return (value != null && value.length >= 1)
+                return (value != null && value.isNotEmpty)
                     ? null
                     : 'Please, enter your password';
               },
@@ -158,7 +157,7 @@ class _LoginForm extends StatelessWidget {
               child: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
-                      Color.fromARGB(255, 18, 201, 159)),
+                      const Color.fromARGB(255, 18, 201, 159)),
                   fixedSize: MaterialStateProperty.all(
                       const Size(double.infinity, 30)),
                 ),
@@ -168,16 +167,10 @@ class _LoginForm extends StatelessWidget {
                     final String? errorMessage = await loginService.postLogin(
                         loginForm.email, loginForm.password);
                     if (errorMessage == 'a') {
-                      // ignore: use_build_context_synchronously
-
                       Navigator.pushNamed(context, 'index2');
                     } else if (errorMessage == 'u') {
-                     await userServices.loadUser;
-                      print(errorMessage);
+                      userServices.loadUser;
 
-                      // ignore: use_build_context_synchronously
-
-                      // ignore: use_build_context_synchronously
                       Navigator.pushNamed(context, 'userCompany');
                     } else {
                       CoolAlert.show(
@@ -344,6 +337,8 @@ class StaggerAnimation extends StatelessWidget {
 }
 
 class StaggerDemo1 extends StatefulWidget {
+  const StaggerDemo1({super.key});
+
   @override
   _StaggerDemo1State createState() => _StaggerDemo1State();
 }
@@ -401,7 +396,7 @@ class _StaggerDemo1State extends State<StaggerDemo1>
                   String pattern =
                       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
-                  RegExp regExp = new RegExp(pattern);
+                  RegExp regExp = RegExp(pattern);
                   return regExp.hasMatch(value ?? '') ? null : 'Insert email';
                 }),
             const SizedBox(height: 20),
@@ -430,17 +425,9 @@ class _StaggerDemo1State extends State<StaggerDemo1>
                   if (loginForm.isValidForm()) {
                     final String? errorMessage = await loginService.postLogin(
                         loginForm.email, loginForm.password);
-                    //message = errorMessage;
                     if (errorMessage == 'a') {
-                      // message = errorMessage;
-                      // ignore: use_build_context_synchronously
-
                       Navigator.pushNamed(context, 'index');
                     } else if (errorMessage == 'u') {
-                      //  message = errorMessage;
-                      // ignore: use_build_context_synchronously
-
-                      // ignore: use_build_context_synchronously
                       Navigator.pushNamed(context, 'user');
                     } else {
                       message = errorMessage;

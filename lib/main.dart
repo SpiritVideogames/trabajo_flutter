@@ -5,7 +5,6 @@ import 'package:trabajo_flutter/providers/precio_form_provider.dart';
 import 'package:trabajo_flutter/services/services.dart';
 
 import 'router/app_routes.dart';
-import 'services/user_service.dart';
 
 void main() => runApp(const AppState());
 
@@ -58,7 +57,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.grey[300],
           primaryColor: const Color.fromARGB(197, 17, 193, 134),
           //appbar thme
-          appBarTheme: AppBarTheme(
+          appBarTheme: const AppBarTheme(
               color: Color.fromARGB(197, 17, 193, 134), elevation: 0)),
     );
   }

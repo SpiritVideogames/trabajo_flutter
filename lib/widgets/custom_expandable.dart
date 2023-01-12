@@ -1,33 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:provider/provider.dart';
-import 'package:trabajo_flutter/screens/screens.dart';
 import 'dart:math' as math;
 
 import '../services/services.dart';
 
 @immutable
 class ExampleExpandableFab extends StatelessWidget {
-  static const _actionTitles = ['Logout'];
-
   const ExampleExpandableFab({super.key});
-
-  void _showAction(BuildContext context, int index) {
-    showDialog<void>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: Text(_actionTitles[index]),
-          actions: [
-            TextButton(
-              onPressed: () {},
-              child: const Text('CLOSE'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +162,7 @@ class _ExpandableFabState extends State<ExpandableFab>
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: FloatingActionButton(
-              backgroundColor: Color.fromARGB(255, 18, 201, 159),
+              backgroundColor: const Color.fromARGB(255, 18, 201, 159),
               onPressed: _toggle,
               child: const Icon(Icons.account_circle_rounded),
             ),
@@ -247,12 +226,11 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Material(
         shape: const CircleBorder(),
         clipBehavior: Clip.antiAlias,
         // color: theme.colorScheme.secondary,
-        color: Color.fromARGB(255, 18, 201, 159),
+        color: const Color.fromARGB(255, 18, 201, 159),
         elevation: 4.0,
         child: IconButton(
           onPressed: onPressed,

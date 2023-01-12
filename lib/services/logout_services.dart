@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -10,7 +12,7 @@ class LogoutServices extends ChangeNotifier {
   final String _baseUrl = 'semillero.allsites.es';
   bool isLoading = true;
 
-  LogoutServices() {}
+  LogoutServices();
 
   getLogout() async {
     String? token = await LoginServices().readToken();

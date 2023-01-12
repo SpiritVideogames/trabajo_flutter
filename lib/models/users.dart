@@ -2,6 +2,8 @@
 //
 //     final users = usersFromMap(jsonString);
 
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 
 class Users {

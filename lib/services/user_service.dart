@@ -14,7 +14,7 @@ class UserServices extends ChangeNotifier {
   final String _baseUrl = 'semillero.allsites.es';
 
   late DataUser selectedUser = DataUser();
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
 
   bool isLoading = true;
 

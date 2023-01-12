@@ -9,19 +9,19 @@ import 'services.dart';
 class UpdateServices extends ChangeNotifier {
   final String _baseUrl = 'semillero.allsites.es';
 
-  UpdateServices() {}
+  UpdateServices();
 
-  postUpdate(String user_id, String firstname, String secondname, String email,
-      String password, String company_id) async {
+  postUpdate(String userId, String firstname, String secondname, String email,
+      String password, String companyId) async {
     String? token = await LoginServices().readToken();
 
-    final url = Uri.http(_baseUrl, '/public/api/user/updated/$user_id', {
-      'user_id': user_id,
+    final url = Uri.http(_baseUrl, '/public/api/user/updated/$userId', {
+      'user_id': userId,
       'firstname': firstname,
       'secondname': secondname,
       'email': email,
       'password': password,
-      'company_id': company_id
+      'company_id': companyId
     });
     final response = await http.post(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',
@@ -30,7 +30,7 @@ class UpdateServices extends ChangeNotifier {
 
     final Map<String, dynamic> productUpdate = json.decode(response.body);
 
-    var resp;
+    String resp = '';
     if (productUpdate.containsValue(true)) {
     } else {
       String? error = '';
