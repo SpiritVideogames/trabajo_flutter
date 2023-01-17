@@ -115,10 +115,17 @@ class _UserOrderScreenState extends State<UserOrderScreen> {
                                         child: Text(orders[index].issueDate,
                                             style:
                                                 const TextStyle(fontSize: 15))),
-                                    Icon(Icons.airport_shuttle_outlined,
-                                        color: color, size: 35),
-                                    Icon(Icons.assignment,
-                                        color: color2, size: 35),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.airport_shuttle_outlined,
+                                            color: color, size: 35),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Icon(Icons.assignment,
+                                            color: color2, size: 35),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ],
