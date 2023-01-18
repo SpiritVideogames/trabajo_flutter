@@ -33,6 +33,7 @@ class CustomInputField extends StatelessWidget {
         autofocus: true,
         validator: (value) {
           if (value == null) return 'Empty Fields';
+          return null;
         },
         autovalidateMode: AutovalidateMode.onUserInteraction,
         textAlign: TextAlign.start,

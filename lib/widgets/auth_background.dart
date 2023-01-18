@@ -6,7 +6,7 @@ class AuthBackground extends StatelessWidget {
   const AuthBackground({Key? key, required this.child}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: double.infinity,
       child: Stack(

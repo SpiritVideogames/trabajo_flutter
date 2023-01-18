@@ -9,13 +9,13 @@ import 'login_services.dart';
 class DeleteServices extends ChangeNotifier {
   final String _baseUrl = 'semillero.allsites.es';
 
-  DeleteServices() {}
+  DeleteServices();
 
-  postDelete(String user_id) async {
+  postDelete(String userId) async {
     String? token = await LoginServices().readToken();
 
-    final url = Uri.http(
-        _baseUrl, '/public/api/deleted/$user_id', {'user_id': user_id});
+    final url =
+        Uri.http(_baseUrl, '/public/api/deleted/$userId', {'user_id': userId});
     final response = await http.post(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
@@ -23,8 +23,8 @@ class DeleteServices extends ChangeNotifier {
 
     final Map<String, dynamic> delete = json.decode(response.body);
 
-    var id;
-    var resp;
+    String id;
+    String resp = '';
     if (delete.containsValue(true)) {
       delete.forEach((key, value) {
         if (key == 'data') {

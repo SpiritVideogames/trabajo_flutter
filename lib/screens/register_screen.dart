@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 
 import 'package:cool_alert/cool_alert.dart';
@@ -18,7 +20,7 @@ class RegisterScreen extends StatelessWidget {
     final companiesService = Provider.of<CompaniesServices>(context);
     List<DataCompanies> companiesList =
         companiesService.companies.cast<DataCompanies>();
-    if (companiesService.isLoading) return LoadingScreen();
+    if (companiesService.isLoading) return const LoadingScreen();
     return Scaffold(
         backgroundColor: Colors.white,
         body: AuthBackground(
@@ -27,7 +29,7 @@ class RegisterScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 180),
             CardContainer(
-                child: Container(
+                child: SizedBox(
               width: 300,
               child: DecoratedBox(
                 decoration:
@@ -45,7 +47,7 @@ class RegisterScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       const SizedBox(height: 10),
-                      Text('Create account',
+                      const Text('Create account',
                           style: TextStyle(
                               fontSize: 34,
                               color: Color.fromARGB(255, 18, 201, 159))),
@@ -68,7 +70,7 @@ class RegisterScreen extends StatelessWidget {
                 style: ButtonStyle(
                     overlayColor: MaterialStateProperty.all(
                         Colors.indigo.withOpacity(0.1)),
-                    shape: MaterialStateProperty.all(StadiumBorder())),
+                    shape: MaterialStateProperty.all(const StadiumBorder())),
                 child: const Text(
                   'Have an account already?',
                   style: TextStyle(
@@ -84,12 +86,11 @@ class RegisterScreen extends StatelessWidget {
 
 class _RegisterForm extends StatelessWidget {
   List<DataCompanies> listOfCompanies = [];
-  _RegisterForm(List<DataCompanies> companiesList, {super.key}) {
+  _RegisterForm(List<DataCompanies> companiesList) {
     listOfCompanies = companiesList;
   }
   @override
   Widget build(BuildContext context) {
-    final registerService = Provider.of<RegisterServices>(context);
     final registerForm = Provider.of<RegisterFormProvider>(context);
     return Form(
         key: registerForm.formKey,
@@ -121,7 +122,7 @@ class _RegisterForm extends StatelessWidget {
                       color: Color.fromARGB(255, 18, 201, 159))),
               onChanged: (value) => registerForm.name = value,
               validator: (value) {
-                return (value != null && value.length >= 1)
+                return (value != null && value.isNotEmpty)
                     ? null
                     : 'Please, enter your name';
               },
@@ -152,7 +153,7 @@ class _RegisterForm extends StatelessWidget {
                       color: Color.fromARGB(255, 18, 201, 159))),
               onChanged: (value) => registerForm.surname = value,
               validator: (value) {
-                return (value != null && value.length >= 1)
+                return (value != null && value.isNotEmpty)
                     ? null
                     : 'Please, enter your surname';
               },
@@ -188,7 +189,7 @@ class _RegisterForm extends StatelessWidget {
                   String pattern =
                       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
-                  RegExp regExp = new RegExp(pattern);
+                  RegExp regExp = RegExp(pattern);
                   return regExp.hasMatch(value ?? '')
                       ? null
                       : 'Please, insert a valid email';
@@ -283,10 +284,10 @@ class _RegisterForm extends StatelessWidget {
               items: listOfCompanies.map((e) {
                 /// Ahora creamos "e" y contiene cada uno de los items de la lista.
                 return DropdownMenuItem(
-                  child: Text(e.name.toString(),
-                      style:
-                          TextStyle(color: Color.fromARGB(255, 18, 201, 159))),
                   value: e.id,
+                  child: Text(e.name.toString(),
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 18, 201, 159))),
                 );
               }).toList(),
               onChanged: (value) => registerForm.company_id = value.toString(),
@@ -302,7 +303,7 @@ class _RegisterForm extends StatelessWidget {
               child: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
-                      Color.fromARGB(255, 18, 201, 159)),
+                      const Color.fromARGB(255, 18, 201, 159)),
                   fixedSize: MaterialStateProperty.all(
                       const Size(double.infinity, 30)),
                 ),

@@ -9,13 +9,13 @@ import 'login_services.dart';
 class DeactivateServices extends ChangeNotifier {
   final String _baseUrl = 'semillero.allsites.es';
 
-  DeactivateServices() {}
+  DeactivateServices();
 
-  postDeactivate(String user_id) async {
+  postDeactivate(String userId) async {
     String? token = await LoginServices().readToken();
 
     final url =
-        Uri.http(_baseUrl, '/public/api/deactivate', {'user_id': user_id});
+        Uri.http(_baseUrl, '/public/api/deactivate', {'user_id': userId});
     final response = await http.post(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
@@ -23,8 +23,8 @@ class DeactivateServices extends ChangeNotifier {
 
     final Map<String, dynamic> deactivate = json.decode(response.body);
 
-    var id;
-    var resp;
+    String id;
+    String resp = '';
     if (deactivate.containsValue(true)) {
       deactivate.forEach((key, value) {
         if (key == 'data') {

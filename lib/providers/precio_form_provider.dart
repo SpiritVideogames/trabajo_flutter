@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PrecioFormProvider extends ChangeNotifier {
-  GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String precio = '';
 

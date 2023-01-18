@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -9,9 +10,9 @@ import 'package:http/http.dart' as http;
 class LoginServices extends ChangeNotifier {
   final String _baseUrl = 'semillero.allsites.es';
 
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
 
-  LoginServices() {}
+  LoginServices();
 
   postLogin(String email, String password) async {
     final url = Uri.http(
@@ -21,7 +22,7 @@ class LoginServices extends ChangeNotifier {
         .post(url, headers: {HttpHeaders.acceptHeader: 'application/json'});
 
     var type;
-    var error;
+    String error;
     var resp;
     final Map<String, dynamic> login = json.decode(response.body);
     if (login.containsValue(true)) {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/models.dart';
 
 class UserFormProvider extends ChangeNotifier {
-  GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   User user;
 

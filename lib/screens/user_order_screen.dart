@@ -1,17 +1,8 @@
-import 'package:card_swiper/card_swiper.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:trabajo_flutter/providers/edit_form_provider.dart';
-import 'package:trabajo_flutter/providers/user_form_provider.dart';
-import 'package:trabajo_flutter/screens/screens.dart';
 
 import '../models/models.dart';
 import '../services/services.dart';
-import '../services/user_service.dart';
-import '../widgets/widgets.dart';
-import 'package:provider/provider.dart';
 
 class UserOrderScreen extends StatefulWidget {
   const UserOrderScreen({Key? key}) : super(key: key);
@@ -42,8 +33,8 @@ class _UserOrderScreenState extends State<UserOrderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime now = new DateTime.now();
-    DateTime date = new DateTime(now.year, now.month, now.day);
+    DateTime now = DateTime.now();
+    DateTime date = DateTime(now.year, now.month, now.day);
     Color color;
     Color color2;
     return Scaffold(
@@ -66,16 +57,14 @@ class _UserOrderScreenState extends State<UserOrderScreen> {
                   SpinKitWave(color: Color.fromRGBO(0, 153, 153, 1), size: 50))
           : Column(children: [
               Row(
-                // ignore: prefer_const_literals_to_create_immutables
-                children: [
-                  const SizedBox(height: 50),
+                children: const [
+                  SizedBox(height: 50),
                 ],
               ),
               SizedBox(
                   height: 600,
                   width: 300,
-                  child: Container(
-                      child: ListView.builder(
+                  child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: orders.length,
                     itemBuilder: (BuildContext context, int index) {
@@ -126,10 +115,17 @@ class _UserOrderScreenState extends State<UserOrderScreen> {
                                         child: Text(orders[index].issueDate,
                                             style:
                                                 const TextStyle(fontSize: 15))),
-                                    Icon(Icons.airport_shuttle_outlined,
-                                        color: color, size: 35),
-                                    Icon(Icons.assignment,
-                                        color: color2, size: 35),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.airport_shuttle_outlined,
+                                            color: color, size: 35),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Icon(Icons.assignment,
+                                            color: color2, size: 35),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ],
@@ -138,7 +134,7 @@ class _UserOrderScreenState extends State<UserOrderScreen> {
                         ),
                       );
                     },
-                  )))
+                  ))
             ]),
     );
   }

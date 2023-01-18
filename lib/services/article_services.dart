@@ -13,11 +13,11 @@ class ArticleServices extends ChangeNotifier {
   final String _baseUrl = 'semillero.allsites.es';
 
   late DataArticle selectedArticle = DataArticle();
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
 
   bool isLoading = true;
 
-  ArticleServices() {}
+  ArticleServices();
 
   Future loadArticle(String id) async {
     String? token = await LoginServices().readToken();

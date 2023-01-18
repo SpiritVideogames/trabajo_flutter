@@ -1,12 +1,10 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 
 // To parse this JSON data, do
 //
 //     final user = userFromMap(jsonString);
-
-import 'dart:convert';
-
-import 'models.dart';
 
 class User {
   User({

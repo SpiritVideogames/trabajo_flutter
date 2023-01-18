@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:trabajo_flutter/models/user.dart';
 
 import '../models/models.dart';
 import 'package:http/http.dart' as http;
@@ -16,7 +15,7 @@ class ArticlesServices extends ChangeNotifier {
 
   bool isLoading = true;
 
-  ArticlesServices() {}
+  ArticlesServices();
 
   Future loadArticles() async {
     articles.clear();

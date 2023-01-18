@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -9,7 +11,7 @@ import 'services.dart';
 class ProductDeleteServices extends ChangeNotifier {
   final String _baseUrl = 'semillero.allsites.es';
 
-  ProductDeleteServices() {}
+  ProductDeleteServices();
 
   deleteProductDelete(String id) async {
     String? token = await LoginServices().readToken();
@@ -22,7 +24,7 @@ class ProductDeleteServices extends ChangeNotifier {
 
     final Map<String, dynamic> productDelete = json.decode(response.body);
 
-    var resp;
+    String resp = '';
     if (productDelete.containsValue(true)) {
     } else {
       String? error = '';

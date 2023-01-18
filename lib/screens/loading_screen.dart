@@ -12,7 +12,7 @@ class LoadingScreen extends StatelessWidget {
         elevation: 0,
         automaticallyImplyLeading: false,
       ),
-      body: Center(
+      body: const Center(
           child: SpinKitWave(color: Color.fromRGBO(0, 153, 153, 1), size: 50)),
     );
   }

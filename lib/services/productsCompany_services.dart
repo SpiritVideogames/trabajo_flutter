@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -16,13 +18,13 @@ class ProductsCompanyServices extends ChangeNotifier {
 
   postProductsCompany() async {
     String? token = await LoginServices().readToken();
-    int? id_company = await UserServices().readIdCompany();
+    int? idCompany = await UserServices().readIdCompany();
 
     isLoading = true;
     notifyListeners();
 
     final url = Uri.http(
-        _baseUrl, '/public/api/products/company', {'id': '$id_company'});
+        _baseUrl, '/public/api/products/company', {'id': '$idCompany'});
 
     final response = await http.post(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',

@@ -1,11 +1,10 @@
+// ignore_for_file: file_names, non_constant_identifier_names
+
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-
-import 'package:trabajo_flutter/screens/screens.dart';
 
 import '../models/models.dart';
 
@@ -15,7 +14,7 @@ import '../widgets/widgets.dart';
 //List<MySlidable> list = [];
 
 class Index2Screen extends StatefulWidget {
-  Index2Screen({
+  const Index2Screen({
     Key? key,
   }) : super(key: key);
 
@@ -24,8 +23,6 @@ class Index2Screen extends StatefulWidget {
 }
 
 class _Index2ScreenState extends State<Index2Screen> {
-  final _key = GlobalKey<ExpandableFabState>();
-
   List<DataUsers> users = [];
   final usersService = UsersServices();
   Future refresh() async {
@@ -185,9 +182,7 @@ class _Index2ScreenState extends State<Index2Screen> {
                         child: ListTile(
                           subtitle: Text(users[index].email!),
                           title: Text(
-                              users[index].firstname! +
-                                  ' ' +
-                                  users[index].secondname!,
+                              '${users[index].firstname!} ${users[index].secondname!}',
                               style: const TextStyle(
                                   color: Color.fromARGB(255, 18, 201, 159))),
                           //  subtitle:    (Text(_Index2ScreenState().users[index].email!)),

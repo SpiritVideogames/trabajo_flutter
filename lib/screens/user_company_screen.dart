@@ -1,16 +1,9 @@
-import 'package:card_swiper/card_swiper.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:trabajo_flutter/providers/edit_form_provider.dart';
-import 'package:trabajo_flutter/providers/user_form_provider.dart';
-import 'package:trabajo_flutter/screens/screens.dart';
 
 import '../models/models.dart';
 import '../services/services.dart';
-import '../services/user_service.dart';
-import '../widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class UserCompanyScreen extends StatefulWidget {
@@ -46,53 +39,52 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.shopping_bag),
+          icon: const Icon(Icons.shopping_bag),
           onPressed: () => Navigator.pushNamed(context, 'userArticles'),
         ),
         title: IconButton(
-          icon: Icon(Icons.monetization_on),
+          icon: const Icon(Icons.monetization_on),
           onPressed: () => Navigator.pushNamed(context, 'userOrder'),
         ),
-        backgroundColor: Color.fromARGB(255, 17, 158, 125),
+        backgroundColor: const Color.fromARGB(255, 17, 158, 125),
         elevation: 0.0,
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.logout),
         backgroundColor: const Color.fromARGB(255, 25, 205, 163),
         onPressed: () {
           Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
           LoginServices().logout();
         },
+        child: const Icon(Icons.logout),
       ),
-      backgroundColor: Color.fromARGB(255, 222, 222, 222),
+      backgroundColor: const Color.fromARGB(255, 222, 222, 222),
       body: productsCompanyService.isLoading
           ? const Center(
               child:
                   SpinKitWave(color: Color.fromRGBO(0, 153, 153, 1), size: 50))
           : Column(children: [
               Row(
-                children: [
+                children: const [
                   SizedBox(height: 50),
                 ],
               ),
               SizedBox(
                   height: 600,
                   width: 300,
-                  child: Container(
-                      child: ListView.builder(
+                  child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: products.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        margin: EdgeInsets.all(10),
-                        padding: EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         height: 200,
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 235, 229, 229),
+                          color: const Color.fromARGB(255, 235, 229, 229),
                           borderRadius: BorderRadius.circular(10.0),
                           border: Border.all(
                               width: 3,
-                              color: Color.fromARGB(255, 17, 158, 125)),
+                              color: const Color.fromARGB(255, 17, 158, 125)),
                         ),
                         child: Column(
                           children: [
@@ -103,20 +95,20 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
                                     Container(
                                       width: 55,
                                       height: 55,
-                                      margin: EdgeInsets.all(10),
-                                      padding: EdgeInsets.only(
+                                      margin: const EdgeInsets.all(10),
+                                      padding: const EdgeInsets.only(
                                           right: 20, bottom: 10),
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(10.0),
                                         border: Border.all(
                                             width: 2,
-                                            color: Color.fromARGB(
+                                            color: const Color.fromARGB(
                                                 255, 17, 158, 125)),
                                       ),
                                       child: IconButton(
                                         iconSize: 40,
-                                        icon: Icon(Icons
+                                        icon: const Icon(Icons
                                             .remove_shopping_cart_outlined),
                                         onPressed: () {
                                           CoolAlert.show(
@@ -149,33 +141,31 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
                                   ],
                                 ),
                                 Text(products[index].compamyName,
-                                    style: TextStyle(fontSize: 25))
+                                    style: const TextStyle(fontSize: 25))
                               ],
                             ),
                             Row(
                               children: [
                                 Container(
-                                    margin: EdgeInsets.all(10),
+                                    margin: const EdgeInsets.all(10),
                                     child: Text(
                                         products[index].compamyDescription,
-                                        style: TextStyle(fontSize: 20))),
-                                //Text(articles[index].price,style: TextStyle(fontSize: 40))),
+                                        style: const TextStyle(fontSize: 20))),
                               ],
                             ),
                             Row(
                               children: [
                                 Container(
-                                    margin: EdgeInsets.all(10),
+                                    margin: const EdgeInsets.all(10),
                                     child: Text(products[index].price,
-                                        style: TextStyle(fontSize: 30))),
-                                //Text(products[index].price,style: TextStyle(fontSize: 40))),
+                                        style: const TextStyle(fontSize: 30))),
                               ],
                             )
                           ],
                         ),
                       );
                     },
-                  )))
+                  ))
             ]),
     );
   }

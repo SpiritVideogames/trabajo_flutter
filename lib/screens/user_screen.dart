@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:trabajo_flutter/providers/edit_form_provider.dart';
-import 'package:trabajo_flutter/providers/user_form_provider.dart';
 import 'package:trabajo_flutter/screens/screens.dart';
 
 import '../models/models.dart';
 import '../services/services.dart';
-import '../services/user_service.dart';
 import '../widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +12,6 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //Navigator.restorablePushReplacementNamed(context, 'user');
     final usersService = Provider.of<UserServices>(context);
     if (usersService.isLoading) return const LoadingScreen();
     return Scaffold(
@@ -76,7 +73,7 @@ class UserScreen extends StatelessWidget {
             ),
             ListTile(
               title: const Text('Logout'),
-              leading: Icon(Icons.logout_outlined),
+              leading: const Icon(Icons.logout_outlined),
               onTap: () {
                 final logoutServices =
                     Provider.of<LoginServices>(context, listen: false);
@@ -106,17 +103,12 @@ class UserScreen extends StatelessWidget {
 class _UserForm extends StatelessWidget {
   final UserServices usersServices;
 
-  const _UserForm({super.key, required this.usersServices});
+  const _UserForm({required this.usersServices});
   @override
   Widget build(BuildContext context) {
     final userForm = Provider.of<EditFormProvider>(context);
 
     DataUser user = usersServices.selectedUser;
-    // final user = userForm.user;
-    //print("Tamaño");
-    // print(n);
-
-    //print(user.name);
     return Form(
         key: userForm.formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -137,7 +129,7 @@ class _UserForm extends StatelessWidget {
                   String pattern =
                       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
-                  RegExp regExp = new RegExp(pattern);
+                  RegExp regExp = RegExp(pattern);
                   return regExp.hasMatch(value ?? '') ? null : 'Insert email';
                 }),
             const SizedBox(height: 20),
