@@ -48,26 +48,27 @@ class _UserOrderScreenState extends State<UserOrderScreen> {
     Color color2;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 17, 158, 125),
+        backgroundColor: const Color.fromARGB(255, 17, 158, 125),
         elevation: 0.0,
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.logout),
         backgroundColor: const Color.fromARGB(255, 25, 205, 163),
         onPressed: () {
           Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
           LoginServices().logout();
         },
+        child: const Icon(Icons.logout),
       ),
-      backgroundColor: Color.fromARGB(255, 222, 222, 222),
+      backgroundColor: const Color.fromARGB(255, 222, 222, 222),
       body: orderService.isLoading
           ? const Center(
               child:
                   SpinKitWave(color: Color.fromRGBO(0, 153, 153, 1), size: 50))
           : Column(children: [
               Row(
+                // ignore: prefer_const_literals_to_create_immutables
                 children: [
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                 ],
               ),
               SizedBox(
@@ -91,15 +92,15 @@ class _UserOrderScreenState extends State<UserOrderScreen> {
                         color2 = Colors.green;
                       }
                       return Container(
-                        margin: EdgeInsets.all(10),
-                        padding: EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         height: 200,
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 235, 229, 229),
+                          color: const Color.fromARGB(255, 235, 229, 229),
                           borderRadius: BorderRadius.circular(10.0),
                           border: Border.all(
                               width: 3,
-                              color: Color.fromARGB(255, 17, 158, 125)),
+                              color: const Color.fromARGB(255, 17, 158, 125)),
                         ),
                         child: Column(
                           children: [
@@ -108,20 +109,23 @@ class _UserOrderScreenState extends State<UserOrderScreen> {
                                 Column(
                                   children: [
                                     Text(orders[index].num,
-                                        style: TextStyle(fontSize: 25)),
+                                        style: const TextStyle(fontSize: 25)),
                                     Container(
-                                        margin: EdgeInsets.all(10),
+                                        margin: const EdgeInsets.all(10),
                                         child: Text(
                                             orders[index].targetCompanyName,
-                                            style: TextStyle(fontSize: 20))),
+                                            style:
+                                                const TextStyle(fontSize: 20))),
                                     Container(
-                                        margin: EdgeInsets.all(5),
+                                        margin: const EdgeInsets.all(5),
                                         child: Text(orders[index].createdAt,
-                                            style: TextStyle(fontSize: 15))),
+                                            style:
+                                                const TextStyle(fontSize: 15))),
                                     Container(
-                                        margin: EdgeInsets.all(5),
+                                        margin: const EdgeInsets.all(5),
                                         child: Text(orders[index].issueDate,
-                                            style: TextStyle(fontSize: 15))),
+                                            style:
+                                                const TextStyle(fontSize: 15))),
                                     Icon(Icons.airport_shuttle_outlined,
                                         color: color, size: 35),
                                     Icon(Icons.assignment,
