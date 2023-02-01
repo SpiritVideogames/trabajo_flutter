@@ -39,16 +39,24 @@ class _UserOrderScreenState extends State<UserOrderScreen> {
     Color color2;
     return Scaffold(
       appBar: AppBar(
+        title: const Text(
+          'My Orders',
+          style: TextStyle(fontSize: 18),
+        ),
         backgroundColor: const Color.fromARGB(255, 17, 158, 125),
         elevation: 0.0,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, 'userCompany');
+            },
+            icon: const Icon(Icons.logout)),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 25, 205, 163),
         onPressed: () {
-          Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
-          LoginServices().logout();
+          Navigator.pushReplacementNamed(context, 'Order');
         },
-        child: const Icon(Icons.logout),
+        child: const Icon(Icons.add),
       ),
       backgroundColor: const Color.fromARGB(255, 222, 222, 222),
       body: orderService.isLoading
@@ -119,7 +127,7 @@ class _UserOrderScreenState extends State<UserOrderScreen> {
                                       children: [
                                         Icon(Icons.airport_shuttle_outlined,
                                             color: color, size: 35),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 20,
                                         ),
                                         Icon(Icons.assignment,

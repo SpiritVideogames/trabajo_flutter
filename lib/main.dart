@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:trabajo_flutter/providers/company_form_provider.dart';
 import 'package:trabajo_flutter/providers/precio_form_provider.dart';
+import 'package:trabajo_flutter/services/productsCompany_services2.dart';
 import 'package:trabajo_flutter/services/services.dart';
 
 import 'router/app_routes.dart';
@@ -32,11 +34,13 @@ class AppState extends StatelessWidget {
       ChangeNotifierProvider(create: (_) => ProductAddServices()),
       ChangeNotifierProvider(create: (_) => ProductDeleteServices()),
       ChangeNotifierProvider(create: (_) => ProductsCompanyServices()),
+      ChangeNotifierProvider(create: (_) => ProductsCompanyServices2()),
       ChangeNotifierProvider(create: (_) => RegisterServices()),
       ChangeNotifierProvider(create: (_) => UpdateServices()),
       ChangeNotifierProvider(create: (_) => UserServices()),
       ChangeNotifierProvider(create: (_) => UsersServices()),
       ChangeNotifierProvider(create: (_) => PrecioFormProvider()),
+      ChangeNotifierProvider(create: (_) => CompanyFormProvider()),
     ], child: const MyApp());
   }
 }

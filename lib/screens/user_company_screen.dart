@@ -44,7 +44,7 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
         ),
         title: IconButton(
           icon: const Icon(Icons.monetization_on),
-          onPressed: () => Navigator.pushNamed(context, 'userOrder'),
+          onPressed: () => Navigator.pushReplacementNamed(context, 'userOrder'),
         ),
         backgroundColor: const Color.fromARGB(255, 17, 158, 125),
         elevation: 0.0,

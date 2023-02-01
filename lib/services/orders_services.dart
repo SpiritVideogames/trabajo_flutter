@@ -44,4 +44,39 @@ class OrdersServices extends ChangeNotifier {
     notifyListeners();
     return orders;
   }
+
+  Future postOrder(int numOrder, DateTime issueDate, int originCompany,
+      int targetCompany, String products) async {
+    orders.clear();
+    String? token = await LoginServices().readToken();
+
+    isLoading = true;
+    notifyListeners();
+    final url = Uri.http(_baseUrl, '/public/api/orders', {
+      'num': '$numOrder',
+      'issue_date': '$issueDate',
+      'origin_company_id': '$originCompany',
+      'target_company_id': '$targetCompany',
+      'products': products,
+    });
+
+    final resp = await http.get(url, headers: {
+      HttpHeaders.acceptHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token'
+    });
+
+    final Map<String, dynamic> productAdd = json.decode(resp.body);
+
+    String re;
+    if (productAdd.containsValue(true)) {
+      re = 'hola';
+    } else {
+      String? error = '';
+
+      error = 'Error to add';
+
+      re = error;
+    }
+    return resp;
+  }
 }

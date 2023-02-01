@@ -9,11 +9,11 @@ import 'package:trabajo_flutter/services/services.dart';
 
 import '../models/models.dart';
 
-class ProductsCompanyServices extends ChangeNotifier {
+class ProductsCompanyServices2 extends ChangeNotifier {
   final String _baseUrl = 'semillero.allsites.es';
 
   final List<DataProductsCompany> productsCompany = [];
-  final List<DataProductsCompany> productsUser = [];
+
   final List<DataProductsCompany> aux = [];
 
   bool isLoading = true;
@@ -21,7 +21,6 @@ class ProductsCompanyServices extends ChangeNotifier {
   postProductsCompany() async {
     String? token = await LoginServices().readToken();
     int? idCompany = await UserServices().readIdCompany();
-    List<DataProductsCompany> productsUser = [];
 
     isLoading = true;
     notifyListeners();
@@ -54,50 +53,19 @@ class ProductsCompanyServices extends ChangeNotifier {
     return productsCompany;
   }
 
-  getMyProducts() async {
-    String? token = await LoginServices().readToken();
-    int? idCompany = await UserServices().readIdCompany();
-
-    isLoading = true;
-    notifyListeners();
-
-    final url = Uri.http(
-        _baseUrl, '/public/api/products/company', {'id': '$idCompany'});
-
-    final response = await http.post(url, headers: {
-      HttpHeaders.acceptHeader: 'application/json',
-      HttpHeaders.authorizationHeader: 'Bearer $token'
-    });
-
-    final Map<String, dynamic> productsCompanyMap = json.decode(response.body);
-
-    productsCompanyMap.forEach((key, value) {
-      if (key == "data") {
-        final List<dynamic> productsCompanyMap1 = value;
-
-        for (int i = 0; i < productsCompanyMap1.length; i++) {
-          final tempProduct =
-              DataProductsCompany.fromMap(productsCompanyMap1[i]);
-
-          productsUser.add(tempProduct);
-        }
-      }
-    });
-    isLoading = false;
-    notifyListeners();
-
-    return productsUser;
-  }
-
   getProducts(int? id) async {
     String? token = await LoginServices().readToken();
-    int? idCompany = id;
-    getMyProducts();
+    aux.clear();
+    productsCompany.clear();
+    final productService = ProductsCompanyServices();
+    List<DataProductsCompany> productsUser = [];
+    await productService.postProductsCompany();
+    productsUser = productService.productsCompany;
     isLoading = true;
     notifyListeners();
 
-    final url = Uri.http(
-        _baseUrl, '/public/api/products/company', {'id': '$idCompany'});
+    final url =
+        Uri.http(_baseUrl, '/public/api/products/company', {'id': '$id'});
 
     final response = await http.post(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',
@@ -127,7 +95,8 @@ class ProductsCompanyServices extends ChangeNotifier {
     });
     for (int i = 0; i < productsUser.length; i++) {
       for (int j = 0; j < productsCompany.length; j++) {
-        if (productsCompany[j].articleId == productsUser[i].articleId) {
+        if (productsCompany[j].articleId == productsUser[i].articleId &&
+            productsCompany[j].companyId != productsUser[i].companyId) {
           aux.add(productsCompany[j]);
         }
       }
