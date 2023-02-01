@@ -68,7 +68,7 @@ class OrdersServices extends ChangeNotifier {
     final Map<String, dynamic> productAdd = json.decode(resp.body);
 
     String re;
-    print(productAdd);
+    //print(productAdd);
     if (productAdd.containsValue(true)) {
       re = 'hola';
     } else {

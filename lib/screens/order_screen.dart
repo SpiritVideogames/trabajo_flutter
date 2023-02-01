@@ -19,7 +19,7 @@ class _OrderScreenState extends State<OrderScreen> {
   List<DataProductsCompany> products = [];
   List<bool> checks = [];
   List<DataCompanies> listOfCompanies = [];
-  Map<String, String> productsString = <String, String>{};
+  Map<int, String> productsString = <int, String>{};
 
   final productService = ProductsCompanyServices2();
   final companyService = CompaniesServices();
@@ -133,11 +133,25 @@ class _OrderScreenState extends State<OrderScreen> {
                                 const Color.fromARGB(255, 18, 201, 159))),
                         onPressed: () {
                           String product = '';
+                          print(productsString);
+                          int vuelta = 0;
                           productsString.forEach(
                             (key, value) {
-                              product = '$product,$key,$value';
+                              vuelta = vuelta + 1;
+                              if (productsString.length > 1) {
+                                if (vuelta == 1) {
+                                  product = product + '$key' + ',' + value;
+                                } else {
+                                  product =
+                                      product + ',' + '$key' + ',' + value;
+                                }
+                              } else {
+                                product = product + '$key' + ',' + value;
+                              }
                             },
                           );
+
+                          print(product);
                           setState(() {
                             orderService.postOrder(2, date, companyForm.id,
                                 idTargetCompany!, product);
@@ -162,7 +176,6 @@ class _OrderScreenState extends State<OrderScreen> {
                 scrollDirection: Axis.vertical,
                 itemCount: products.length,
                 itemBuilder: (BuildContext context, int index) {
-                  bool isChecked = true;
                   double cant = 0;
                   return Container(
                     margin: const EdgeInsets.all(10),
@@ -186,15 +199,15 @@ class _OrderScreenState extends State<OrderScreen> {
                                 onChanged: ((value) {
                                   setState(() {
                                     if (value == true) {
-                                      final p = <String, String>{
-                                        '$products[index].articleId': '$cant'
+                                      final p = <int, String>{
+                                        products[index].articleId: '$cant'
                                       };
                                       productsString.addEntries(p.entries);
 
                                       checks[index] = value!;
                                     } else {
                                       productsString
-                                          .remove('$products[index].articleId');
+                                          .remove(products[index].articleId);
 
                                       checks[index] = value!;
                                     }
@@ -217,10 +230,10 @@ class _OrderScreenState extends State<OrderScreen> {
                                             value: cant,
                                             readOnly: true,
                                             onChanged: ((value) {
-                                              productsString.update(
-                                                  '$products[index].articleId',
-                                                  (value) => value);
                                               cant = value;
+                                              productsString.update(
+                                                  products[index].articleId,
+                                                  (value) => '$cant');
                                             })),
                                       )
                                     : Container(
