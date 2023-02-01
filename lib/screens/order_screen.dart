@@ -244,7 +244,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                     margin: const EdgeInsets.all(5),
                                     child: Text(
                                         products[index].compamyDescription,
-                                        style: const TextStyle(fontSize: 20))),
+                                        style: const TextStyle(fontSize: 18))),
                               ],
                             ),
                           ],
