@@ -139,7 +139,7 @@ class _OrderScreenState extends State<OrderScreen> {
                             },
                           );
                           setState(() {
-                            orderService.postOrder(1, date, companyForm.id,
+                            orderService.postOrder(2, date, companyForm.id,
                                 idTargetCompany!, product);
                           });
                         },

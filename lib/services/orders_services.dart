@@ -60,7 +60,7 @@ class OrdersServices extends ChangeNotifier {
       'products': products,
     });
 
-    final resp = await http.get(url, headers: {
+    final resp = await http.post(url, headers: {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     });
@@ -68,6 +68,7 @@ class OrdersServices extends ChangeNotifier {
     final Map<String, dynamic> productAdd = json.decode(resp.body);
 
     String re;
+    print(productAdd);
     if (productAdd.containsValue(true)) {
       re = 'hola';
     } else {
@@ -77,6 +78,7 @@ class OrdersServices extends ChangeNotifier {
 
       re = error;
     }
+    print(re);
     return resp;
   }
 }
