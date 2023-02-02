@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -156,6 +157,13 @@ class _OrderScreenState extends State<OrderScreen> {
                             orderService.postOrder(2, date, companyForm.id,
                                 idTargetCompany!, product);
                           });
+
+                          CoolAlert.show(
+                              context: context,
+                              type: CoolAlertType.confirm,
+                              text: "Order made successfully",
+                              autoCloseDuration:
+                                  const Duration(milliseconds: 100));
                         },
                         child: const Text('Make Order',
                             style: TextStyle(fontSize: 18)),
