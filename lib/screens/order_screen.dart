@@ -154,8 +154,8 @@ class _OrderScreenState extends State<OrderScreen> {
 
                           print(product);
                           setState(() {
-                            orderService.postOrder(2, date, companyForm.id,
-                                idTargetCompany!, product);
+                            orderService.postOrder(2, date, idTargetCompany!,
+                                companyForm.id, product);
                           });
 
                           CoolAlert.show(
