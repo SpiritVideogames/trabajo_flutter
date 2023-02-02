@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
@@ -154,7 +156,9 @@ class _OrderScreenState extends State<OrderScreen> {
 
                           print(product);
                           setState(() {
-                            orderService.postOrder(2, date, idTargetCompany!,
+                            Random random = Random();
+                            int num = random.nextInt(100);
+                            orderService.postOrder(num, date, idTargetCompany!,
                                 companyForm.id, product);
                           });
 
