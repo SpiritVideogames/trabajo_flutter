@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:trabajo_flutter/providers/company_form_provider.dart';
 import 'package:trabajo_flutter/services/productsCompany_services2.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 import '../models/models.dart';
 import '../services/services.dart';
@@ -134,30 +134,28 @@ class _OrderScreenState extends State<OrderScreen> {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                                 const Color.fromARGB(255, 18, 201, 159))),
-                        onPressed: () {
+                        onPressed: () async {
                           String product = '';
-                          print(productsString);
                           int vuelta = 0;
                           productsString.forEach(
                             (key, value) {
                               vuelta = vuelta + 1;
                               if (productsString.length > 1) {
                                 if (vuelta == 1) {
-                                  product = product + '$key' + ',' + value;
+                                  product = '$product$key,$value';
                                 } else {
-                                  product =
-                                      product + ',' + '$key' + ',' + value;
+                                  product = '$product,$key,$value';
                                 }
                               } else {
-                                product = product + '$key' + ',' + value;
+                                product = '$product$key,$value';
                               }
                             },
                           );
 
-                          print(product);
+                          int num = 0;
                           setState(() {
                             Random random = Random();
-                            int num = random.nextInt(100);
+                            num = random.nextInt(100);
                             orderService.postOrder(num, date, idTargetCompany!,
                                 companyForm.id, product);
                           });
@@ -168,6 +166,33 @@ class _OrderScreenState extends State<OrderScreen> {
                               text: "Order made successfully",
                               autoCloseDuration:
                                   const Duration(milliseconds: 100));
+
+                          final Email email = Email(
+                            body: 'Here is a copy of the order.',
+                            subject: 'Order made successfully',
+                            recipients: ['ampr2003@gmail.com'],
+                            attachmentPaths: [
+                              '/storage/emulated/0/Download/pedido$num' ".pdf"
+                            ],
+                            isHTML: false,
+                          );
+
+                          String platformResponse;
+
+                          try {
+                            await FlutterEmailSender.send(email);
+                            platformResponse = 'success';
+                          } catch (error) {
+                            platformResponse = error.toString();
+                          }
+
+                          if (!mounted) return;
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(platformResponse),
+                            ),
+                          );
                         },
                         child: const Text('Make Order',
                             style: TextStyle(fontSize: 18)),
@@ -231,7 +256,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                   height: 30,
                                 ),
                                 checks[index]
-                                    ? Container(
+                                    ? SizedBox(
                                         width: 150,
                                         child: SpinBox(
                                             decimals: 0,
@@ -248,7 +273,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                                   (value) => '$cant');
                                             })),
                                       )
-                                    : Container(
+                                    : SizedBox(
                                         width: 100,
                                         child: SpinBox(
                                             decimals: 0,

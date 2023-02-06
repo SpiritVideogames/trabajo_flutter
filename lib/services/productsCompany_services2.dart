@@ -101,9 +101,7 @@ class ProductsCompanyServices2 extends ChangeNotifier {
         }
       }
     }
-    for (int i = 0; i < aux.length; i++) {
-      print(aux[i].compamyName);
-    }
+    for (int i = 0; i < aux.length; i++) {}
     isLoading = false;
     notifyListeners();
 

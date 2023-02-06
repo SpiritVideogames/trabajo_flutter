@@ -21,7 +21,6 @@ class ProductsCompanyServices extends ChangeNotifier {
   postProductsCompany() async {
     String? token = await LoginServices().readToken();
     int? idCompany = await UserServices().readIdCompany();
-    List<DataProductsCompany> productsUser = [];
 
     isLoading = true;
     notifyListeners();
@@ -132,9 +131,7 @@ class ProductsCompanyServices extends ChangeNotifier {
         }
       }
     }
-    for (int i = 0; i < aux.length; i++) {
-      print(aux[i].compamyName);
-    }
+    for (int i = 0; i < aux.length; i++) {}
     isLoading = false;
     notifyListeners();
 
