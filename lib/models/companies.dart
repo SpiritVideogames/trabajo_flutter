@@ -10,7 +10,6 @@ class Companies {
     required this.data,
     required this.message,
   });
-
   bool success;
   List<DataCompanies> data;
   String message;
@@ -27,30 +26,30 @@ class Companies {
 
 class DataCompanies {
   DataCompanies({
-    required this.id,
-    required this.name,
-    required this.address,
-    required this.city,
-    required this.cif,
-    required this.email,
-    required this.phone,
-    required this.delTermId,
-    required this.transportId,
-    required this.paymentTermId,
-    required this.discountId,
+    this.id,
+    this.name,
+    this.address,
+    this.city,
+    this.cif,
+    this.email,
+    this.phone,
+    this.delTermId,
+    this.transportId,
+    this.paymentTermId,
+    this.discountId,
   });
 
-  int id;
-  String name;
-  String address;
-  String city;
-  String cif;
-  String email;
-  String phone;
-  String delTermId;
-  int transportId;
-  String paymentTermId;
-  String discountId;
+  int? id;
+  String? name;
+  String? address;
+  String? city;
+  String? cif;
+  String? email;
+  String? phone;
+  String? delTermId;
+  int? transportId;
+  String? paymentTermId;
+  String? discountId;
 
   factory DataCompanies.fromJson(String str) =>
       DataCompanies.fromMap(json.decode(str));

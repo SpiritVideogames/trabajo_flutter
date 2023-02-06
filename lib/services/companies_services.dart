@@ -33,10 +33,8 @@ class CompaniesServices extends ChangeNotifier {
         final List<dynamic> companiesMap1 = value;
         for (int i = 0; i < companiesMap1.length; i++) {
           final tempCompany = DataCompanies.fromMap(companiesMap1[i]);
-          if (tempCompany.id == idUserCompany) {
-          } else {
-            companies.add(tempCompany);
-          }
+
+          companies.add(tempCompany);
         }
       }
     });

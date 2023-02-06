@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:cool_alert/cool_alert.dart';
@@ -10,6 +11,8 @@ import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 import '../models/models.dart';
 import '../services/services.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({Key? key}) : super(key: key);
@@ -23,7 +26,7 @@ class _OrderScreenState extends State<OrderScreen> {
   List<bool> checks = [];
   List<DataCompanies> listOfCompanies = [];
   Map<int, String> productsString = <int, String>{};
-
+  DataCompanies dataCompany = DataCompanies();
   final productService = ProductsCompanyServices2();
   final companyService = CompaniesServices();
   int? idTargetCompany;
@@ -31,6 +34,12 @@ class _OrderScreenState extends State<OrderScreen> {
   final orderService = OrdersServices();
   late String companySelected;
   bool isSelected = false;
+  double precioTotal = 0;
+  getPrecio(int cant, double precio) {
+    double aux = cant * precio;
+    precioTotal += aux;
+    return aux;
+  }
 
   Future refresh() async {
     setState(() => products.clear());
@@ -38,7 +47,12 @@ class _OrderScreenState extends State<OrderScreen> {
     idTargetCompany = await UserServices().readIdCompany();
     setState(() {
       listOfCompanies = companyService.companies;
-
+      for (var i in listOfCompanies) {
+        if (i.id == idTargetCompany) {
+          dataCompany = i;
+          listOfCompanies.remove(i);
+        }
+      }
       products = productService.aux;
     });
   }
@@ -159,6 +173,260 @@ class _OrderScreenState extends State<OrderScreen> {
                             orderService.postOrder(num, date, idTargetCompany!,
                                 companyForm.id, product);
                           });
+
+                          DataCompanies dataMyCompany = DataCompanies();
+                          for (var i in listOfCompanies) {
+                            if (i.id == companyForm.id) {
+                              dataMyCompany = i;
+                            }
+                          }
+                          print("Alex tonto");
+                          final pdf = pw.Document();
+                          pdf.addPage(pw.Page(
+                              pageFormat: PdfPageFormat.a4,
+                              build: (pw.Context context) {
+                                return pw.Column(children: [
+                                  pw.Row(
+                                      mainAxisAlignment:
+                                          pw.MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        pw.Column(
+                                            crossAxisAlignment:
+                                                pw.CrossAxisAlignment.start,
+                                            children: [
+                                              pw.Text(
+                                                  dataCompany.name.toString()),
+                                              pw.Text(dataCompany.address
+                                                  .toString()),
+                                              pw.Text(
+                                                  dataCompany.city.toString()),
+                                              pw.Text(
+                                                  dataCompany.cif.toString()),
+                                              pw.Text(
+                                                  dataCompany.email.toString()),
+                                            ]),
+                                        pw.Column(
+                                            crossAxisAlignment:
+                                                pw.CrossAxisAlignment.start,
+                                            children: [
+                                              pw.Row(children: [
+                                                pw.Text('PEDIDO Nº: ',
+                                                    style: pw.TextStyle(
+                                                        fontWeight: pw
+                                                            .FontWeight.bold)),
+                                                pw.Text(num.toString())
+                                              ]),
+                                              pw.SizedBox(height: 50),
+                                              pw.Row(children: [
+                                                pw.Text('FECHA: ',
+                                                    style: pw.TextStyle(
+                                                        fontWeight: pw
+                                                            .FontWeight.bold)),
+                                                pw.Text(date.toString())
+                                              ]),
+                                            ])
+                                      ]),
+                                  pw.SizedBox(height: 25),
+                                  pw.Row(children: [
+                                    pw.Column(
+                                        crossAxisAlignment:
+                                            pw.CrossAxisAlignment.start,
+                                        children: [
+                                          pw.Row(children: [
+                                            pw.Text("DIRECCIÓN DE ENVÍO: ",
+                                                style: pw.TextStyle(
+                                                    fontWeight:
+                                                        pw.FontWeight.bold)),
+                                            pw.Text(dataMyCompany.address
+                                                .toString())
+                                          ]),
+                                          pw.Row(children: [
+                                            pw.Text("TRANSPORTE: ",
+                                                style: pw.TextStyle(
+                                                    fontWeight:
+                                                        pw.FontWeight.bold)),
+                                            pw.Text("SIN CARGO")
+                                          ]),
+                                        ])
+                                  ]),
+                                  pw.SizedBox(height: 20),
+                                  pw.Table(
+                                      border: pw.TableBorder.all(),
+                                      children: [
+                                        pw.TableRow(children: [
+                                          pw.Column(
+                                              crossAxisAlignment:
+                                                  pw.CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  pw.MainAxisAlignment.center,
+                                              children: [
+                                                pw.Text("REF. COD",
+                                                    style: pw.TextStyle(
+                                                        fontWeight: pw
+                                                            .FontWeight.bold)),
+                                              ]),
+                                          pw.Column(
+                                              crossAxisAlignment:
+                                                  pw.CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  pw.MainAxisAlignment.center,
+                                              children: [
+                                                pw.Text("DESCRIPCIÓN",
+                                                    style: pw.TextStyle(
+                                                        fontWeight: pw
+                                                            .FontWeight.bold)),
+                                              ]),
+                                          pw.Column(
+                                              crossAxisAlignment:
+                                                  pw.CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  pw.MainAxisAlignment.center,
+                                              children: [
+                                                pw.Text("CANTIDAD",
+                                                    style: pw.TextStyle(
+                                                        fontWeight: pw
+                                                            .FontWeight.bold)),
+                                              ]),
+                                          pw.Column(
+                                              crossAxisAlignment:
+                                                  pw.CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  pw.MainAxisAlignment.center,
+                                              children: [
+                                                pw.Text("PRECIO",
+                                                    style: pw.TextStyle(
+                                                        fontWeight: pw
+                                                            .FontWeight.bold)),
+                                              ]),
+                                          pw.Column(
+                                              crossAxisAlignment:
+                                                  pw.CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  pw.MainAxisAlignment.center,
+                                              children: [
+                                                pw.Text("IMPORTE",
+                                                    style: pw.TextStyle(
+                                                        fontWeight: pw
+                                                            .FontWeight.bold)),
+                                              ]),
+                                        ]),
+                                        for (var producto in products)
+                                          for (var entry
+                                              in productsString.entries)
+                                            if (producto.articleId == entry.key)
+                                              pw.TableRow(children: [
+                                                pw.Column(
+                                                    crossAxisAlignment: pw
+                                                        .CrossAxisAlignment
+                                                        .center,
+                                                    mainAxisAlignment: pw
+                                                        .MainAxisAlignment
+                                                        .center,
+                                                    children: [
+                                                      pw.Text(producto.articleId
+                                                          .toString()),
+                                                    ]),
+                                                pw.Column(
+                                                    crossAxisAlignment: pw
+                                                        .CrossAxisAlignment
+                                                        .center,
+                                                    mainAxisAlignment: pw
+                                                        .MainAxisAlignment
+                                                        .center,
+                                                    children: [
+                                                      pw.Text(producto
+                                                          .compamyDescription
+                                                          .toString()),
+                                                    ]),
+                                                pw.Column(
+                                                    crossAxisAlignment: pw
+                                                        .CrossAxisAlignment
+                                                        .center,
+                                                    mainAxisAlignment: pw
+                                                        .MainAxisAlignment
+                                                        .center,
+                                                    children: [
+                                                      pw.Text(productsString[
+                                                              producto.articleId
+                                                                  .toString()] ??
+                                                          'Google'),
+                                                    ]),
+                                                pw.Column(
+                                                    crossAxisAlignment: pw
+                                                        .CrossAxisAlignment
+                                                        .center,
+                                                    mainAxisAlignment: pw
+                                                        .MainAxisAlignment
+                                                        .center,
+                                                    children: [
+                                                      pw.Text(producto.price
+                                                          .toString()),
+                                                    ]),
+                                                pw.Column(
+                                                    crossAxisAlignment: pw
+                                                        .CrossAxisAlignment
+                                                        .center,
+                                                    mainAxisAlignment: pw
+                                                        .MainAxisAlignment
+                                                        .center,
+                                                    children: [
+                                                      pw.Text(getPrecio(
+                                                              int.parse(productsString[producto
+                                                                      .articleId
+                                                                      .toString()] ??
+                                                                  "1"),
+                                                              double.parse(
+                                                                  producto
+                                                                      .price!))
+                                                          .toStringAsFixed(2)),
+                                                    ]),
+                                              ]),
+                                        pw.TableRow(children: [
+                                          pw.Column(
+                                              crossAxisAlignment:
+                                                  pw.CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  pw.MainAxisAlignment.center,
+                                              children: [
+                                                pw.Text("TOTAL: ",
+                                                    style: pw.TextStyle(
+                                                        fontWeight: pw
+                                                            .FontWeight.bold)),
+                                              ]),
+                                          pw.Column(
+                                              crossAxisAlignment:
+                                                  pw.CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  pw.MainAxisAlignment.center,
+                                              children: []),
+                                          pw.Column(
+                                              crossAxisAlignment:
+                                                  pw.CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  pw.MainAxisAlignment.center,
+                                              children: []),
+                                          pw.Column(
+                                              crossAxisAlignment:
+                                                  pw.CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  pw.MainAxisAlignment.center,
+                                              children: []),
+                                          pw.Column(
+                                              crossAxisAlignment:
+                                                  pw.CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  pw.MainAxisAlignment.center,
+                                              children: [
+                                                pw.Text(precioTotal.toString()),
+                                              ])
+                                        ])
+                                      ])
+                                ]);
+                              }));
+
+                          final file = File(
+                              "${"/storage/emulated/0/Download/" + "pedido" + num.toString()}.pdf");
+                          await file.writeAsBytes(await pdf.save());
 
                           CoolAlert.show(
                               context: context,
