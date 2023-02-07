@@ -47,12 +47,13 @@ class _OrderScreenState extends State<OrderScreen> {
     idTargetCompany = await UserServices().readIdCompany();
     setState(() {
       listOfCompanies = companyService.companies;
+
       for (var i in listOfCompanies) {
         if (i.id == idTargetCompany) {
           dataCompany = i;
-          listOfCompanies.remove(i);
         }
       }
+      listOfCompanies.remove(dataCompany);
       products = productService.aux;
     });
   }
@@ -377,7 +378,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                                                   "1"),
                                                               double.parse(
                                                                   producto
-                                                                      .price!))
+                                                                      .price))
                                                           .toStringAsFixed(2)),
                                                     ]),
                                               ]),
