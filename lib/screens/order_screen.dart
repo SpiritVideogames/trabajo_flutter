@@ -348,8 +348,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                                         .center,
                                                     children: [
                                                       pw.Text(productsString[
-                                                              producto.articleId
-                                                                  .toString()] ??
+                                                              producto
+                                                                  .articleId] ??
                                                           'Google'),
                                                     ]),
                                                 pw.Column(
