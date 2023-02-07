@@ -350,7 +350,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                                       pw.Text(productsString[
                                                               producto
                                                                   .articleId] ??
-                                                          'Google'),
+                                                          'ERROR'),
                                                     ]),
                                                 pw.Column(
                                                     crossAxisAlignment: pw
@@ -439,7 +439,7 @@ class _OrderScreenState extends State<OrderScreen> {
                           final Email email = Email(
                             body: 'Here is a copy of the order.',
                             subject: 'Order made successfully',
-                            recipients: ['ampr2003@gmail.com'],
+                            recipients: ['raulreyes@cadiz.salesianos.edu'],
                             attachmentPaths: [
                               '/storage/emulated/0/Download/pedido$num' ".pdf"
                             ],
