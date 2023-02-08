@@ -81,7 +81,7 @@ class OrderLine {
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         articlesLine: List<ArticlesLine>.from(
-            json["ArticleCompanys_line"].map((x) => ArticlesLine.fromMap(x))),
+            json["articles_line"].map((x) => ArticlesLine.fromMap(x))),
       );
 }
 
@@ -89,7 +89,7 @@ class ArticlesLine {
   ArticlesLine({
     required this.id,
     required this.articleId,
-    required this.numArticleCompanys,
+    required this.numArticles,
     required this.orderLinesId,
     required this.deleted,
     required this.updatedAt,
@@ -99,7 +99,7 @@ class ArticlesLine {
 
   int id;
   int articleId;
-  int numArticleCompanys;
+  int numArticles;
   int orderLinesId;
   int deleted;
   DateTime updatedAt;
@@ -111,42 +111,42 @@ class ArticlesLine {
 
   factory ArticlesLine.fromMap(Map<String, dynamic> json) => ArticlesLine(
         id: json["id"],
-        articleId: json["ArticleCompany_id"],
-        numArticleCompanys: json["num_ArticleCompanys"],
+        articleId: json["article_id"],
+        numArticles: json["num_articles"],
         orderLinesId: json["order_lines_id"],
         deleted: json["deleted"],
         updatedAt: DateTime.parse(json["updated_at"]),
         createdAt: DateTime.parse(json["created_at"]),
-        articleCompany: ArticleCompany.fromMap(json["ArticleCompany"]),
+        articleCompany: ArticleCompany.fromMap(json["article"]),
       );
 }
 
 class ArticleCompany {
   ArticleCompany({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.priceMin,
-    required this.priceMax,
-    required this.colorName,
-    required this.weight,
-    required this.sizeArticle,
-    required this.familyId,
-    required this.deleted,
+    this.id,
+    this.name,
+    this.description,
+    this.priceMin,
+    this.priceMax,
+    this.colorName,
+    this.weight,
+    this.sizeArticle,
+    this.familyId,
+    this.deleted,
     this.createdAt,
     this.updatedAt,
   });
 
-  int id;
-  Name name;
-  Description description;
-  String priceMin;
-  String priceMax;
-  ColorName colorName;
-  String weight;
-  SizeArticle sizeArticle;
-  int familyId;
-  int deleted;
+  int? id;
+  Name? name;
+  Description? description;
+  String? priceMin;
+  String? priceMax;
+  ColorName? colorName;
+  String? weight;
+  SizeArticle? sizeArticle;
+  int? familyId;
+  int? deleted;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -155,13 +155,13 @@ class ArticleCompany {
 
   factory ArticleCompany.fromMap(Map<String, dynamic> json) => ArticleCompany(
         id: json["id"],
-        name: nameValues.map[json["name"]]!,
-        description: descriptionValues.map[json["description"]]!,
+        name: nameValues.map[json["name"]],
+        description: descriptionValues.map[json["description"]],
         priceMin: json["price_min"],
         priceMax: json["price_max"],
-        colorName: colorNameValues.map[json["color_name"]]!,
+        colorName: colorNameValues.map[json["color_name"]],
         weight: json["weight"],
-        sizeArticle: sizeArticleValues.map[json["sizeArticle"]]!,
+        sizeArticle: sizeArticleValues.map[json["size"]],
         familyId: json["family_id"],
         deleted: json["deleted"],
         createdAt: json["created_at"] == null

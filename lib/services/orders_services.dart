@@ -91,6 +91,8 @@ class OrdersServices extends ChangeNotifier {
       HttpHeaders.authorizationHeader: 'Bearer $token'
     });
 
+    print(resp.body);
+
     final Map<String, dynamic> ordersCompanyMap = json.decode(resp.body);
 
     ordersCompanyMap.forEach((key, value) {
