@@ -103,15 +103,11 @@ class OrdersServices extends ChangeNotifier {
                 k < tempOrder.orderLines[j].articlesLine.length;
                 k++) {
               if (tempOrder.orderLines[j].articlesLine[k].id == idProduct) {
-                double months = DateTime.now()
-                        .difference(tempOrder.orderLines[j].createdAt)
-                        .inDays /
-                    30;
-                int monthsInt = 0;
-                if (months >= 1) {
-                  monthsInt = months.round();
-                }
-                switch (monthsInt) {
+                int monthsNow = DateTime.now().year * DateTime.now().month;
+                int monthsProduct = tempOrder.orderLines[j].createdAt.year *
+                    tempOrder.orderLines[j].createdAt.month;
+                int monthsDifference = monthsNow - monthsProduct;
+                switch (monthsDifference) {
                   case 1:
                     numOrders[0] += 1;
                     break;
