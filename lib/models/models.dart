@@ -16,3 +16,4 @@ export 'package:trabajo_flutter/models/register.dart';
 export 'package:trabajo_flutter/models/update.dart';
 export 'package:trabajo_flutter/models/user.dart';
 export 'package:trabajo_flutter/models/users.dart';
+export 'package:trabajo_flutter/models/ordersCompany.dart';
