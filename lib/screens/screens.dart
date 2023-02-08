@@ -1,3 +1,5 @@
+export 'package:trabajo_flutter/screens/graphs_screen.dart';
+
 export 'package:trabajo_flutter/screens/index_admin_screen.dart';
 export 'package:trabajo_flutter/screens/login_screen.dart';
 export 'package:trabajo_flutter/screens/register_screen.dart';

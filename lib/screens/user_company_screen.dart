@@ -38,17 +38,26 @@ class _UserCompanyScreenState extends State<UserCompanyScreen> {
     final productDelete = Provider.of<ProductDeleteServices>(context);
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.shopping_bag),
-          onPressed: () => Navigator.pushNamed(context, 'userArticles'),
-        ),
-        title: IconButton(
-          icon: const Icon(Icons.monetization_on),
-          onPressed: () => Navigator.pushReplacementNamed(context, 'userOrder'),
-        ),
-        backgroundColor: const Color.fromARGB(255, 17, 158, 125),
-        elevation: 0.0,
-      ),
+          leading: IconButton(
+            icon: const Icon(Icons.shopping_bag),
+            onPressed: () => Navigator.pushNamed(context, 'userArticles'),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.monetization_on),
+                onPressed: () =>
+                    Navigator.pushReplacementNamed(context, 'userOrder'),
+              ),
+              IconButton(
+                icon: const Icon(Icons.auto_graph_rounded),
+                onPressed: () =>
+                    Navigator.pushReplacementNamed(context, 'userGraphs'),
+              ),
+            ],
+          )),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 25, 205, 163),
         onPressed: () {
