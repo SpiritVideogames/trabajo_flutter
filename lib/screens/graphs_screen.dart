@@ -16,20 +16,20 @@ class GraphsScreen extends StatefulWidget {
 class _GraphsScreenState extends State<GraphsScreen> {
   List<DataProductsCompany> products = [];
   final productService = ProductsCompanyServices();
+  final orderService = OrdersServices();
   int? idTargetCompany;
+
   bool isSelected = false;
   DateTime now = DateTime.now();
   List<int> months = [];
   Future refresh() async {
-    months.clear();
+    setState(() => months.clear());
     setState(() => products.clear());
     await productService.postProductsCompany();
 
     idTargetCompany = await UserServices().readIdCompany();
     setState(() {
-      for (int i = 1; i <= 6; i++) {
-        months.add(now.month - i);
-      }
+      months = orderService.numOrders;
       products = productService.productsCompany;
     });
   }
@@ -44,12 +44,10 @@ class _GraphsScreenState extends State<GraphsScreen> {
   Widget build(BuildContext context) {
     final companyForm = Provider.of<CompanyFormProvider>(context);
 
-    refreshProducts(int value) async {
+    refreshProducts(int idProduct) async {
       products.clear();
-      await productService.getProducts(value);
+      await orderService.postOrdersCompany(idTargetCompany!, idProduct);
       setState(() {
-        products = productService.aux;
-
         // print(products.toString());
 
         isSelected = true;
@@ -104,27 +102,30 @@ class _GraphsScreenState extends State<GraphsScreen> {
               },
               child: const Text('Submit', style: TextStyle(fontSize: 18)),
             ),
-            Visibility(
-              visible: isSelected,
-              child: Container(
-                  child: SfCartesianChart(
-                      // Initialize category axis
-                      primaryXAxis: CategoryAxis(),
-                      series: <LineSeries<SalesData, String>>[
-                    LineSeries<SalesData, String>(
-                        // Bind data source
-                        dataSource: <SalesData>[
-                          SalesData(35, months[0]),
-                          SalesData(28, months[1]),
-                          SalesData(34, months[2]),
-                          SalesData(32, months[3]),
-                          SalesData(40, months[4]),
-                          SalesData(40, months[5]),
-                        ],
-                        xValueMapper: (SalesData order, _) => '$order.month',
-                        yValueMapper: (SalesData order, _) => order.sales)
-                  ])),
-            )
+            months.length == 0
+                ? Container()
+                : Visibility(
+                    visible: isSelected,
+                    child: Container(
+                        child: SfCartesianChart(
+                            // Initialize category axis
+                            primaryXAxis: CategoryAxis(),
+                            series: <LineSeries<SalesData, String>>[
+                          LineSeries<SalesData, String>(
+                              // Bind data source
+                              dataSource: <SalesData>[
+                                SalesData(35, months[0]),
+                                SalesData(28, months[1]),
+                                SalesData(34, months[2]),
+                                SalesData(32, months[3]),
+                                SalesData(40, months[4]),
+                                SalesData(40, months[5]),
+                              ],
+                              xValueMapper: (SalesData order, _) =>
+                                  '$order.month',
+                              yValueMapper: (SalesData order, _) => order.sales)
+                        ])),
+                  )
           ],
         ),
       )),
