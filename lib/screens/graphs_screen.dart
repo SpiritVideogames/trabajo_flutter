@@ -46,6 +46,7 @@ class _GraphsScreenState extends State<GraphsScreen> {
 
     refreshProducts(int idProduct) async {
       products.clear();
+      await productService.postProductsCompany();
       await orderService.postOrdersCompany(idTargetCompany!, idProduct);
       setState(() {
         // print(products.toString());
@@ -102,29 +103,28 @@ class _GraphsScreenState extends State<GraphsScreen> {
               },
               child: const Text('Submit', style: TextStyle(fontSize: 18)),
             ),
-            months.length == 0
+            months.isEmpty
                 ? Container()
                 : Visibility(
                     visible: isSelected,
-                    child: Container(
-                        child: SfCartesianChart(
-                            // Initialize category axis
-                            primaryXAxis: CategoryAxis(),
-                            series: <LineSeries<SalesData, String>>[
-                          LineSeries<SalesData, String>(
-                              // Bind data source
-                              dataSource: <SalesData>[
-                                SalesData(35, months[0]),
-                                SalesData(28, months[1]),
-                                SalesData(34, months[2]),
-                                SalesData(32, months[3]),
-                                SalesData(40, months[4]),
-                                SalesData(40, months[5]),
-                              ],
-                              xValueMapper: (SalesData order, _) =>
-                                  '$order.month',
-                              yValueMapper: (SalesData order, _) => order.sales)
-                        ])),
+                    child: SfCartesianChart(
+                        // Initialize category axis
+                        primaryXAxis: CategoryAxis(),
+                        series: <LineSeries<SalesData, int>>[
+                          LineSeries<SalesData, int>(
+                            // Bind data source
+                            dataSource: <SalesData>[
+                              SalesData(1, months[0]),
+                              SalesData(2, months[1]),
+                              SalesData(3, months[2]),
+                              SalesData(4, months[3]),
+                              SalesData(5, months[4]),
+                              SalesData(6, months[5]),
+                            ],
+                            xValueMapper: (SalesData order, _) => order.sales,
+                            yValueMapper: (SalesData order, _) => order.month,
+                          )
+                        ]),
                   )
           ],
         ),
@@ -136,5 +136,5 @@ class _GraphsScreenState extends State<GraphsScreen> {
 class SalesData {
   SalesData(this.sales, this.month);
   final int month;
-  final double sales;
+  final int sales;
 }
