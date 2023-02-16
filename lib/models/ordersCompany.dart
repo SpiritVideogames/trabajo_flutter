@@ -31,11 +31,13 @@ class DataOrdersCompany {
     required this.id,
     required this.originCompanyId,
     required this.orderLines,
+    required this.issueDate,
   });
 
   int id;
   int originCompanyId;
   List<OrderLine> orderLines;
+  DateTime issueDate;
 
   factory DataOrdersCompany.fromJson(String str) =>
       DataOrdersCompany.fromMap(json.decode(str));
@@ -46,6 +48,7 @@ class DataOrdersCompany {
         originCompanyId: json["origin_company_id"],
         orderLines: List<OrderLine>.from(
             json["order_lines"].map((x) => OrderLine.fromMap(x))),
+        issueDate: DateTime.parse(json["issue_date"]),
       );
 }
 
@@ -123,30 +126,30 @@ class ArticlesLine {
 
 class ArticleCompany {
   ArticleCompany({
-    this.id,
-    this.name,
-    this.description,
-    this.priceMin,
-    this.priceMax,
-    this.colorName,
-    this.weight,
-    this.sizeArticle,
-    this.familyId,
-    this.deleted,
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.priceMin,
+    required this.priceMax,
+    required this.colorName,
+    required this.weight,
+    required this.sizeArticle,
+    required this.familyId,
+    required this.deleted,
     this.createdAt,
     this.updatedAt,
   });
 
-  int? id;
-  Name? name;
-  Description? description;
-  String? priceMin;
-  String? priceMax;
-  ColorName? colorName;
-  String? weight;
-  SizeArticle? sizeArticle;
-  int? familyId;
-  int? deleted;
+  int id;
+  Name name;
+  Description description;
+  String priceMin;
+  String priceMax;
+  ColorName colorName;
+  String weight;
+  SizeArticle sizeArticle;
+  int familyId;
+  int deleted;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -155,13 +158,13 @@ class ArticleCompany {
 
   factory ArticleCompany.fromMap(Map<String, dynamic> json) => ArticleCompany(
         id: json["id"],
-        name: nameValues.map[json["name"]],
-        description: descriptionValues.map[json["description"]],
+        name: nameValues.map[json["name"]]!,
+        description: descriptionValues.map[json["description"]]!,
         priceMin: json["price_min"],
         priceMax: json["price_max"],
-        colorName: colorNameValues.map[json["color_name"]],
+        colorName: colorNameValues.map[json["color_name"]]!,
         weight: json["weight"],
-        sizeArticle: sizeArticleValues.map[json["size"]],
+        sizeArticle: sizeArticleValues.map[json["sizeArticle"]]!,
         familyId: json["family_id"],
         deleted: json["deleted"],
         createdAt: json["created_at"] == null
@@ -173,44 +176,61 @@ class ArticleCompany {
       );
 }
 
-enum ColorName { BLANCO, AMARILLO, EMPTY, OCRE }
+enum ColorName { OCRE, VERDE, BLANCO, AMARILLO, AZUL, EMPTY }
 
 final colorNameValues = EnumValues({
   "Amarillo": ColorName.AMARILLO,
+  "Azul": ColorName.AZUL,
   "Blanco": ColorName.BLANCO,
   "": ColorName.EMPTY,
-  "Ocre": ColorName.OCRE
+  "Ocre": ColorName.OCRE,
+  "Verde": ColorName.VERDE
 });
 
 enum Description {
+  PINTURA_OCRE_25_KG,
+  AZULEJO_VERDE_60_X60,
   PINTURA_BLANCA_12_KG,
   PINTURA_AMARILLA_2_KG,
-  BROCHA_5_CM,
-  PINTURA_OCRE_25_KG
+  AZULEJO_AZUL_15_X15,
+  BROCHA_5_CM
 }
 
 final descriptionValues = EnumValues({
+  "Azulejo Azul 15x15": Description.AZULEJO_AZUL_15_X15,
+  "Azulejo Verde 60x60": Description.AZULEJO_VERDE_60_X60,
   "Brocha 5cm": Description.BROCHA_5_CM,
   "Pintura Amarilla 2Kg": Description.PINTURA_AMARILLA_2_KG,
   "Pintura blanca 1/2 Kg": Description.PINTURA_BLANCA_12_KG,
   "Pintura Ocre 25Kg": Description.PINTURA_OCRE_25_KG
 });
 
-enum Name { PINT_BL_05, PINT_AM_2, BRO_5, PINT_OC_25 }
+enum Name {
+  PINT_OC_25,
+  AZU_VER_6060,
+  PINT_BL_05,
+  PINT_AM_2,
+  AZU_AZ_1515,
+  BRO_5
+}
 
 final nameValues = EnumValues({
+  "Azu_az_15_15": Name.AZU_AZ_1515,
+  "Azu_ver_60_60": Name.AZU_VER_6060,
   "Bro_5": Name.BRO_5,
   "Pint_Am_2": Name.PINT_AM_2,
   "Pint_Bl_0_5": Name.PINT_BL_05,
   "Pint_Oc_25": Name.PINT_OC_25
 });
 
-enum SizeArticle { EMPTY, THE_5_CM, THE_250 }
+enum SizeArticle { THE_250, THE_60_X60, EMPTY, THE_15_X15, THE_5_CM }
 
 final sizeArticleValues = EnumValues({
   "": SizeArticle.EMPTY,
+  "15x15": SizeArticle.THE_15_X15,
   "25,0": SizeArticle.THE_250,
-  "5cm": SizeArticle.THE_5_CM
+  "5cm": SizeArticle.THE_5_CM,
+  "60x60": SizeArticle.THE_60_X60
 });
 
 class EnumValues<T> {
