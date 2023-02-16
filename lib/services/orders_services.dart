@@ -12,6 +12,7 @@ class OrdersServices extends ChangeNotifier {
   final String _baseUrl = 'semillero.allsites.es';
   final List<DataOrders> orders = [];
   final List<int> numOrders = [];
+  final List<DateTime> months = [];
 
   bool isLoading = true;
 
@@ -104,12 +105,31 @@ class OrdersServices extends ChangeNotifier {
             for (int k = 0;
                 k < tempOrder.orderLines[j].articlesLine.length;
                 k++) {
-              if (tempOrder.orderLines[j].articlesLine[k].id == idProduct) {
-                int monthsNow = DateTime.now().year * DateTime.now().month;
-                int monthsProduct = tempOrder.orderLines[j].createdAt.year *
-                    tempOrder.orderLines[j].createdAt.month;
-                int monthsDifference = monthsNow - monthsProduct;
-                switch (monthsDifference) {
+              if (tempOrder.orderLines[j].articlesLine[k].articleCompany.id ==
+                  idProduct) {
+                print("entra");
+                DateTime now = DateTime.now();
+                DateTime hace1Mes = DateTime(now.year, now.month - 1, now.day);
+                DateTime hace2Mes = DateTime(now.year, now.month - 2, now.day);
+                DateTime hace3Mes = DateTime(now.year, now.month - 3, now.day);
+                DateTime hace4Mes = DateTime(now.year, now.month - 4, now.day);
+                DateTime hace5Mes = DateTime(now.year, now.month - 5, now.day);
+                DateTime hace6Mes = DateTime(now.year, now.month - 6, now.day);
+
+                months.add(hace1Mes);
+                months.add(hace2Mes);
+                months.add(hace3Mes);
+                months.add(hace4Mes);
+                months.add(hace5Mes);
+                months.add(hace6Mes);
+
+                int monthsProduct =
+                    tempOrder.issueDate.year * tempOrder.issueDate.month;
+                print(tempOrder.issueDate.year);
+                print(tempOrder.issueDate.month);
+
+                // print(monthsDifference);
+                switch (1) {
                   case 1:
                     numOrders[0] += 1;
                     break;
@@ -138,6 +158,7 @@ class OrdersServices extends ChangeNotifier {
 
     isLoading = false;
     notifyListeners();
+
     return numOrders;
   }
 }

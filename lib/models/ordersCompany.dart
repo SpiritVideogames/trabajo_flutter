@@ -147,7 +147,7 @@ class ArticleCompany {
   String priceMax;
   ColorName colorName;
   String weight;
-  SizeArticle sizeArticle;
+  SizeArticle? sizeArticle;
   int familyId;
   int deleted;
   DateTime? createdAt;
@@ -164,7 +164,7 @@ class ArticleCompany {
         priceMax: json["price_max"],
         colorName: colorNameValues.map[json["color_name"]]!,
         weight: json["weight"],
-        sizeArticle: sizeArticleValues.map[json["sizeArticle"]]!,
+        sizeArticle: sizeArticleValues.map[json["size"]],
         familyId: json["family_id"],
         deleted: json["deleted"],
         createdAt: json["created_at"] == null

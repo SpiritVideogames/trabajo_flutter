@@ -21,15 +21,31 @@ class _GraphsScreenState extends State<GraphsScreen> {
 
   bool isSelected = false;
   DateTime now = DateTime.now();
-  List<int> months = [];
+
+  List<int> sales = [];
+  List<DateTime> months = [];
   Future refresh() async {
     setState(() => months.clear());
+    setState(() => sales.clear());
     setState(() => products.clear());
+
+    DateTime hace1Mes = DateTime(now.year, now.month - 1, now.day);
+    DateTime hace2Mes = DateTime(now.year, now.month - 2, now.day);
+    DateTime hace3Mes = DateTime(now.year, now.month - 3, now.day);
+    DateTime hace4Mes = DateTime(now.year, now.month - 4, now.day);
+    DateTime hace5Mes = DateTime(now.year, now.month - 5, now.day);
+    DateTime hace6Mes = DateTime(now.year, now.month - 6, now.day);
     await productService.postProductsCompany();
 
     idTargetCompany = await UserServices().readIdCompany();
     setState(() {
-      months = orderService.numOrders;
+      print(sales.length);
+      months.add(hace1Mes);
+      months.add(hace2Mes);
+      months.add(hace3Mes);
+      months.add(hace4Mes);
+      months.add(hace5Mes);
+      months.add(hace6Mes);
       products = productService.productsCompany;
     });
   }
@@ -50,7 +66,7 @@ class _GraphsScreenState extends State<GraphsScreen> {
       await orderService.postOrdersCompany(idTargetCompany!, idProduct);
       setState(() {
         // print(products.toString());
-
+        sales = orderService.numOrders;
         isSelected = true;
       });
     }
@@ -77,7 +93,7 @@ class _GraphsScreenState extends State<GraphsScreen> {
                 /// Ahora creamos "e" y contiene cada uno de los items de la lista.
 
                 return DropdownMenuItem(
-                  value: e.id,
+                  value: e.articleId,
                   child: Text(e.compamyName.toString(),
                       style: const TextStyle(
                           color: Color.fromARGB(255, 18, 201, 159))),
@@ -103,27 +119,31 @@ class _GraphsScreenState extends State<GraphsScreen> {
               },
               child: const Text('Submit', style: TextStyle(fontSize: 18)),
             ),
-            months.isEmpty
+            sales.isEmpty
                 ? Container()
                 : Visibility(
                     visible: isSelected,
                     child: SfCartesianChart(
                         // Initialize category axis
                         primaryXAxis: CategoryAxis(),
-                        series: <LineSeries<SalesData, int>>[
-                          LineSeries<SalesData, int>(
-                            // Bind data source
-                            dataSource: <SalesData>[
-                              SalesData(1, months[0]),
-                              SalesData(2, months[1]),
-                              SalesData(3, months[2]),
-                              SalesData(4, months[3]),
-                              SalesData(5, months[4]),
-                              SalesData(6, months[5]),
-                            ],
-                            xValueMapper: (SalesData order, _) => order.sales,
-                            yValueMapper: (SalesData order, _) => order.month,
-                          )
+                        series: <ChartSeries<SalesData, String>>[
+                          LineSeries<SalesData, String>(
+                              // Bind data source
+                              dataSource: <SalesData>[
+                                SalesData(sales[0].toString(), months[0].month),
+                                SalesData(sales[1].toString(), months[1].month),
+                                SalesData(sales[2].toString(), months[2].month),
+                                SalesData(sales[3].toString(), months[3].month),
+                                SalesData(sales[4].toString(), months[4].month),
+                                SalesData(sales[5].toString(), months[5].month),
+                              ],
+                              xValueMapper: (SalesData order, _) =>
+                                  order.month.toString(),
+                              yValueMapper: (SalesData order, _) =>
+                                  int.parse(order.sales),
+                              name: 'Orders',
+                              dataLabelSettings:
+                                  DataLabelSettings(isVisible: true))
                         ]),
                   )
           ],
@@ -136,5 +156,5 @@ class _GraphsScreenState extends State<GraphsScreen> {
 class SalesData {
   SalesData(this.sales, this.month);
   final int month;
-  final int sales;
+  final String sales;
 }
