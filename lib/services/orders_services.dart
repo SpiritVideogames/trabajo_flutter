@@ -107,7 +107,6 @@ class OrdersServices extends ChangeNotifier {
                 k++) {
               if (tempOrder.orderLines[j].articlesLine[k].articleCompany.id ==
                   idProduct) {
-                print("entra");
                 DateTime now = DateTime.now();
                 DateTime hace1Mes = DateTime(now.year, now.month - 1, now.day);
                 DateTime hace2Mes = DateTime(now.year, now.month - 2, now.day);
@@ -123,31 +122,26 @@ class OrdersServices extends ChangeNotifier {
                 months.add(hace5Mes);
                 months.add(hace6Mes);
 
-                int monthsProduct =
-                    tempOrder.issueDate.year * tempOrder.issueDate.month;
-                print(tempOrder.issueDate.year);
-                print(tempOrder.issueDate.month);
+                DateTime monthsProduct = tempOrder.issueDate;
 
-                // print(monthsDifference);
-                switch (1) {
-                  case 1:
-                    numOrders[0] += 1;
-                    break;
-                  case 2:
-                    numOrders[1] += 1;
-                    break;
-                  case 3:
-                    numOrders[2] += 1;
-                    break;
-                  case 4:
-                    numOrders[3] += 1;
-                    break;
-                  case 5:
-                    numOrders[4] += 1;
-                    break;
-                  case 6:
-                    numOrders[5] += 1;
-                    break;
+                if (hace1Mes.year == monthsProduct.year &&
+                    hace1Mes.month == monthsProduct.month) {
+                  numOrders[0] += 1;
+                } else if (hace2Mes.year == monthsProduct.year &&
+                    hace2Mes.month == monthsProduct.month) {
+                  numOrders[1] += 1;
+                } else if (hace3Mes.year == monthsProduct.year &&
+                    hace3Mes.month == monthsProduct.month) {
+                  numOrders[2] += 1;
+                } else if (hace4Mes.year == monthsProduct.year &&
+                    hace4Mes.month == monthsProduct.month) {
+                  numOrders[3] += 1;
+                } else if (hace5Mes.year == monthsProduct.year &&
+                    hace5Mes.month == monthsProduct.month) {
+                  numOrders[4] += 1;
+                } else if (hace6Mes.year == monthsProduct.year &&
+                    hace6Mes.month == monthsProduct.month) {
+                  numOrders[5] += 1;
                 }
               }
             }
